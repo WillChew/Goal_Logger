@@ -160,7 +160,6 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="nameLabel" destination="UoI-kE-br6" id="uPe-sv-34F"/>
-                                            <segue destination="37R-RU-gjK" kind="show" id="YHM-eD-ZpZ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -191,6 +190,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="goalTableView" destination="gHj-Gw-nbh" id="epq-Xw-Md7"/>
+                        <segue destination="37R-RU-gjK" kind="show" identifier="DetailSegue" id="iij-UB-P3u"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aum-TI-KNU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -234,21 +234,49 @@
             </objects>
             <point key="canvasLocation" x="1657" y="337"/>
         </scene>
-        <!--View Controller-->
+        <!--Detail View Controller-->
         <scene sceneID="WjF-d9-gVh">
             <objects>
-                <viewController id="37R-RU-gjK" sceneMemberID="viewController">
+                <viewController id="37R-RU-gjK" customClass="DetailViewController" customModule="Goal_Logger" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XPu-dz-em0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9fO-vg-U2U">
+                                <rect key="frame" x="20" y="142" width="277" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HvO-il-SBT">
+                                <rect key="frame" x="20" y="232" width="277" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Maf-cf-lIP">
+                                <rect key="frame" x="20" y="190" width="277" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="Nf1-IZ-4PQ"/>
                     </view>
                     <navigationItem key="navigationItem" id="UJv-vf-F2o"/>
+                    <connections>
+                        <outlet property="isCompleted" destination="Maf-cf-lIP" id="xGU-1I-T5L"/>
+                        <outlet property="name" destination="9fO-vg-U2U" id="1Wt-lT-9Fu"/>
+                        <outlet property="points" destination="HvO-il-SBT" id="Oyl-RR-AZ2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Ml-Pf-xeh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3338" y="609"/>
+            <point key="canvasLocation" x="3337.68115942029" y="608.70535714285711"/>
         </scene>
     </scenes>
 </document>

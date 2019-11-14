@@ -12,10 +12,10 @@ class Goal {
     var name: String
     var duration: String
     var isCompleted = false
-    var checkpointOne: String
-    var checkpointTwo: String
+    var checkpointOne: Checkpoint
+    var checkpointTwo: Checkpoint
     
-    init(name: String, duration: String, checkpointOne: String, checkpointTwo: String) {
+    init(name: String, duration: String, checkpointOne: Checkpoint, checkpointTwo: Checkpoint) {
         self.name = name
         self.duration = duration
         self.checkpointOne = checkpointOne

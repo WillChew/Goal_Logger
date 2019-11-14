@@ -11,6 +11,7 @@ import UIKit
 class MainScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var goalArray = [Goal]()
+    var selectedGoal: Goal?
     
     @IBOutlet weak var goalTableView: UITableView!
     
@@ -91,6 +92,24 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if goalArray.count != 0 {
+        selectedGoal = goalArray[indexPath.row]
+        performSegue(withIdentifier: "DetailSegue", sender: nil)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "DetailSegue" {
+            let vc = segue.destination as! DetailViewController
+            vc.passedGoalName = selectedGoal?.name
+            vc.passedGoalPoints = 100
+            vc.passedIsCompleted = selectedGoal?.isCompleted
+            
+        }
+    }
     
      @IBAction func saveButtonPressed(_ segue: UIStoryboardSegue) {
         guard let addGoalVC = segue.source as? AddGoalTableViewController,

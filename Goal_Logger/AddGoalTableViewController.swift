@@ -17,10 +17,10 @@ class AddGoalTableViewController: UITableViewController {
     @IBOutlet weak var checkpointOneTextField: UITextField!
     @IBOutlet weak var checkpointTwoTextField: UITextField!
     
-     let durationArray = ["Daily Goal", "Weekly Goal", "Monthly Goal", "Lifetime Goal"]
+    let durationArray = ["Daily Goal", "Weekly Goal", "Monthly Goal", "Lifetime Goal"]
     let durationPickerView = UIPickerView()
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,10 +28,10 @@ class AddGoalTableViewController: UITableViewController {
         durationTextField.inputView = durationPickerView
         durationPickerView.delegate = self
         durationPickerView.dataSource = self
-       
         
         
-
+        
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -39,18 +39,18 @@ class AddGoalTableViewController: UITableViewController {
         if goalNameTextField.text == "" {
             goalNameTextField.text = "Unnamed Goal"
         }
-        
+        let checkpointOne = Checkpoint(cpDescription: checkpointOneTextField.text ?? "ONE")
+        let checkpointTwo = Checkpoint(cpDescription: checkpointTwoTextField.text ?? "TWO")
         if segue.identifier == "SaveGoalSegue",
             let goalName = goalNameTextField.text,
-            let goalDuration = durationTextField.text,
-            let checkpointOne = checkpointOneTextField.text,
-            let checkpointTwo = checkpointTwoTextField.text{
+            let goalDuration = durationTextField.text
+        {
             goal = Goal(name: goalName, duration: goalDuration, checkpointOne: checkpointOne, checkpointTwo: checkpointTwo)
         }
         
     }
-
-
+    
+    
 }
 
 extension AddGoalTableViewController: UIPickerViewDelegate, UIPickerViewDataSource {
@@ -73,8 +73,8 @@ extension AddGoalTableViewController: UIPickerViewDelegate, UIPickerViewDataSour
         
     }
     
-
-
+    
+    
     
     
     
