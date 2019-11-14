@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -23,7 +24,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NaO-GC-nW6">
-                                            <rect key="frame" x="20" y="11" width="211" height="21"/>
+                                            <rect key="frame" x="20" y="11" width="307" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -33,6 +34,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="nameLabel" destination="NaO-GC-nW6" id="8jf-ON-trp"/>
+                                    <segue destination="DJ9-xp-Wef" kind="show" id="l9N-gw-wFw"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -54,6 +56,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JKe-pu-dxl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2265.217391304348" y="343.52678571428572"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="oGP-02-OA1">
+            <objects>
+                <viewController id="DJ9-xp-Wef" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jbY-9H-mwQ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="7F7-WU-bMc">
+                                <rect key="frame" x="45" y="433" width="349" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="First"/>
+                                    <segment title="Second"/>
+                                    <segment title="Third"/>
+                                    <segment title="Fourth"/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="kKu-6A-gy3"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="WH0-9v-aBE"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O95-2k-7g4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3163.7681159420295" y="336.83035714285711"/>
         </scene>
         <!--Add Goal Table View Controller-->
         <scene sceneID="xpI-Kz-UM2">
@@ -84,7 +114,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Section-2" id="iiO-cj-O9A">
+                            <tableViewSection headerTitle="goal Duration" id="iiO-cj-O9A">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="eNb-eq-ojv">
                                         <rect key="frame" x="0.0" y="155" width="414" height="43.5"/>
@@ -93,7 +123,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Y8a-ft-4Ww">
+                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IFt-bt-yWH">
                                                     <rect key="frame" x="0.0" y="4" width="414" height="34"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -104,7 +134,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Section-3" id="glI-j1-xx8">
+                            <tableViewSection headerTitle="First Checkpoint" id="glI-j1-xx8">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="yg7-lm-5bc">
                                         <rect key="frame" x="0.0" y="254.5" width="414" height="43.5"/>
@@ -124,7 +154,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Section-4" id="2qs-zx-jLv">
+                            <tableViewSection headerTitle="Second checkpoint " id="2qs-zx-jLv">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="AiJ-XZ-Ley">
                                         <rect key="frame" x="0.0" y="354" width="414" height="43.5"/>
@@ -158,13 +188,16 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="checkpointOneTextField" destination="fGW-1J-C2c" id="JGg-Fd-ulG"/>
+                        <outlet property="checkpointTwoTextField" destination="k4z-Mr-Kyd" id="FYg-PZ-w5x"/>
+                        <outlet property="durationTextField" destination="IFt-bt-yWH" id="NJJ-BP-6wM"/>
                         <outlet property="goalNameTextField" destination="WjK-gy-tzx" id="gHW-Ql-pyD"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sVg-Gw-pLR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="CDh-HW-5q0" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4334.7826086956529" y="343.52678571428572"/>
+            <point key="canvasLocation" x="3991" y="-413"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="fxT-zR-gPj">
@@ -220,7 +253,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lO4-kH-JD3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3424.6376811594205" y="343.52678571428572"/>
+            <point key="canvasLocation" x="3158" y="-413"/>
         </scene>
     </scenes>
 </document>

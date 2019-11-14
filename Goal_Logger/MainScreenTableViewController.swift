@@ -35,7 +35,7 @@ class MainScreenTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GoalCell", for: indexPath) as! GoalCell
         
         if goalArray.isEmpty {
-            cell.nameLabel.text = "No Goals"
+            cell.nameLabel.text = "No Current Goals"
         } else {
         cell.nameLabel.text = goalArray[indexPath.row].name
         }
