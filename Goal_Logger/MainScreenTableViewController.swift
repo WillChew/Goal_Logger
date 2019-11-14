@@ -8,10 +8,12 @@
 
 import UIKit
 
-class MainScreenTableViewController: UITableViewController {
+class MainScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var goalArray = [Goal]()
-
+    
+    @IBOutlet weak var goalTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,8 +22,9 @@ class MainScreenTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
+    
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if goalArray.count == 0 {
             return 1
@@ -31,7 +34,7 @@ class MainScreenTableViewController: UITableViewController {
     }
 
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GoalCell", for: indexPath) as! GoalCell
         
         if goalArray.isEmpty {
@@ -96,7 +99,10 @@ class MainScreenTableViewController: UITableViewController {
                 return
         }
         goalArray.append(goal)
-        tableView.reloadData()
+        goalTableView.reloadData()
+        
     }
 
 }
+
+
