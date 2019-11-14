@@ -12,18 +12,19 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var points: UILabel!
-    @IBOutlet weak var isCompleted: UILabel!
+    @IBOutlet weak var durationLabel: UILabel!
     
     
     var passedGoalName: String?
     var passedGoalPoints: Int?
-    var passedIsCompleted: Bool?
+    var passedDuration: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         name.text = passedGoalName
         points.text = String(100)
+        durationLabel.text = passedDuration
         
 
         // Do any additional setup after loading the view.

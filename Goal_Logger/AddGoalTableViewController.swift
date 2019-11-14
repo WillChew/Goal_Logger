@@ -28,10 +28,11 @@ class AddGoalTableViewController: UITableViewController {
         durationTextField.inputView = durationPickerView
         durationPickerView.delegate = self
         durationPickerView.dataSource = self
-        
-        
-        
-        
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -39,6 +40,11 @@ class AddGoalTableViewController: UITableViewController {
         if goalNameTextField.text == "" {
             goalNameTextField.text = "Unnamed Goal"
         }
+        
+        if durationTextField.text == "" {
+            durationTextField.text = durationArray[0]
+        }
+        
         let checkpointOne = Checkpoint(cpDescription: checkpointOneTextField.text ?? "ONE")
         let checkpointTwo = Checkpoint(cpDescription: checkpointTwoTextField.text ?? "TWO")
         if segue.identifier == "SaveGoalSegue",
@@ -53,7 +59,7 @@ class AddGoalTableViewController: UITableViewController {
     
 }
 
-extension AddGoalTableViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+extension AddGoalTableViewController: UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -68,10 +74,15 @@ extension AddGoalTableViewController: UIPickerViewDelegate, UIPickerViewDataSour
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         durationTextField.text = durationArray[row]
-        
-        
-        
     }
+    
+
+//    func textFieldDidBeginEditing(_ textField: UITextField) {
+//        if durationTextField.text!.isEmpty {
+//            durationTextField.text = durationArray[0]
+//            textField.endEditing(true)
+//        }
+//    }
     
     
     

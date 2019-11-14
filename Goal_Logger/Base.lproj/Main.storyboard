@@ -132,11 +132,15 @@
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="7F7-WU-bMc">
                                 <rect key="frame" x="0.0" y="88" width="414" height="32"/>
                                 <segments>
+                                    <segment title="All"/>
                                     <segment title="Daily"/>
                                     <segment title="Weekly"/>
                                     <segment title="Monthly"/>
                                     <segment title="Lifetime"/>
                                 </segments>
+                                <connections>
+                                    <action selector="segChanged:" destination="E03-LZ-Pme" eventType="valueChanged" id="mSQ-Ps-43C"/>
+                                </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gHj-Gw-nbh">
                                 <rect key="frame" x="0.0" y="127" width="414" height="769"/>
@@ -190,6 +194,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="goalTableView" destination="gHj-Gw-nbh" id="epq-Xw-Md7"/>
+                        <outlet property="segValue" destination="7F7-WU-bMc" id="IZp-2N-vgz"/>
                         <segue destination="37R-RU-gjK" kind="show" identifier="DetailSegue" id="iij-UB-P3u"/>
                     </connections>
                 </viewController>
@@ -269,7 +274,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="UJv-vf-F2o"/>
                     <connections>
-                        <outlet property="isCompleted" destination="Maf-cf-lIP" id="xGU-1I-T5L"/>
+                        <outlet property="durationLabel" destination="Maf-cf-lIP" id="bL4-SG-TOH"/>
                         <outlet property="name" destination="9fO-vg-U2U" id="1Wt-lT-9Fu"/>
                         <outlet property="points" destination="HvO-il-SBT" id="Oyl-RR-AZ2"/>
                     </connections>
