@@ -24,6 +24,11 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let endDate = Date().addingTimeInterval(60.0 * 30.0)
+        
+        let dailyGoal = Goal(name: "Day", duration: "Daily Goal", checkpointOne: "one", checkpointTwo: "Two", endDate: endDate)
+        goalArray.append(dailyGoal)
+        dailyArray.append(dailyGoal)
         
     }
     
@@ -56,15 +61,16 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GoalCell", for: indexPath) as! GoalCell
         
+        tableView.rowHeight = tableView.frame.size.height / 6
+        print(tableView.frame.size.height / 6)
+        
+
         if goalArray.isEmpty {
             cell.nameLabel.text = "No Current Goals"
         } else {
             cell.nameLabel.text = goalArray[indexPath.row].name
         }
-        
-        
-        
-        
+
         if segValue.selectedSegmentIndex == 1 && dailyArray.count > 0{
             cell.nameLabel.text = dailyArray[indexPath.row].name
         } else if segValue.selectedSegmentIndex == 2 && weeklyArray.count > 0 {

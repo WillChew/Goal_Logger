@@ -18,7 +18,7 @@ struct Goal {
     var isCheckpointOneComplete: Bool = false
     var isCheckpointTwoComplete: Bool = false
     var startDate = Date()
-    var endDate: Date?
+    var endDate: Date
 
 
 
