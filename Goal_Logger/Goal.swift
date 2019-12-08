@@ -8,19 +8,20 @@
 
 import UIKit
 
-class Goal {
+struct Goal {
     var name: String
+    var points: Int?
     var duration: String
     var isCompleted = false
-    var checkpointOne: Checkpoint
-    var checkpointTwo: Checkpoint
-    
-    init(name: String, duration: String, checkpointOne: Checkpoint, checkpointTwo: Checkpoint) {
-        self.name = name
-        self.duration = duration
-        self.checkpointOne = checkpointOne
-        self.checkpointTwo = checkpointTwo
-    }
+    var checkpointOne: String
+    var checkpointTwo: String
+    var isCheckpointOneComplete: Bool = false
+    var isCheckpointTwoComplete: Bool = false
+    var startDate = Date()
+    var endDate: Date?
+
+
+
     
 }
 

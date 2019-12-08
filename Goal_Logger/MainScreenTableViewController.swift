@@ -10,12 +10,13 @@ import UIKit
 
 class MainScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var goalArray = [Goal]()
+    
     var selectedGoal: Goal?
+    var goalArray = [Goal]()
     var dailyArray = [Goal]()
     var weeklyArray = [Goal]()
     var monthlyArray = [Goal]()
-    var lifetimeArray = [Goal]()
+    var annualArray = [Goal]()
     
     @IBOutlet weak var segValue: UISegmentedControl!
     @IBOutlet weak var goalTableView: UITableView!
@@ -41,7 +42,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         } else if segValue.selectedSegmentIndex == 3 {
             return monthlyArray.count
         } else if segValue.selectedSegmentIndex == 4 {
-            return lifetimeArray.count
+            return annualArray.count
         } else if segValue.selectedSegmentIndex == 0 && goalArray.count > 0 {
             return goalArray.count
         } else {
@@ -70,8 +71,8 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.nameLabel.text = weeklyArray[indexPath.row].name
         } else if segValue.selectedSegmentIndex == 3 && monthlyArray.count > 0 {
             cell.nameLabel.text = monthlyArray[indexPath.row].name
-        } else if segValue.selectedSegmentIndex == 4 && lifetimeArray.count > 0 {
-            cell.nameLabel.text = lifetimeArray[indexPath.row].name
+        } else if segValue.selectedSegmentIndex == 4 && annualArray.count > 0 {
+            cell.nameLabel.text = annualArray[indexPath.row].name
         }
         
         return cell
@@ -112,16 +113,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
      return true
      }
      */
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
+
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -136,10 +128,11 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "DetailSegue" {
-            let vc = segue.destination as! DetailViewController
+            let vc = segue.destination as! DetailTableViewController
             vc.passedGoalName = selectedGoal?.name
             vc.passedGoalPoints = 100
             vc.passedDuration = selectedGoal?.duration
+            vc.passedGoal = selectedGoal
             
         }
     }
@@ -158,8 +151,8 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             weeklyArray.append(goal)
         } else if goal.duration == "Monthly Goal" {
             monthlyArray.append(goal)
-        } else if goal.duration == "Lifetime Goal" {
-            lifetimeArray.append(goal)
+        } else if goal.duration == "Annual Goal" {
+            annualArray.append(goal)
         }
         
         

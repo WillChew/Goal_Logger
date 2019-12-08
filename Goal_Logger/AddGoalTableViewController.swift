@@ -17,7 +17,7 @@ class AddGoalTableViewController: UITableViewController {
     @IBOutlet weak var checkpointOneTextField: UITextField!
     @IBOutlet weak var checkpointTwoTextField: UITextField!
     
-    let durationArray = ["Daily Goal", "Weekly Goal", "Monthly Goal", "Lifetime Goal"]
+    let durationArray = ["Daily Goal", "Weekly Goal", "Monthly Goal", "Annual Goal"]
     let durationPickerView = UIPickerView()
     
     
@@ -45,13 +45,58 @@ class AddGoalTableViewController: UITableViewController {
             durationTextField.text = durationArray[0]
         }
         
-        let checkpointOne = Checkpoint(cpDescription: checkpointOneTextField.text ?? "ONE")
-        let checkpointTwo = Checkpoint(cpDescription: checkpointTwoTextField.text ?? "TWO")
+        if checkpointOneTextField.text == "" {
+            checkpointOneTextField.text = "checkpoint one"
+        }
+        
+        if checkpointTwoTextField.text == "" {
+            checkpointTwoTextField.text = "checkpoint two"
+        }
+        
+        
+        
+        var futureDate = Date()
+        var points = 0
+        let format = DateFormatter()
+        format.timeZone = .current
+        format.dateFormat = "yyyy-MM-dd HH:mm"
+        
+        
+        let minute: TimeInterval = 60.0
+        let hour: TimeInterval = 60.0 * minute
+        let day: TimeInterval = 24.0 * hour
+        
+        
+        
+        
+        
+        switch durationTextField.text {
+        case "Daily Goal":
+            futureDate.addTimeInterval(day)
+            points = 50
+        case "Weekly Goal":
+            futureDate.addTimeInterval(day * 7.0)
+            points = 250
+        case "Monthly Goal":
+            futureDate.addTimeInterval(day * 30.0)
+            points = 1000
+        case "Annual Goal":
+            futureDate.addTimeInterval(day * 365.0)
+            points = 2500
+        default:
+            print("No date")
+        }
+        
+        
+        guard let checkpointOne = checkpointOneTextField.text,
+            let checkpointTwo = checkpointTwoTextField.text else { return }
+        
         if segue.identifier == "SaveGoalSegue",
             let goalName = goalNameTextField.text,
             let goalDuration = durationTextField.text
+            
         {
-            goal = Goal(name: goalName, duration: goalDuration, checkpointOne: checkpointOne, checkpointTwo: checkpointTwo)
+            goal = Goal(name: goalName, points: points, duration: goalDuration, checkpointOne: checkpointOne, checkpointTwo: checkpointTwo, endDate: futureDate)
         }
         
     }
@@ -76,13 +121,13 @@ extension AddGoalTableViewController: UIPickerViewDelegate, UIPickerViewDataSour
         durationTextField.text = durationArray[row]
     }
     
-
-//    func textFieldDidBeginEditing(_ textField: UITextField) {
-//        if durationTextField.text!.isEmpty {
-//            durationTextField.text = durationArray[0]
-//            textField.endEditing(true)
-//        }
-//    }
+    
+    //    func textFieldDidBeginEditing(_ textField: UITextField) {
+    //        if durationTextField.text!.isEmpty {
+    //            durationTextField.text = durationArray[0]
+    //            textField.endEditing(true)
+    //        }
+    //    }
     
     
     
