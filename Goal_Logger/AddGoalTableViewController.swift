@@ -26,8 +26,11 @@ class AddGoalTableViewController: UITableViewController {
         
         
         durationTextField.inputView = durationPickerView
+        durationTextField.text = durationArray[0]
         durationPickerView.delegate = self
         durationPickerView.dataSource = self
+        
+        
     }
     
     

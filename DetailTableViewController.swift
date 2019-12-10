@@ -15,6 +15,7 @@ class DetailTableViewController: UITableViewController {
     var passedDuration: String?
     var passedGoal: Goal?
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,10 +28,8 @@ class DetailTableViewController: UITableViewController {
         guard let endDate = passedGoal?.endDate else { return }
         print(format.string(from: endDate))
         
-        
-        
-        let remaining = calculateTimeRemaining(deadline: endDate)
-        print(remaining)
+//        let remaining = calculateTimeRemaining(deadline: endDate)
+//        print(remaining)
         
         //        print(passedGoal?.startDate)
         
@@ -42,41 +41,26 @@ class DetailTableViewController: UITableViewController {
     }
     
     
-    func calculateTimeRemaining(deadline endDate: Date) -> String {
-        //time remaining in seconds
-        let timeRemainingInhours = abs(endDate.distance(to: Date())) / 3600
-        var measureOfTime = 0
-        
-        if timeRemainingInhours / 730.0 > 1 {
-            measureOfTime = Int((timeRemainingInhours / 730.0).rounded())
-            return "\(measureOfTime) months remaining"
-        } else if timeRemainingInhours / 168.0 > 1 {
-            measureOfTime = Int((timeRemainingInhours / 168.0).rounded())
-            return "\(measureOfTime) weeks remaining"
-        } else if timeRemainingInhours / 24.0 > 1 {
-            measureOfTime = Int((timeRemainingInhours / 24.0).rounded())
-            return "\(measureOfTime) days remaining"
-        } else if timeRemainingInhours > 1 {
-            measureOfTime = Int(timeRemainingInhours.rounded())
-            return "\(measureOfTime) hours remaining"
-        } else {
-            measureOfTime = Int((timeRemainingInhours * 60.0).rounded())
-            return "\(measureOfTime) minutes remaining"
-            
-        }
-    }
+    
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 2
     }
+
+//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        // #warning Incomplete implementation, return the number of rows
+//        return
+//    }
+//
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        var nameArray = [passedGoal?.checkpointOne, passedGoal?.checkpointTwo]
+        
+        return nameArray[section]
     }
-    
     /*
      override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
      let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)

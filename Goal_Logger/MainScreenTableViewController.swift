@@ -17,6 +17,9 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     var weeklyArray = [Goal]()
     var monthlyArray = [Goal]()
     var annualArray = [Goal]()
+    let format = DateFormatter()
+    var refreshControl: UIRefreshControl!
+    
     
     @IBOutlet weak var segValue: UISegmentedControl!
     @IBOutlet weak var goalTableView: UITableView!
@@ -24,12 +27,26 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let endDate = Date().addingTimeInterval(60.0 * 30.0)
         
-        let dailyGoal = Goal(name: "Day", duration: "Daily Goal", checkpointOne: "one", checkpointTwo: "Two", endDate: endDate)
+               format.timeZone = .current
+               format.dateFormat = "MMM d, h:mm a"
+        
+        let endDate = Date().addingTimeInterval(10.0)
+        let dailyGoal = Goal(name: "To Be the Best Ever", points: 100, duration: "Daily Goal", checkpointOne: "I want to complete this goal first", checkpointTwo: "I want to complete this goal next", endDate: endDate)
         goalArray.append(dailyGoal)
         dailyArray.append(dailyGoal)
         
+        
+        refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        goalTableView.addSubview(refreshControl)
+        
+    }
+    
+    @objc func refresh(_ sender: Any) {
+        goalTableView.reloadData()
+        refreshControl.endRefreshing()
     }
     
     // MARK: - Table view data source
@@ -62,13 +79,17 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         let cell = tableView.dequeueReusableCell(withIdentifier: "GoalCell", for: indexPath) as! GoalCell
         
         tableView.rowHeight = tableView.frame.size.height / 6
-        print(tableView.frame.size.height / 6)
+        
         
 
         if goalArray.isEmpty {
             cell.nameLabel.text = "No Current Goals"
         } else {
             cell.nameLabel.text = goalArray[indexPath.row].name
+            cell.startedLabel.text = "Started: " + format.string(from: goalArray[indexPath.row].startDate)
+            cell.endedLabel.text = calculateTimeRemaining(deadline: goalArray[indexPath.row].endDate)
+            cell.firstCpLabel.text = goalArray[indexPath.row].checkpointOne
+            cell.secondCpLabel.text = goalArray[indexPath.row].checkpointTwo
         }
 
         if segValue.selectedSegmentIndex == 1 && dailyArray.count > 0{
@@ -136,7 +157,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         if segue.identifier == "DetailSegue" {
             let vc = segue.destination as! DetailTableViewController
             vc.passedGoalName = selectedGoal?.name
-            vc.passedGoalPoints = 100
+            vc.passedGoalPoints = selectedGoal?.points
             vc.passedDuration = selectedGoal?.duration
             vc.passedGoal = selectedGoal
             
@@ -160,14 +181,38 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         } else if goal.duration == "Annual Goal" {
             annualArray.append(goal)
         }
-        
-        
-        
 
-        
         goalTableView.reloadData()
         
     }
+        
+    func calculateTimeRemaining(deadline endDate: Date) -> String {
+        //time remaining in seconds
+        let timeRemainingInhours = endDate.distance(to: Date()) / 3600
+        var measureOfTime = 0
+        
+        
+        
+        if -timeRemainingInhours / 730.0 > 1 {
+            measureOfTime = abs(Int((timeRemainingInhours / 730.0).rounded()))
+            return "\(measureOfTime) months remaining"
+        } else if -timeRemainingInhours / 168.0 > 1 {
+            measureOfTime = abs(Int((timeRemainingInhours / 168.0).rounded()))
+            return "\(measureOfTime) weeks remaining"
+        } else if -timeRemainingInhours / 24.0 > 1 {
+            measureOfTime = abs(Int((timeRemainingInhours / 24.0).rounded()))
+            return "\(measureOfTime) days remaining"
+        } else if -timeRemainingInhours > 1 {
+            measureOfTime = abs(Int(timeRemainingInhours.rounded()))
+            return "\(measureOfTime) hours remaining"
+        } else if -timeRemainingInhours > 0{
+            measureOfTime = abs(Int((timeRemainingInhours * 60.0).rounded()))
+            return "\(measureOfTime) minutes remaining"
+        } else {
+            return "Expired"
+        }
+    }
+    
     
     @IBAction func segChanged(_ sender: Any) {
         print(segValue.selectedSegmentIndex)
