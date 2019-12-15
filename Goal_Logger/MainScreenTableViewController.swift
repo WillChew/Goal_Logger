@@ -27,9 +27,12 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-               format.timeZone = .current
-               format.dateFormat = "MMM d, h:mm a"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        format.timeZone = .current
+        format.dateFormat = "MMM d, h:mm a"
         
         let endDate = Date().addingTimeInterval(10.0)
         let dailyGoal = Goal(name: "To Be the Best Ever", points: 100, duration: "Daily Goal", checkpointOne: "I want to complete this goal first", checkpointTwo: "I want to complete this goal next", endDate: endDate)
@@ -41,7 +44,6 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         goalTableView.addSubview(refreshControl)
-        
     }
     
     @objc func refresh(_ sender: Any) {
@@ -70,7 +72,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         } else {
             return 1
         }
-
+        
         
     }
     
@@ -80,8 +82,12 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
         tableView.rowHeight = tableView.frame.size.height / 6
         
+        if goalArray[indexPath.row].endDate > Date() {
+            print("YES")
+        } else {
+            print("NO")
+        }
         
-
         if goalArray.isEmpty {
             cell.nameLabel.text = "No Current Goals"
         } else {
@@ -91,7 +97,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.firstCpLabel.text = goalArray[indexPath.row].checkpointOne
             cell.secondCpLabel.text = goalArray[indexPath.row].checkpointTwo
         }
-
+        
         if segValue.selectedSegmentIndex == 1 && dailyArray.count > 0{
             cell.nameLabel.text = dailyArray[indexPath.row].name
         } else if segValue.selectedSegmentIndex == 2 && weeklyArray.count > 0 {
@@ -140,7 +146,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
      return true
      }
      */
-
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -166,10 +172,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBAction func saveButtonPressed(_ segue: UIStoryboardSegue) {
         guard let addGoalVC = segue.source as? AddGoalTableViewController,
-            let goal = addGoalVC.goal
-            else {
-                return
-        }
+            let goal = addGoalVC.goal else { return }
         
         goalArray.append(goal)
         if goal.duration == "Daily Goal" {
@@ -181,11 +184,11 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         } else if goal.duration == "Annual Goal" {
             annualArray.append(goal)
         }
-
+        
         goalTableView.reloadData()
         
     }
-        
+    
     func calculateTimeRemaining(deadline endDate: Date) -> String {
         //time remaining in seconds
         let timeRemainingInhours = endDate.distance(to: Date()) / 3600

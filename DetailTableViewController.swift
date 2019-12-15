@@ -18,15 +18,16 @@ class DetailTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print(passedDuration!)
-        print(passedGoalPoints!)
+
         
         let format = DateFormatter()
         format.timeZone = .current
         format.dateFormat = "yyyy-MM-dd HH:mm"
         guard let endDate = passedGoal?.endDate else { return }
         print(format.string(from: endDate))
+        
+        tableView.tableFooterView?.backgroundColor = .clear
+        
         
 //        let remaining = calculateTimeRemaining(deadline: endDate)
 //        print(remaining)
@@ -46,7 +47,7 @@ class DetailTableViewController: UITableViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 2
+        return 3
     }
 
 //    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -57,7 +58,7 @@ class DetailTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        var nameArray = [passedGoal?.checkpointOne, passedGoal?.checkpointTwo]
+        let nameArray = [passedGoal?.checkpointOne, passedGoal?.checkpointTwo, passedGoalName]
         
         return nameArray[section]
     }
@@ -71,6 +72,10 @@ class DetailTableViewController: UITableViewController {
      }
      */
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+          tableView.deselectRow(at: indexPath, animated: true)
+      }
+      
     /*
      // Override to support conditional editing of the table view.
      override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
