@@ -12,7 +12,7 @@
 		212D480823767436005ABA0A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 212D480623767436005ABA0A /* Main.storyboard */; };
 		212D480A23767437005ABA0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 212D480923767437005ABA0A /* Assets.xcassets */; };
 		212D480D23767437005ABA0A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 212D480B23767437005ABA0A /* LaunchScreen.storyboard */; };
-		212D48152376746E005ABA0A /* MainScreenTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212D48142376746E005ABA0A /* MainScreenTableViewController.swift */; };
+		212D48152376746E005ABA0A /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212D48142376746E005ABA0A /* MainScreenViewController.swift */; };
 		212D4817237677CA005ABA0A /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212D4816237677CA005ABA0A /* Goal.swift */; };
 		212D48192376787E005ABA0A /* GoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212D48182376787E005ABA0A /* GoalCell.swift */; };
 		212D481B237687D8005ABA0A /* AddGoalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212D481A237687D8005ABA0A /* AddGoalTableViewController.swift */; };
@@ -27,7 +27,7 @@
 		212D480923767437005ABA0A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		212D480C23767437005ABA0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		212D480E23767437005ABA0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		212D48142376746E005ABA0A /* MainScreenTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenTableViewController.swift; sourceTree = "<group>"; };
+		212D48142376746E005ABA0A /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
 		212D4816237677CA005ABA0A /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		212D48182376787E005ABA0A /* GoalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCell.swift; sourceTree = "<group>"; };
 		212D481A237687D8005ABA0A /* AddGoalTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGoalTableViewController.swift; sourceTree = "<group>"; };
@@ -69,7 +69,7 @@
 				212D480623767436005ABA0A /* Main.storyboard */,
 				212D4816237677CA005ABA0A /* Goal.swift */,
 				21A8FB2E238891500092E339 /* DetailTableViewController.swift */,
-				212D48142376746E005ABA0A /* MainScreenTableViewController.swift */,
+				212D48142376746E005ABA0A /* MainScreenViewController.swift */,
 				212D481A237687D8005ABA0A /* AddGoalTableViewController.swift */,
 				212D48182376787E005ABA0A /* GoalCell.swift */,
 				212D480923767437005ABA0A /* Assets.xcassets */,
@@ -151,7 +151,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				212D4817237677CA005ABA0A /* Goal.swift in Sources */,
-				212D48152376746E005ABA0A /* MainScreenTableViewController.swift in Sources */,
+				212D48152376746E005ABA0A /* MainScreenViewController.swift in Sources */,
 				212D481B237687D8005ABA0A /* AddGoalTableViewController.swift in Sources */,
 				21A8FB2F238891500092E339 /* DetailTableViewController.swift in Sources */,
 				212D480123767436005ABA0A /* AppDelegate.swift in Sources */,

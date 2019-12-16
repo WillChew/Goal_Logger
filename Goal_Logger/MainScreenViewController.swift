@@ -27,10 +27,6 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
         format.timeZone = .current
         format.dateFormat = "MMM d, h:mm a"
         
@@ -44,6 +40,14 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         goalTableView.addSubview(refreshControl)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        goalTableView.reloadData()
+        print("HI")
+
     }
     
     @objc func refresh(_ sender: Any) {

@@ -229,7 +229,7 @@
                     <connections>
                         <outlet property="goalTableView" destination="gHj-Gw-nbh" id="epq-Xw-Md7"/>
                         <outlet property="segValue" destination="7F7-WU-bMc" id="IZp-2N-vgz"/>
-                        <segue destination="187-0M-hhu" kind="presentation" identifier="DetailSegue" id="6Rx-B9-PLs"/>
+                        <segue destination="187-0M-hhu" kind="show" identifier="DetailSegue" id="6Rx-B9-PLs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aum-TI-KNU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -241,7 +241,7 @@
             <objects>
                 <tableViewController modalPresentationStyle="formSheet" id="187-0M-hhu" customClass="DetailTableViewController" customModule="Goal_Logger" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleAspectFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Kdj-Rz-A2X">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <sections>
@@ -322,7 +322,9 @@
                             <outlet property="delegate" destination="187-0M-hhu" id="csV-EB-B8N"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="LMr-fp-juo"/>
+                    <navigationItem key="navigationItem" id="LMr-fp-juo">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="iyr-Ta-XKl"/>
+                    </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8e1-4l-6lS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
