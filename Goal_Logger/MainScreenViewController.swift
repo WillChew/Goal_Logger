@@ -22,7 +22,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     let format = DateFormatter()
     var refreshControl: UIRefreshControl!
     
-    lazy var coreDataStack = CoreDataStack(modelName: "Goal")
+//    lazy var coreDataStack = CoreDataStack(modelName: "GoalLogger")
     var managedContext: NSManagedObjectContext!
     
     
@@ -31,7 +31,9 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        managedContext = coreDataStack.managedContext
+        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        managedContext = appDelegate?.persistentContainer.viewContext
         format.timeZone = .current
         format.dateFormat = "MMM d, h:mm a"
         
@@ -151,8 +153,8 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
        let goalToRemove = goals[indexPath.row]
         if editingStyle == .delete {
-            coreDataStack.managedContext.delete(goalToRemove)
-                   coreDataStack.saveContext()
+            managedContext.delete(goalToRemove)
+            try! managedContext.save()
                 tableView.deleteRows(at: [indexPath], with: .fade)
         }
      // Delete the row from the data source
@@ -223,7 +225,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
 //        }
         
         
-            coreDataStack.saveContext()
+//            coreDataStack.saveContext()
             goalTableView.reloadData()
         
         
@@ -261,15 +263,15 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         let allGoals = "All"
                       let goalFetch: NSFetchRequest<Duration> = Duration.fetchRequest()
                       goalFetch.predicate = NSPredicate(format: "%K == %@", #keyPath(Duration.name), allGoals)
-                      
+
                       do {
-                          let results = try coreDataStack.managedContext.fetch(goalFetch)
+                          let results = try managedContext.fetch(goalFetch)
                           if results.count > 0 {
                               currentDuration = results.first
                           } else {
-                              currentDuration = Duration(context: coreDataStack.managedContext)
+                              currentDuration = Duration(context: managedContext)
                               currentDuration?.name = allGoals
-                              coreDataStack.saveContext()
+                            try! managedContext.save()
                           }
                       } catch let error as NSError {
                           print("Fetch error: \(error) description: \(error.userInfo)")

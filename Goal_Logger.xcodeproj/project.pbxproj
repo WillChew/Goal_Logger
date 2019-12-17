@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2111FA9123A847DE009D310B /* Goal.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2111FA8F23A847DE009D310B /* Goal.xcdatamodeld */; };
+		2111FA9123A847DE009D310B /* GoalLogger.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2111FA8F23A847DE009D310B /* GoalLogger.xcdatamodeld */; };
 		2111FAAE23A8C35A009D310B /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2111FAAD23A8C35A009D310B /* CoreDataStack.swift */; };
 		2111FAB523A8D181009D310B /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2111FAB423A8D181009D310B /* DetailTableViewController.swift */; };
 		2111FABA23A8DCC4009D310B /* Goal+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2111FAB623A8DCC4009D310B /* Goal+CoreDataClass.swift */; };
@@ -89,7 +89,7 @@
 				212D480923767437005ABA0A /* Assets.xcassets */,
 				212D480B23767437005ABA0A /* LaunchScreen.storyboard */,
 				212D480E23767437005ABA0A /* Info.plist */,
-				2111FA8F23A847DE009D310B /* Goal.xcdatamodeld */,
+				2111FA8F23A847DE009D310B /* GoalLogger.xcdatamodeld */,
 			);
 			path = Goal_Logger;
 			sourceTree = "<group>";
@@ -169,7 +169,7 @@
 				2111FAB523A8D181009D310B /* DetailTableViewController.swift in Sources */,
 				212D48152376746E005ABA0A /* MainScreenViewController.swift in Sources */,
 				212D481B237687D8005ABA0A /* AddGoalTableViewController.swift in Sources */,
-				2111FA9123A847DE009D310B /* Goal.xcdatamodeld in Sources */,
+				2111FA9123A847DE009D310B /* GoalLogger.xcdatamodeld in Sources */,
 				2111FAAE23A8C35A009D310B /* CoreDataStack.swift in Sources */,
 				212D480123767436005ABA0A /* AppDelegate.swift in Sources */,
 				2111FABD23A8DCC4009D310B /* Duration+CoreDataProperties.swift in Sources */,
@@ -376,13 +376,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		2111FA8F23A847DE009D310B /* Goal.xcdatamodeld */ = {
+		2111FA8F23A847DE009D310B /* GoalLogger.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				2111FA9023A847DE009D310B /* Goal.xcdatamodel */,
 			);
 			currentVersion = 2111FA9023A847DE009D310B /* Goal.xcdatamodel */;
-			path = Goal.xcdatamodeld;
+			path = GoalLogger.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

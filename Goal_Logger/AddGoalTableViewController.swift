@@ -10,7 +10,12 @@ import UIKit
 import CoreData
 
 class AddGoalTableViewController: UITableViewController {
-    lazy var coreDataStack = CoreDataStack(modelName: "Goal")
+//    lazy var coreDataStack = CoreDataStack(modelName: "GoalLogger")
+    
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    var managedContext: NSManagedObjectContext!
+    
+    
     var currentDuration: Duration?
     
     
@@ -27,7 +32,7 @@ class AddGoalTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        coreDataStack.saveContext()
+        managedContext = appDelegate?.persistentContainer.viewContext
         durationTextField.inputView = durationPickerView
         durationTextField.text = durationArray[0]
         durationPickerView.delegate = self
@@ -39,13 +44,13 @@ class AddGoalTableViewController: UITableViewController {
         goalFetch.predicate = NSPredicate(format: "%K == %@", #keyPath(Duration.name), allGoals)
         
         do {
-            let results = try coreDataStack.managedContext.fetch(goalFetch)
+            let results = try managedContext.fetch(goalFetch)
             if results.count > 0 {
                 currentDuration = results.first
             } else {
-                currentDuration = Duration(context: coreDataStack.managedContext)
+                currentDuration = Duration(context: managedContext)
                 currentDuration?.name = allGoals
-                coreDataStack.saveContext()
+                try! managedContext.save()
             }
         } catch let error as NSError {
             print("Fetch error: \(error) description: \(error.userInfo)")
@@ -122,7 +127,7 @@ class AddGoalTableViewController: UITableViewController {
         {
             
             
-            let goal = Goal(context: coreDataStack.managedContext)
+            let goal = Goal(context: managedContext)
             goal.name = goalName
             goal.points = Int32(points)
             goal.duration = goalDuration
@@ -139,7 +144,7 @@ class AddGoalTableViewController: UITableViewController {
             
             DispatchQueue.main.async {
                 self.currentDuration?.addToGoals(goal)
-                self.coreDataStack.saveContext()
+                try! self.managedContext.save()
                 
             }
             
