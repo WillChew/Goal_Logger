@@ -8,20 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		2111FA9123A847DE009D310B /* Goal.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2111FA8F23A847DE009D310B /* Goal.xcdatamodeld */; };
+		2111FAAE23A8C35A009D310B /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2111FAAD23A8C35A009D310B /* CoreDataStack.swift */; };
+		2111FAB523A8D181009D310B /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2111FAB423A8D181009D310B /* DetailTableViewController.swift */; };
+		2111FABA23A8DCC4009D310B /* Goal+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2111FAB623A8DCC4009D310B /* Goal+CoreDataClass.swift */; };
+		2111FABB23A8DCC4009D310B /* Goal+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2111FAB723A8DCC4009D310B /* Goal+CoreDataProperties.swift */; };
+		2111FABC23A8DCC4009D310B /* Duration+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2111FAB823A8DCC4009D310B /* Duration+CoreDataClass.swift */; };
+		2111FABD23A8DCC4009D310B /* Duration+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2111FAB923A8DCC4009D310B /* Duration+CoreDataProperties.swift */; };
 		212D480123767436005ABA0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212D480023767436005ABA0A /* AppDelegate.swift */; };
 		212D480323767436005ABA0A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212D480223767436005ABA0A /* SceneDelegate.swift */; };
 		212D480823767436005ABA0A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 212D480623767436005ABA0A /* Main.storyboard */; };
 		212D480A23767437005ABA0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 212D480923767437005ABA0A /* Assets.xcassets */; };
 		212D480D23767437005ABA0A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 212D480B23767437005ABA0A /* LaunchScreen.storyboard */; };
 		212D48152376746E005ABA0A /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212D48142376746E005ABA0A /* MainScreenViewController.swift */; };
-		212D4817237677CA005ABA0A /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212D4816237677CA005ABA0A /* Goal.swift */; };
 		212D48192376787E005ABA0A /* GoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212D48182376787E005ABA0A /* GoalCell.swift */; };
 		212D481B237687D8005ABA0A /* AddGoalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212D481A237687D8005ABA0A /* AddGoalTableViewController.swift */; };
-		21A8FB2F238891500092E339 /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A8FB2E238891500092E339 /* DetailTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2111FA9023A847DE009D310B /* Goal.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Goal.xcdatamodel; sourceTree = "<group>"; };
+		2111FAAD23A8C35A009D310B /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		2111FAB423A8D181009D310B /* DetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTableViewController.swift; sourceTree = "<group>"; };
+		2111FAB623A8DCC4009D310B /* Goal+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataClass.swift"; sourceTree = "<group>"; };
+		2111FAB723A8DCC4009D310B /* Goal+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		2111FAB823A8DCC4009D310B /* Duration+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Duration+CoreDataClass.swift"; sourceTree = "<group>"; };
+		2111FAB923A8DCC4009D310B /* Duration+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Duration+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		212D47FD23767436005ABA0A /* Goal_Logger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Goal_Logger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		212D480023767436005ABA0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		212D480223767436005ABA0A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -30,10 +40,8 @@
 		212D480C23767437005ABA0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		212D480E23767437005ABA0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		212D48142376746E005ABA0A /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
-		212D4816237677CA005ABA0A /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		212D48182376787E005ABA0A /* GoalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCell.swift; sourceTree = "<group>"; };
 		212D481A237687D8005ABA0A /* AddGoalTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGoalTableViewController.swift; sourceTree = "<group>"; };
-		21A8FB2E238891500092E339 /* DetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailTableViewController.swift; path = ../DetailTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +58,10 @@
 		212D47F423767436005ABA0A = {
 			isa = PBXGroup;
 			children = (
+				2111FAB623A8DCC4009D310B /* Goal+CoreDataClass.swift */,
+				2111FAB723A8DCC4009D310B /* Goal+CoreDataProperties.swift */,
+				2111FAB823A8DCC4009D310B /* Duration+CoreDataClass.swift */,
+				2111FAB923A8DCC4009D310B /* Duration+CoreDataProperties.swift */,
 				212D47FF23767436005ABA0A /* Goal_Logger */,
 				212D47FE23767436005ABA0A /* Products */,
 			);
@@ -67,10 +79,10 @@
 			isa = PBXGroup;
 			children = (
 				212D480023767436005ABA0A /* AppDelegate.swift */,
+				2111FAAD23A8C35A009D310B /* CoreDataStack.swift */,
 				212D480223767436005ABA0A /* SceneDelegate.swift */,
 				212D480623767436005ABA0A /* Main.storyboard */,
-				212D4816237677CA005ABA0A /* Goal.swift */,
-				21A8FB2E238891500092E339 /* DetailTableViewController.swift */,
+				2111FAB423A8D181009D310B /* DetailTableViewController.swift */,
 				212D48142376746E005ABA0A /* MainScreenViewController.swift */,
 				212D481A237687D8005ABA0A /* AddGoalTableViewController.swift */,
 				212D48182376787E005ABA0A /* GoalCell.swift */,
@@ -153,14 +165,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				212D4817237677CA005ABA0A /* Goal.swift in Sources */,
+				2111FABB23A8DCC4009D310B /* Goal+CoreDataProperties.swift in Sources */,
+				2111FAB523A8D181009D310B /* DetailTableViewController.swift in Sources */,
 				212D48152376746E005ABA0A /* MainScreenViewController.swift in Sources */,
 				212D481B237687D8005ABA0A /* AddGoalTableViewController.swift in Sources */,
-				21A8FB2F238891500092E339 /* DetailTableViewController.swift in Sources */,
 				2111FA9123A847DE009D310B /* Goal.xcdatamodeld in Sources */,
+				2111FAAE23A8C35A009D310B /* CoreDataStack.swift in Sources */,
 				212D480123767436005ABA0A /* AppDelegate.swift in Sources */,
+				2111FABD23A8DCC4009D310B /* Duration+CoreDataProperties.swift in Sources */,
 				212D48192376787E005ABA0A /* GoalCell.swift in Sources */,
 				212D480323767436005ABA0A /* SceneDelegate.swift in Sources */,
+				2111FABC23A8DCC4009D310B /* Duration+CoreDataClass.swift in Sources */,
+				2111FABA23A8DCC4009D310B /* Goal+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

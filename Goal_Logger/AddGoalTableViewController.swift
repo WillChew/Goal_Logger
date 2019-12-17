@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import CoreData
 
 class AddGoalTableViewController: UITableViewController {
+    lazy var coreDataStack = CoreDataStack(modelName: "Goal")
+    var currentDuration: Duration?
     
-    var goal: Goal?
+    
     
     @IBOutlet weak var goalNameTextField: UITextField!
     @IBOutlet weak var durationTextField: UITextField!
@@ -24,11 +27,29 @@ class AddGoalTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        coreDataStack.saveContext()
         durationTextField.inputView = durationPickerView
         durationTextField.text = durationArray[0]
         durationPickerView.delegate = self
         durationPickerView.dataSource = self
+        
+        
+        let allGoals = "All"
+        let goalFetch: NSFetchRequest<Duration> = Duration.fetchRequest()
+        goalFetch.predicate = NSPredicate(format: "%K == %@", #keyPath(Duration.name), allGoals)
+        
+        do {
+            let results = try coreDataStack.managedContext.fetch(goalFetch)
+            if results.count > 0 {
+                currentDuration = results.first
+            } else {
+                currentDuration = Duration(context: coreDataStack.managedContext)
+                currentDuration?.name = allGoals
+                coreDataStack.saveContext()
+            }
+        } catch let error as NSError {
+            print("Fetch error: \(error) description: \(error.userInfo)")
+        }
         
         
     }
@@ -99,7 +120,32 @@ class AddGoalTableViewController: UITableViewController {
             let goalDuration = durationTextField.text
             
         {
-            goal = Goal(name: goalName, points: points, duration: goalDuration, checkpointOne: checkpointOne, checkpointTwo: checkpointTwo, endDate: futureDate)
+            
+            
+            let goal = Goal(context: coreDataStack.managedContext)
+            goal.name = goalName
+            goal.points = Int32(points)
+            goal.duration = goalDuration
+            goal.cpOne = checkpointOne
+            goal.cpTwo = checkpointTwo
+            goal.endDate = futureDate
+            goal.startDate = Date()
+            
+            
+            
+            
+            
+            
+            
+            DispatchQueue.main.async {
+                self.currentDuration?.addToGoals(goal)
+                self.coreDataStack.saveContext()
+                
+            }
+            
+            
+            
+            //            goal = Goal(name: goalName, points: points, duration: goalDuration, checkpointOne: checkpointOne, checkpointTwo: checkpointTwo, endDate: futureDate)
         }
         
     }

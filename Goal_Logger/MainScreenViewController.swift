@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import CoreData
 
 class MainScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    var currentDuration: Duration?
     
     var selectedGoal: Goal?
     var goalArray = [Goal]()
@@ -20,20 +22,23 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     let format = DateFormatter()
     var refreshControl: UIRefreshControl!
     
+    lazy var coreDataStack = CoreDataStack(modelName: "Goal")
+    var managedContext: NSManagedObjectContext!
+    
     
     @IBOutlet weak var segValue: UISegmentedControl!
     @IBOutlet weak var goalTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        managedContext = coreDataStack.managedContext
         format.timeZone = .current
         format.dateFormat = "MMM d, h:mm a"
         
         let endDate = Date().addingTimeInterval(10.0)
-        let dailyGoal = Goal(name: "To Be the Best Ever", points: 100, duration: "Daily Goal", checkpointOne: "I want to complete this goal first", checkpointTwo: "I want to complete this goal next", endDate: endDate)
-        goalArray.append(dailyGoal)
-        dailyArray.append(dailyGoal)
+//        let dailyGoal = Goal(name: "To Be the Best Ever", points: 100, duration: "Daily Goal", checkpointOne: "I want to complete this goal first", checkpointTwo: "I want to complete this goal next", endDate: endDate)
+//        goalArray.append(dailyGoal)
+//        dailyArray.append(dailyGoal)
         
         
         refreshControl = UIRefreshControl()
@@ -41,10 +46,13 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         goalTableView.addSubview(refreshControl)
         
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
+        fetchAll()
         goalTableView.reloadData()
         print("HI")
 
@@ -64,15 +72,15 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
         
         if segValue.selectedSegmentIndex == 1 {
-            return dailyArray.count
+            return currentDuration?.goals?.count ?? 1
         } else if segValue.selectedSegmentIndex == 2 {
             return weeklyArray.count
         } else if segValue.selectedSegmentIndex == 3 {
             return monthlyArray.count
         } else if segValue.selectedSegmentIndex == 4 {
             return annualArray.count
-        } else if segValue.selectedSegmentIndex == 0 && goalArray.count > 0 {
-            return goalArray.count
+        } else if segValue.selectedSegmentIndex == 0 && (currentDuration?.goals!.count)! > 0 {
+            return currentDuration?.goals?.count ?? 1
         } else {
             return 1
         }
@@ -86,20 +94,25 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
         tableView.rowHeight = tableView.frame.size.height / 6
         
-        if goalArray[indexPath.row].endDate > Date() {
-            print("YES")
-        } else {
-            print("NO")
-        }
-        
-        if goalArray.isEmpty {
+//        if goalArray[indexPath.row].endDate > Date() {
+//            print("YES")
+//        } else {
+//            print("NO")
+//        }
+//
+        if currentDuration?.goals?.count == 0 {
             cell.nameLabel.text = "No Current Goals"
+            cell.startedLabel.text = "Start One Now!"
+            cell.firstCpLabel.isHidden = true
+            cell.secondCpLabel.isHidden = true
+            cell.endedLabel.isHidden = true
+            
         } else {
-            cell.nameLabel.text = goalArray[indexPath.row].name
-            cell.startedLabel.text = "Started: " + format.string(from: goalArray[indexPath.row].startDate)
-            cell.endedLabel.text = calculateTimeRemaining(deadline: goalArray[indexPath.row].endDate)
-            cell.firstCpLabel.text = goalArray[indexPath.row].checkpointOne
-            cell.secondCpLabel.text = goalArray[indexPath.row].checkpointTwo
+//            cell.nameLabel.text = goalArray[indexPath.row].name
+//            cell.startedLabel.text = "Started: " + format.string(from: goalArray[indexPath.row].startDate)
+//            cell.endedLabel.text = calculateTimeRemaining(deadline: goalArray[indexPath.row].endDate)
+//            cell.firstCpLabel.text = goalArray[indexPath.row].checkpointOne
+//            cell.secondCpLabel.text = goalArray[indexPath.row].checkpointTwo
         }
         
         if segValue.selectedSegmentIndex == 1 && dailyArray.count > 0{
@@ -116,25 +129,38 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     
-    /*
+    
      // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
      // Return false if you do not want the specified item to be editable.
      return true
      }
-     */
+     
     
-    /*
+    
      // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
+     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        var goals = [Goal]()
+        
+        guard let currentDuration = currentDuration, let sets = currentDuration.goals else { return }
+        
+        for set in sets {
+            goals.append(set as! Goal)
+        }
+        
+       let goalToRemove = goals[indexPath.row]
+        if editingStyle == .delete {
+            coreDataStack.managedContext.delete(goalToRemove)
+                   coreDataStack.saveContext()
+                tableView.deleteRows(at: [indexPath], with: .fade)
+        }
      // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        
+       
      }
-     }
-     */
+     
+     
     
     /*
      // Override to support rearranging the table view.
@@ -167,7 +193,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         if segue.identifier == "DetailSegue" {
             let vc = segue.destination as! DetailTableViewController
             vc.passedGoalName = selectedGoal?.name
-            vc.passedGoalPoints = selectedGoal?.points
+//            vc.passedGoalPoints = selectedGoal?.points as? Int32
             vc.passedDuration = selectedGoal?.duration
             vc.passedGoal = selectedGoal
             
@@ -175,21 +201,32 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     @IBAction func saveButtonPressed(_ segue: UIStoryboardSegue) {
-        guard let addGoalVC = segue.source as? AddGoalTableViewController,
-            let goal = addGoalVC.goal else { return }
+        guard let addGoalVC = segue.source as? AddGoalTableViewController else { return }
+
+//         let goal = addGoalVC.goal
+//        goalArray.append(goal)
+//        if goal.duration == "Daily Goal" {
+//            dailyArray.append(goal)
+//        } else if goal.duration == "Weekly Goal" {
+//            weeklyArray.append(goal)
+//        } else if goal.duration == "Monthly Goal" {
+//            monthlyArray.append(goal)
+//        } else if goal.duration == "Annual Goal" {
+//            annualArray.append(goal)
+//        }
+//
         
-        goalArray.append(goal)
-        if goal.duration == "Daily Goal" {
-            dailyArray.append(goal)
-        } else if goal.duration == "Weekly Goal" {
-            weeklyArray.append(goal)
-        } else if goal.duration == "Monthly Goal" {
-            monthlyArray.append(goal)
-        } else if goal.duration == "Annual Goal" {
-            annualArray.append(goal)
-        }
+//        if let duration = currentDuration, let goals = duration.goals?.mutableCopy() as? NSMutableSet {
+//            
+//            goals.add(goal)
+//            duration.goals = goals
+//        }
         
-        goalTableView.reloadData()
+        
+            coreDataStack.saveContext()
+            goalTableView.reloadData()
+        
+        
         
     }
     
@@ -218,6 +255,25 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         } else {
             return "Expired"
         }
+    }
+    
+    func fetchAll(){
+        let allGoals = "All"
+                      let goalFetch: NSFetchRequest<Duration> = Duration.fetchRequest()
+                      goalFetch.predicate = NSPredicate(format: "%K == %@", #keyPath(Duration.name), allGoals)
+                      
+                      do {
+                          let results = try coreDataStack.managedContext.fetch(goalFetch)
+                          if results.count > 0 {
+                              currentDuration = results.first
+                          } else {
+                              currentDuration = Duration(context: coreDataStack.managedContext)
+                              currentDuration?.name = allGoals
+                              coreDataStack.saveContext()
+                          }
+                      } catch let error as NSError {
+                          print("Fetch error: \(error) description: \(error.userInfo)")
+                      }
     }
     
     

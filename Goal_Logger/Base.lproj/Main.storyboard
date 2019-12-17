@@ -12,7 +12,7 @@
             <objects>
                 <tableViewController id="iLG-2z-70k" customClass="AddGoalTableViewController" customModule="Goal_Logger" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="a2G-TO-T4f">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -222,7 +222,7 @@
                     <navigationItem key="navigationItem" id="qgx-K5-bVJ">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="la8-dK-kzK">
                             <connections>
-                                <segue destination="WcD-5V-uN4" kind="show" id="bjf-Q5-PHD"/>
+                                <segue destination="WcD-5V-uN4" kind="presentation" id="bjf-Q5-PHD"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -338,7 +338,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="JAA-X1-j4r"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="t0O-5F-uqk">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

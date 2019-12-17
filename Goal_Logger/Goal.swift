@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+/*
 struct Goal {
     var name: String
     var points: Int?
@@ -20,10 +20,6 @@ struct Goal {
     var startDate = Date()
     var endDate: Date
     var progress = 0
-
-
-
-    
 }
 
-
+*/
