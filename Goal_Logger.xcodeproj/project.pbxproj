@@ -10,10 +10,12 @@
 		2111FA9123A847DE009D310B /* GoalLogger.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2111FA8F23A847DE009D310B /* GoalLogger.xcdatamodeld */; };
 		2111FAAE23A8C35A009D310B /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2111FAAD23A8C35A009D310B /* CoreDataStack.swift */; };
 		2111FAB523A8D181009D310B /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2111FAB423A8D181009D310B /* DetailTableViewController.swift */; };
-		2111FABA23A8DCC4009D310B /* Goal+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2111FAB623A8DCC4009D310B /* Goal+CoreDataClass.swift */; };
-		2111FABB23A8DCC4009D310B /* Goal+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2111FAB723A8DCC4009D310B /* Goal+CoreDataProperties.swift */; };
-		2111FABC23A8DCC4009D310B /* Duration+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2111FAB823A8DCC4009D310B /* Duration+CoreDataClass.swift */; };
-		2111FABD23A8DCC4009D310B /* Duration+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2111FAB923A8DCC4009D310B /* Duration+CoreDataProperties.swift */; };
+		2111FAD023AA0616009D310B /* Goal+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2111FACA23AA0616009D310B /* Goal+CoreDataClass.swift */; };
+		2111FAD123AA0616009D310B /* Goal+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2111FACB23AA0616009D310B /* Goal+CoreDataProperties.swift */; };
+		2111FAD223AA0616009D310B /* Reward+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2111FACC23AA0616009D310B /* Reward+CoreDataClass.swift */; };
+		2111FAD323AA0616009D310B /* Reward+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2111FACD23AA0616009D310B /* Reward+CoreDataProperties.swift */; };
+		2111FAD423AA0616009D310B /* Duration+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2111FACE23AA0616009D310B /* Duration+CoreDataClass.swift */; };
+		2111FAD523AA0616009D310B /* Duration+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2111FACF23AA0616009D310B /* Duration+CoreDataProperties.swift */; };
 		212D480123767436005ABA0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212D480023767436005ABA0A /* AppDelegate.swift */; };
 		212D480323767436005ABA0A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212D480223767436005ABA0A /* SceneDelegate.swift */; };
 		212D480823767436005ABA0A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 212D480623767436005ABA0A /* Main.storyboard */; };
@@ -28,10 +30,12 @@
 		2111FA9023A847DE009D310B /* Goal.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Goal.xcdatamodel; sourceTree = "<group>"; };
 		2111FAAD23A8C35A009D310B /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		2111FAB423A8D181009D310B /* DetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTableViewController.swift; sourceTree = "<group>"; };
-		2111FAB623A8DCC4009D310B /* Goal+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataClass.swift"; sourceTree = "<group>"; };
-		2111FAB723A8DCC4009D310B /* Goal+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		2111FAB823A8DCC4009D310B /* Duration+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Duration+CoreDataClass.swift"; sourceTree = "<group>"; };
-		2111FAB923A8DCC4009D310B /* Duration+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Duration+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		2111FACA23AA0616009D310B /* Goal+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataClass.swift"; sourceTree = "<group>"; };
+		2111FACB23AA0616009D310B /* Goal+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		2111FACC23AA0616009D310B /* Reward+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reward+CoreDataClass.swift"; sourceTree = "<group>"; };
+		2111FACD23AA0616009D310B /* Reward+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reward+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		2111FACE23AA0616009D310B /* Duration+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Duration+CoreDataClass.swift"; sourceTree = "<group>"; };
+		2111FACF23AA0616009D310B /* Duration+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Duration+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		212D47FD23767436005ABA0A /* Goal_Logger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Goal_Logger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		212D480023767436005ABA0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		212D480223767436005ABA0A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,10 +62,12 @@
 		212D47F423767436005ABA0A = {
 			isa = PBXGroup;
 			children = (
-				2111FAB623A8DCC4009D310B /* Goal+CoreDataClass.swift */,
-				2111FAB723A8DCC4009D310B /* Goal+CoreDataProperties.swift */,
-				2111FAB823A8DCC4009D310B /* Duration+CoreDataClass.swift */,
-				2111FAB923A8DCC4009D310B /* Duration+CoreDataProperties.swift */,
+				2111FACA23AA0616009D310B /* Goal+CoreDataClass.swift */,
+				2111FACB23AA0616009D310B /* Goal+CoreDataProperties.swift */,
+				2111FACC23AA0616009D310B /* Reward+CoreDataClass.swift */,
+				2111FACD23AA0616009D310B /* Reward+CoreDataProperties.swift */,
+				2111FACE23AA0616009D310B /* Duration+CoreDataClass.swift */,
+				2111FACF23AA0616009D310B /* Duration+CoreDataProperties.swift */,
 				212D47FF23767436005ABA0A /* Goal_Logger */,
 				212D47FE23767436005ABA0A /* Products */,
 			);
@@ -165,18 +171,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2111FABB23A8DCC4009D310B /* Goal+CoreDataProperties.swift in Sources */,
+				2111FAD223AA0616009D310B /* Reward+CoreDataClass.swift in Sources */,
+				2111FAD123AA0616009D310B /* Goal+CoreDataProperties.swift in Sources */,
 				2111FAB523A8D181009D310B /* DetailTableViewController.swift in Sources */,
 				212D48152376746E005ABA0A /* MainScreenViewController.swift in Sources */,
 				212D481B237687D8005ABA0A /* AddGoalTableViewController.swift in Sources */,
 				2111FA9123A847DE009D310B /* GoalLogger.xcdatamodeld in Sources */,
 				2111FAAE23A8C35A009D310B /* CoreDataStack.swift in Sources */,
 				212D480123767436005ABA0A /* AppDelegate.swift in Sources */,
-				2111FABD23A8DCC4009D310B /* Duration+CoreDataProperties.swift in Sources */,
+				2111FAD423AA0616009D310B /* Duration+CoreDataClass.swift in Sources */,
 				212D48192376787E005ABA0A /* GoalCell.swift in Sources */,
 				212D480323767436005ABA0A /* SceneDelegate.swift in Sources */,
-				2111FABC23A8DCC4009D310B /* Duration+CoreDataClass.swift in Sources */,
-				2111FABA23A8DCC4009D310B /* Goal+CoreDataClass.swift in Sources */,
+				2111FAD323AA0616009D310B /* Reward+CoreDataProperties.swift in Sources */,
+				2111FAD023AA0616009D310B /* Goal+CoreDataClass.swift in Sources */,
+				2111FAD523AA0616009D310B /* Duration+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

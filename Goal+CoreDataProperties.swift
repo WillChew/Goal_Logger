@@ -2,7 +2,7 @@
 //  Goal+CoreDataProperties.swift
 //  Goal_Logger
 //
-//  Created by Will Chew on 2019-12-17.
+//  Created by Will Chew on 2019-12-18.
 //  Copyright © 2019 Will Chew. All rights reserved.
 //
 //
@@ -28,6 +28,7 @@ extension Goal {
     @NSManaged public var points: Int32
     @NSManaged public var progress: Double
     @NSManaged public var startDate: Date?
+    @NSManaged public var uuid: UUID?
     @NSManaged public var time: Duration?
 
 }

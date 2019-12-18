@@ -1,5 +1,5 @@
 //
-//  Goal+CoreDataClass.swift
+//  Reward+CoreDataClass.swift
 //  Goal_Logger
 //
 //  Created by Will Chew on 2019-12-18.
@@ -10,7 +10,7 @@
 import Foundation
 import CoreData
 
-@objc(Goal)
-public class Goal: NSManagedObject {
+@objc(Reward)
+public class Reward: NSManagedObject {
 
 }

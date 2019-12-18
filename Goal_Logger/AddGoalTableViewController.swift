@@ -120,19 +120,16 @@ class AddGoalTableViewController: UITableViewController {
             goal.cpTwo = checkpointTwo
             goal.endDate = futureDate
             goal.startDate = Date()
+            goal.uuid = UUID()
             
             
             
             
-            
-            
-            
-            DispatchQueue.main.async {
                 self.fetchDurationName(goalDuration)
                 self.currentDuration?.addToGoals(goal)
                 try! self.managedContext.save()
                 
-            }
+            
             
             
             
