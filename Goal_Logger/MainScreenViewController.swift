@@ -13,7 +13,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var currentDuration: Duration?
     var selectedGoal: Goal?
-    var goalArray: [NSManagedObject] = []
+    
    
     let format = DateFormatter()
     var refreshControl: UIRefreshControl!
@@ -75,7 +75,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             fetchDurationName(segTitle)
             return currentDuration?.goals?.count ?? 1
         } else if segValue.selectedSegmentIndex == 3 {
-            fetchDurationName("Annual")
+            fetchDurationName(segTitle)
             return currentDuration?.goals?.count ?? 1
         } else {
             return 1
@@ -197,7 +197,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         goalTableView.deselectRow(at: indexPath, animated: true)
         
         if (currentDuration?.goals?.array.first) != nil {
-            selectedGoal = currentDuration?.goals?[indexPath.row] as! Goal
+            selectedGoal = currentDuration?.goals?[indexPath.row] as? Goal
             performSegue(withIdentifier: "DetailSegue", sender: nil)
         }
     }

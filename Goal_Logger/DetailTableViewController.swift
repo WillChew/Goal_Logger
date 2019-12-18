@@ -15,34 +15,56 @@ class DetailTableViewController: UITableViewController {
     var passedGoalName: String?
     var passedGoalPoints: Int?
     var passedDuration: String?
-    var passedGoal: Goal?
-//    lazy var coreDataStack = CoreDataStack(modelName: "Goal")
+    var passedGoal: Goal!
+    var managedContext: NSManagedObjectContext!
     
+
+    @IBOutlet weak var firstCPSwitch: UISwitch!
+    
+    @IBOutlet weak var secondCPSwitch: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        managedContext = appDelegate?.persistentContainer.viewContext
         let format = DateFormatter()
         format.timeZone = .current
         format.dateFormat = "yyyy-MM-dd HH:mm"
-        guard let endDate = passedGoal?.endDate else { return }
         
+        
+        if passedGoal.isCpOneComplete == true {
+            firstCPSwitch.isOn = true
+        }
+    if passedGoal.isCpTwoComplete == true {
+        secondCPSwitch.isOn = true
+    }
+
         
         
         tableView.tableFooterView?.backgroundColor = .clear
+
+    }
+    
+    func updatingIsCPComplete(for checkpoint: String) {
+        let fetchRequest: NSFetchRequest<Goal> = Goal.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "%K == %@", "uuid", passedGoal.uuid! as CVarArg)
         
+        do {
+            let goal = try managedContext.fetch(fetchRequest)
+            if goal.isEmpty == false {
+                if checkpoint == "isCpOneComplete" {
+        goal.first?.setValue(firstCPSwitch.isOn, forKey: checkpoint)
+                } else if checkpoint == "isCpTwoComplete" {
+                    goal.first?.setValue(secondCPSwitch.isOn, forKey: checkpoint)
+                }
+                
+                try! managedContext.save()
+            }
+        } catch let error as NSError {
+            print("Error fetching \(error), \(error.userInfo)")
+        }
         
-//        let remaining = calculateTimeRemaining(deadline: endDate)
-//        print(remaining)
-        
-        //        print(passedGoal?.startDate)
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     
@@ -125,4 +147,12 @@ class DetailTableViewController: UITableViewController {
      }
      */
     
+    @IBAction func firstCPChanged(_ sender: UISwitch) {
+        
+       
+        updatingIsCPComplete(for: "isCpOneComplete")
+    }
+    @IBAction func secondCPChanged(_ sender: UISwitch) {
+        updatingIsCPComplete(for: "isCpTwoComplete")
+    }
 }
