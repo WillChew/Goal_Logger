@@ -93,6 +93,14 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             return 1
         }
         
+//        switch segValue.selectedSegmentIndex {
+//        case 1:
+//            fetchDurationName(segTitle)
+//            return currentDuration?.goals?.count ?? 1
+//        default:
+//            <#code#>
+//        }
+        
         
         
         
@@ -271,7 +279,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     func fetchAll(){
         let allGoals = "All"
                       let goalFetch: NSFetchRequest<Duration> = Duration.fetchRequest()
-                      goalFetch.predicate = NSPredicate(format: "%K == %@", #keyPath(Duration.name), allGoals)
+//                      goalFetch.predicate = NSPredicate(format: "%K == %@", #keyPath(Duration.name), allGoals)
 
                       do {
                           let results = try managedContext.fetch(goalFetch)

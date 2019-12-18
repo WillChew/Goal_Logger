@@ -141,24 +141,24 @@ class AddGoalTableViewController: UITableViewController {
         
     }
     
-    func fetchAll() {
-       let allGoals = "All"
-       let goalFetch: NSFetchRequest<Duration> = Duration.fetchRequest()
-       goalFetch.predicate = NSPredicate(format: "%K == %@", #keyPath(Duration.name), allGoals)
-       
-       do {
-           let results = try managedContext.fetch(goalFetch)
-           if results.count > 0 {
-               currentDuration = results.first
-           } else {
-               currentDuration = Duration(context: managedContext)
-               currentDuration?.name = allGoals
-               try! managedContext.save()
-           }
-       } catch let error as NSError {
-           print("Fetch error: \(error) description: \(error.userInfo)")
-       }
-       }
+//    func fetchAll() {
+//       let allGoals = "All"
+//       let goalFetch: NSFetchRequest<Duration> = Duration.fetchRequest()
+//       goalFetch.predicate = NSPredicate(format: "%K == %@", #keyPath(Duration.name), allGoals)
+//
+//       do {
+//           let results = try managedContext.fetch(goalFetch)
+//           if results.count > 0 {
+//               currentDuration = results.first
+//           } else {
+//               currentDuration = Duration(context: managedContext)
+//               currentDuration?.name = allGoals
+//               try! managedContext.save()
+//           }
+//       } catch let error as NSError {
+//           print("Fetch error: \(error) description: \(error.userInfo)")
+//       }
+//       }
     
     
     func fetchDurationName(_ duration: String) {
