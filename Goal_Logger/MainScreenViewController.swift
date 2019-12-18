@@ -12,7 +12,6 @@ import CoreData
 class MainScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var currentDuration: Duration?
-    
     var selectedGoal: Goal?
     var goalArray: [NSManagedObject] = []
    
@@ -76,20 +75,13 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             fetchDurationName(segTitle)
             return currentDuration?.goals?.count ?? 1
         } else if segValue.selectedSegmentIndex == 3 {
-            fetchDurationName(segTitle)
+            fetchDurationName("Annual")
             return currentDuration?.goals?.count ?? 1
         } else {
             return 1
         }
         
-//        switch segValue.selectedSegmentIndex {
-//        case 1:
-//            fetchDurationName(segTitle)
-//            return currentDuration?.goals?.count ?? 1
-//        default:
-//            <#code#>
-//        }
-        
+
         
         
         
@@ -203,8 +195,9 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         goalTableView.deselectRow(at: indexPath, animated: true)
-        if goalArray.count != 0 {
-//            selectedGoal = currentDuration?.goals?[indexPath.row]
+        
+        if (currentDuration?.goals?.array.first) != nil {
+            selectedGoal = currentDuration?.goals?[indexPath.row] as! Goal
             performSegue(withIdentifier: "DetailSegue", sender: nil)
         }
     }

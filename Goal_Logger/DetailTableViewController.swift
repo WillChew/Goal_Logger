@@ -27,7 +27,8 @@ class DetailTableViewController: UITableViewController {
         format.timeZone = .current
         format.dateFormat = "yyyy-MM-dd HH:mm"
         guard let endDate = passedGoal?.endDate else { return }
-        print(format.string(from: endDate))
+        
+        
         
         tableView.tableFooterView?.backgroundColor = .clear
         
