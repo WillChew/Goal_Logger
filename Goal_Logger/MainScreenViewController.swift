@@ -181,8 +181,16 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
         
         
-        guard let goalToRemove: NSManagedObject = currentDuration.goals?[indexPath.row] as! NSManagedObject else { return }
+        let goalToRemove: NSManagedObject = currentDuration.goals?[indexPath.row] as! NSManagedObject
+
+        
         if editingStyle == .delete {
+            print(indexPath.row)
+            print(currentDuration.goals?.index(of: goalToRemove))
+            
+            
+            
+            if indexPath.row == currentDuration.goals?.index(of: goalToRemove) {
             managedContext.delete(goalToRemove)
             do {
             try managedContext.save()
@@ -190,9 +198,9 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
                 print("Error deleting row: \(error), \(error.userInfo)")
             }
                 tableView.deleteRows(at: [indexPath], with: .fade)
-//            goalTableView.reloadData()
+
         }
-     
+        }
         
        
      }
