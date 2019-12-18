@@ -25,7 +25,7 @@ class AddGoalTableViewController: UITableViewController {
     @IBOutlet weak var checkpointOneTextField: UITextField!
     @IBOutlet weak var checkpointTwoTextField: UITextField!
     
-    let durationArray = ["Daily Goal", "Weekly Goal", "Monthly Goal", "Annual Goal"]
+    let durationArray = ["Daily", "Weekly", "Monthly", "Annual"]
     let durationPickerView = UIPickerView()
     
     
@@ -38,24 +38,7 @@ class AddGoalTableViewController: UITableViewController {
         durationPickerView.delegate = self
         durationPickerView.dataSource = self
         
-        
-        let allGoals = "All"
-        let goalFetch: NSFetchRequest<Duration> = Duration.fetchRequest()
-        goalFetch.predicate = NSPredicate(format: "%K == %@", #keyPath(Duration.name), allGoals)
-        
-        do {
-            let results = try managedContext.fetch(goalFetch)
-            if results.count > 0 {
-                currentDuration = results.first
-            } else {
-                currentDuration = Duration(context: managedContext)
-                currentDuration?.name = allGoals
-                try! managedContext.save()
-            }
-        } catch let error as NSError {
-            print("Fetch error: \(error) description: \(error.userInfo)")
-        }
-        
+   
         
     }
     
@@ -131,6 +114,8 @@ class AddGoalTableViewController: UITableViewController {
             goal.name = goalName
             goal.points = Int32(points)
             goal.duration = goalDuration
+            
+            
             goal.cpOne = checkpointOne
             goal.cpTwo = checkpointTwo
             goal.endDate = futureDate
@@ -143,6 +128,7 @@ class AddGoalTableViewController: UITableViewController {
             
             
             DispatchQueue.main.async {
+                self.fetchDurationName(goalDuration)
                 self.currentDuration?.addToGoals(goal)
                 try! self.managedContext.save()
                 
@@ -155,6 +141,46 @@ class AddGoalTableViewController: UITableViewController {
         
     }
     
+    func fetchAll() {
+       let allGoals = "All"
+       let goalFetch: NSFetchRequest<Duration> = Duration.fetchRequest()
+       goalFetch.predicate = NSPredicate(format: "%K == %@", #keyPath(Duration.name), allGoals)
+       
+       do {
+           let results = try managedContext.fetch(goalFetch)
+           if results.count > 0 {
+               currentDuration = results.first
+           } else {
+               currentDuration = Duration(context: managedContext)
+               currentDuration?.name = allGoals
+               try! managedContext.save()
+           }
+       } catch let error as NSError {
+           print("Fetch error: \(error) description: \(error.userInfo)")
+       }
+       }
+    
+    
+    func fetchDurationName(_ duration: String) {
+        
+        
+        let goalFetch: NSFetchRequest<Duration> = Duration.fetchRequest()
+        goalFetch.predicate = NSPredicate(format: "%K == %@", #keyPath(Duration.name), duration)
+        
+        do {
+            let results = try managedContext.fetch(goalFetch)
+            if results.count > 0 {
+                currentDuration = results.first
+                
+            } else {
+                currentDuration = Duration(context: managedContext)
+                currentDuration?.name = duration
+                try! managedContext.save()
+            }
+        } catch let error as NSError {
+            print("Fetch error: \(error) description: \(error.userInfo)")
+        }
+    }
     
 }
 

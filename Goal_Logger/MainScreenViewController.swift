@@ -57,6 +57,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         fetchAll()
         goalTableView.reloadData()
         print("HI")
+        print(segValue.selectedSegmentIndex)
 
     }
     
@@ -71,21 +72,29 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        
+        let segTitle = segValue.titleForSegment(at: segValue.selectedSegmentIndex)!
         
         if segValue.selectedSegmentIndex == 1 {
+            fetchDurationName(segTitle)
             return currentDuration?.goals?.count ?? 1
         } else if segValue.selectedSegmentIndex == 2 {
-            return weeklyArray.count
+            fetchDurationName(segTitle)
+            return currentDuration?.goals?.count ?? 1
         } else if segValue.selectedSegmentIndex == 3 {
-            return monthlyArray.count
+            fetchDurationName(segTitle)
+            return currentDuration?.goals?.count ?? 1
         } else if segValue.selectedSegmentIndex == 4 {
-            return annualArray.count
+            fetchDurationName(segTitle)
+            return currentDuration?.goals?.count ?? 1
         } else if segValue.selectedSegmentIndex == 0 && (currentDuration?.goals!.count)! > 0 {
+            fetchAll()
             return currentDuration?.goals?.count ?? 1
         } else {
             return 1
         }
+        
+        
+        
         
         
     }
@@ -117,15 +126,15 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
 //            cell.secondCpLabel.text = goalArray[indexPath.row].checkpointTwo
         }
         
-        if segValue.selectedSegmentIndex == 1 && dailyArray.count > 0{
-            cell.nameLabel.text = dailyArray[indexPath.row].name
-        } else if segValue.selectedSegmentIndex == 2 && weeklyArray.count > 0 {
-            cell.nameLabel.text = weeklyArray[indexPath.row].name
-        } else if segValue.selectedSegmentIndex == 3 && monthlyArray.count > 0 {
-            cell.nameLabel.text = monthlyArray[indexPath.row].name
-        } else if segValue.selectedSegmentIndex == 4 && annualArray.count > 0 {
-            cell.nameLabel.text = annualArray[indexPath.row].name
-        }
+//        if segValue.selectedSegmentIndex == 1 && dailyArray.count > 0{
+//            cell.nameLabel.text = dailyArray[indexPath.row].name
+//        } else if segValue.selectedSegmentIndex == 2 && weeklyArray.count > 0 {
+//            cell.nameLabel.text = weeklyArray[indexPath.row].name
+//        } else if segValue.selectedSegmentIndex == 3 && monthlyArray.count > 0 {
+//            cell.nameLabel.text = monthlyArray[indexPath.row].name
+//        } else if segValue.selectedSegmentIndex == 4 && annualArray.count > 0 {
+//            cell.nameLabel.text = annualArray[indexPath.row].name
+//        }
         
         return cell
     }
@@ -278,9 +287,37 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
                       }
     }
     
+    func fetchDurationName(_ duration: String) {
+        
+        
+        let goalFetch: NSFetchRequest<Duration> = Duration.fetchRequest()
+        goalFetch.predicate = NSPredicate(format: "%K == %@", #keyPath(Duration.name), duration)
+        
+        do {
+            let results = try managedContext.fetch(goalFetch)
+            if results.count > 0 {
+                currentDuration = results.first
+                
+            } else {
+                currentDuration = Duration(context: managedContext)
+                currentDuration?.name = duration
+                try! managedContext.save()
+            }
+        } catch let error as NSError {
+            print("Fetch error: \(error) description: \(error.userInfo)")
+        }
+    }
     
-    @IBAction func segChanged(_ sender: Any) {
-        print(segValue.selectedSegmentIndex)
+    
+    @IBAction func segChanged(_ sender: UISegmentedControl) {
+        
+        let segTitle = segValue.titleForSegment(at: segValue.selectedSegmentIndex)!
+        fetchDurationName(segTitle)
+        
+        if sender.selectedSegmentIndex == 0 {
+            fetchAll()
+        }
+        
         goalTableView.reloadData()
         
     }
