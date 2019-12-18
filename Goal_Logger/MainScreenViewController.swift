@@ -13,8 +13,6 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var currentDuration: Duration?
     var selectedGoal: Goal?
-    
-   
     let format = DateFormatter()
     var refreshControl: UIRefreshControl!
     
@@ -53,6 +51,8 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     @objc func refresh(_ sender: Any) {
+        
+        removeGoal()
         goalTableView.reloadData()
         refreshControl.endRefreshing()
     }
@@ -64,6 +64,10 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         let segTitle = segValue.titleForSegment(at: segValue.selectedSegmentIndex)!
+        
+        if currentDuration?.goals?.count == 0 {
+            return 0
+        }
         
         if segValue.selectedSegmentIndex == 0 {
             fetchDurationName(segTitle)
@@ -94,6 +98,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
         tableView.rowHeight = tableView.frame.size.height / 6
         
+        removeGoal()
 //        if goalArray[indexPath.row].endDate > Date() {
 //            print("YES")
 //        } else {
@@ -149,6 +154,15 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
      // Override to support conditional editing of the table view.
      func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
      // Return false if you do not want the specified item to be editable.
+        
+        
+        let goal = currentDuration?.goals?[indexPath.row] as! Goal
+        
+        if goal.endDate! < Date() {
+            return false
+        }
+        
+        
      return true
      }
      
@@ -162,10 +176,19 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         guard let currentDuration = currentDuration else { return }
         
         
-        let goalToRemove: NSManagedObject = currentDuration.goals?[indexPath.row] as! NSManagedObject
+        
+        
+        
+        
+        
+        guard let goalToRemove: NSManagedObject = currentDuration.goals?[indexPath.row] as! NSManagedObject else { return }
         if editingStyle == .delete {
             managedContext.delete(goalToRemove)
-            try! managedContext.save()
+            do {
+            try managedContext.save()
+            } catch let error as NSError {
+                print("Error deleting row: \(error), \(error.userInfo)")
+            }
                 tableView.deleteRows(at: [indexPath], with: .fade)
 //            goalTableView.reloadData()
         }
@@ -263,7 +286,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func fetchDurationName(_ duration: String) {
-        
+        removeGoal()
         
         let goalFetch: NSFetchRequest<Duration> = Duration.fetchRequest()
         goalFetch.predicate = NSPredicate(format: "%K == %@", #keyPath(Duration.name), duration)
@@ -272,15 +295,44 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             let results = try managedContext.fetch(goalFetch)
             if results.count > 0 {
                 currentDuration = results.first
+                removeGoal()
+                
                 
             } else {
                 currentDuration = Duration(context: managedContext)
                 currentDuration?.name = duration
-                try! managedContext.save()
+                removeGoal()
+                do {
+                try managedContext.save()
             }
+            }
+            
         } catch let error as NSError {
             print("Fetch error: \(error) description: \(error.userInfo)")
         }
+    }
+    
+    func removeGoal() {
+        
+        let now = Date()
+        let request : NSFetchRequest<Goal> = Goal.fetchRequest()
+        request.predicate = NSPredicate(format: "%K < %@", #keyPath(Goal.endDate), now as CVarArg)
+        
+        let expired = try! managedContext.fetch(request)
+        
+        for exp in expired {
+            managedContext.delete(exp)
+        }
+
+        do {
+             try managedContext.save()
+
+        } catch let error as NSError {
+            print("Error deleting: \(error), \(error.userInfo)")
+        }
+        
+       
+        
     }
     
     
@@ -288,10 +340,6 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let segTitle = segValue.titleForSegment(at: segValue.selectedSegmentIndex)!
         fetchDurationName(segTitle)
-        
-        if sender.selectedSegmentIndex == 0 {
-            fetchDurationName("Daily")
-        }
         
         goalTableView.reloadData()
         

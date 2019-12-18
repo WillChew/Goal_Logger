@@ -50,6 +50,7 @@ class DetailTableViewController: UITableViewController {
         let fetchRequest: NSFetchRequest<Goal> = Goal.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "%K == %@", "uuid", passedGoal.uuid! as CVarArg)
         
+        let newDate = Date().addingTimeInterval(1.0)
         do {
             let goal = try managedContext.fetch(fetchRequest)
             if goal.isEmpty == false {
@@ -58,7 +59,7 @@ class DetailTableViewController: UITableViewController {
                 } else if checkpoint == "isCpTwoComplete" {
                     goal.first?.setValue(secondCPSwitch.isOn, forKey: checkpoint)
                 }
-                
+                goal.first?.setValue(newDate, forKey: "endDate")
                 try! managedContext.save()
             }
         } catch let error as NSError {
