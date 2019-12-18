@@ -83,16 +83,16 @@ class AddGoalTableViewController: UITableViewController {
         
         
         switch durationTextField.text {
-        case "Daily Goal":
+        case "Daily":
             futureDate.addTimeInterval(day)
             points = 50
-        case "Weekly Goal":
+        case "Weekly":
             futureDate.addTimeInterval(day * 7.0)
             points = 250
-        case "Monthly Goal":
+        case "Monthly":
             futureDate.addTimeInterval(day * 30.0)
             points = 1000
-        case "Annual Goal":
+        case "Annual":
             futureDate.addTimeInterval(day * 365.0)
             points = 2500
         default:
