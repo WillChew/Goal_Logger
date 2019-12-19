@@ -162,8 +162,14 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             return false
         }
         
-        
-     return true
+        for g in currentDuration!.goals! {
+            let g2 = g as! Goal
+            if g2.endDate! < Date() {
+                return false
+            }
+        }
+
+    return true
      }
      
     
@@ -174,13 +180,6 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
         
         guard let currentDuration = currentDuration else { return }
-        
-        
-        
-        
-        
-        
-        
         let goalToRemove: NSManagedObject = currentDuration.goals?[indexPath.row] as! NSManagedObject
 
         
@@ -330,6 +329,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
         for exp in expired {
             managedContext.delete(exp)
+            
         }
 
         do {
