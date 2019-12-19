@@ -16,7 +16,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     let format = DateFormatter()
     var refreshControl: UIRefreshControl!
     
-//    lazy var coreDataStack = CoreDataStack(modelName: "GoalLogger")
+    //    lazy var coreDataStack = CoreDataStack(modelName: "GoalLogger")
     var managedContext: NSManagedObjectContext!
     
     
@@ -30,12 +30,15 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         managedContext = appDelegate?.persistentContainer.viewContext
         format.timeZone = .current
         format.dateFormat = "MMM d, h:mm a"
-
+        
         
         refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         goalTableView.addSubview(refreshControl)
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
         
         
     }
@@ -47,7 +50,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         goalTableView.reloadData()
         print("HI")
         print(segValue.selectedSegmentIndex)
-
+        
     }
     
     @objc func refresh(_ sender: Any) {
@@ -65,9 +68,6 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let segTitle = segValue.titleForSegment(at: segValue.selectedSegmentIndex)!
         
-        if currentDuration?.goals?.count == 0 {
-            return 0
-        }
         
         if segValue.selectedSegmentIndex == 0 {
             fetchDurationName(segTitle)
@@ -82,10 +82,10 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             fetchDurationName(segTitle)
             return currentDuration?.goals?.count ?? 1
         } else {
-            return 1
+            return 0
         }
         
-
+        
         
         
         
@@ -98,62 +98,40 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
         tableView.rowHeight = tableView.frame.size.height / 6
         
-        removeGoal()
-//        if goalArray[indexPath.row].endDate > Date() {
-//            print("YES")
-//        } else {
-//            print("NO")
-//        }
-        
-        
-//
-      
-        
-        if (currentDuration?.goals?.array.first) != nil {
+//        removeGoal()
+
+        if (currentDuration?.goals?.array.count) != 0 {
             let goalAtIP = (currentDuration?.goals?[indexPath.row] as! Goal)
-            
             cell.firstCpLabel.isHidden = false
             cell.secondCpLabel.isHidden = false
             cell.endedLabel.isHidden = false
-            
             cell.nameLabel.text = goalAtIP.name as String?
             cell.startedLabel.text = "Started: " + format.string(from: goalAtIP.startDate!)
             cell.endedLabel.text = calculateTimeRemaining(deadline: goalAtIP.endDate!)
             cell.firstCpLabel.text = goalAtIP.cpOne
             cell.secondCpLabel.text = goalAtIP.cpTwo
-            
-            return cell
-        } else {
-            
-                      cell.nameLabel.text = "No Current Goals"
-                      cell.startedLabel.text = "Start One Now!"
-                      cell.firstCpLabel.isHidden = true
-                      cell.secondCpLabel.isHidden = true
-                      cell.endedLabel.isHidden = true
-                      return cell
-                  
-        }
 
-       
+            
+//        } else {
+            
+//            cell.nameLabel.text = "No Current Goals"
+//            cell.startedLabel.text = "Start One Now!"
+//            cell.firstCpLabel.isHidden = true
+//            cell.secondCpLabel.isHidden = true
+//            cell.endedLabel.isHidden = true
+//            return cell
+//
+        }
         
-//        if segValue.selectedSegmentIndex == 1 && dailyArray.count > 0{
-//            cell.nameLabel.text = dailyArray[indexPath.row].name
-//        } else if segValue.selectedSegmentIndex == 2 && weeklyArray.count > 0 {
-//            cell.nameLabel.text = weeklyArray[indexPath.row].name
-//        } else if segValue.selectedSegmentIndex == 3 && monthlyArray.count > 0 {
-//            cell.nameLabel.text = monthlyArray[indexPath.row].name
-//        } else if segValue.selectedSegmentIndex == 4 && annualArray.count > 0 {
-//            cell.nameLabel.text = annualArray[indexPath.row].name
-//        }
-        
-        
+  
+        return cell
     }
     
     
     
-     // Override to support conditional editing of the table view.
-     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
+    // Override to support conditional editing of the table view.
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
         
         
         let goal = currentDuration?.goals?[indexPath.row] as! Goal
@@ -168,43 +146,42 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
                 return false
             }
         }
-
-    return true
-     }
-     
+        
+        return true
+    }
     
     
-     // Override to support editing the table view.
-     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    
+    // Override to support editing the table view.
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         
         
         guard let currentDuration = currentDuration else { return }
         let goalToRemove: NSManagedObject = currentDuration.goals?[indexPath.row] as! NSManagedObject
-
+        
         
         if editingStyle == .delete {
-            print(indexPath.row)
-            print(currentDuration.goals?.index(of: goalToRemove))
             
             
             
-            if indexPath.row == currentDuration.goals?.index(of: goalToRemove) {
+            
+            
             managedContext.delete(goalToRemove)
             do {
-            try managedContext.save()
+                try managedContext.save()
             } catch let error as NSError {
                 print("Error deleting row: \(error), \(error.userInfo)")
             }
-                tableView.deleteRows(at: [indexPath], with: .fade)
-
-        }
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            
         }
         
-       
-     }
-     
-     
+        
+        
+    }
+    
+    
     
     /*
      // Override to support rearranging the table view.
@@ -238,7 +215,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         if segue.identifier == "DetailSegue" {
             let vc = segue.destination as! DetailTableViewController
             vc.passedGoalName = selectedGoal?.name
-//            vc.passedGoalPoints = selectedGoal?.points as? Int32
+            //            vc.passedGoalPoints = selectedGoal?.points as? Int32
             vc.passedDuration = selectedGoal?.duration
             vc.passedGoal = selectedGoal
             
@@ -246,9 +223,9 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     @IBAction func saveButtonPressed(_ segue: UIStoryboardSegue) {
-//        guard let addGoalVC = segue.source as? AddGoalTableViewController else { return }
+        //        guard let addGoalVC = segue.source as? AddGoalTableViewController else { return }
         
-            goalTableView.reloadData()
+        goalTableView.reloadData()
         
         
         
@@ -279,7 +256,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
- func fetchAll(){
+    func fetchAll(){
         let fetchRequest = NSFetchRequest<Duration>(entityName: "Goal")
         
         do {
@@ -302,21 +279,20 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             let results = try managedContext.fetch(goalFetch)
             if results.count > 0 {
                 currentDuration = results.first
-                removeGoal()
-                
-                
             } else {
                 currentDuration = Duration(context: managedContext)
                 currentDuration?.name = duration
-                removeGoal()
+                
                 do {
-                try managedContext.save()
-            }
+                    try managedContext.save()
+                }
             }
             
         } catch let error as NSError {
             print("Fetch error: \(error) description: \(error.userInfo)")
         }
+        title = "Your " + (currentDuration?.name)! + " Goals"
+        
     }
     
     func removeGoal() {
@@ -331,15 +307,15 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             managedContext.delete(exp)
             
         }
-
+        
         do {
-             try managedContext.save()
-
+            try managedContext.save()
+            
         } catch let error as NSError {
             print("Error deleting: \(error), \(error.userInfo)")
         }
         
-       
+        
         
     }
     
