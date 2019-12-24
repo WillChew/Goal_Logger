@@ -38,8 +38,6 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         goalTableView.addSubview(refreshControl)
-        
-        
         goalTableView.rowHeight = goalTableView.frame.size.height / 6
         
         

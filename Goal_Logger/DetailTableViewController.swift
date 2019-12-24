@@ -20,8 +20,10 @@ class DetailTableViewController: UITableViewController {
     @IBOutlet weak var firstCPSwitch: UISwitch!
     @IBOutlet weak var secondCPSwitch: UISwitch!
     
-    @IBOutlet weak var firstCPLabel: UILabel!
-    @IBOutlet weak var secondCPLabel: UILabel!
+    @IBOutlet weak var firstCPTextField: UITextField!
+    @IBOutlet weak var secondCPTextField: UITextField!
+    @IBOutlet weak var goalNameTextField: UITextField!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,15 +35,24 @@ class DetailTableViewController: UITableViewController {
         format.dateFormat = "yyyy-MM-dd HH:mm"
         
         
+        
         if passedGoal.isCpOneComplete == true {
             firstCPSwitch.isOn = true
         }
         if passedGoal.isCpTwoComplete == true {
             secondCPSwitch.isOn = true
         }
+        //        firstCPTextField.delegate = self
+        //        secondCPTextField.delegate = self
+        firstCPTextField.text = passedGoal.cpOne
+        firstCPTextField.isEnabled = false
+        secondCPTextField.text = passedGoal.cpTwo
+        secondCPTextField.isEnabled = false
+        goalNameTextField.text = passedGoal.name
+        goalNameTextField.isEnabled = false
         
-        firstCPLabel.text = passedGoal.cpOne
-        secondCPLabel.text = passedGoal.cpTwo
+        
+        
         
     }
     
@@ -49,7 +60,7 @@ class DetailTableViewController: UITableViewController {
         let fetchRequest: NSFetchRequest<Goal> = Goal.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "%K == %@", "uuid", passedGoal.uuid! as CVarArg)
         
-        let newDate = Date().addingTimeInterval(1.0)
+        //        let newDate = Date().addingTimeInterval(1.0)
         do {
             let goal = try managedContext.fetch(fetchRequest)
             if goal.isEmpty == false {
@@ -58,7 +69,7 @@ class DetailTableViewController: UITableViewController {
                 } else if checkpoint == "isCpTwoComplete" {
                     goal.first?.setValue(secondCPSwitch.isOn, forKey: checkpoint)
                 }
-                goal.first?.setValue(newDate, forKey: "endDate")
+                //                goal.first?.setValue(newDate, forKey: "endDate")
                 try! managedContext.save()
             }
         } catch let error as NSError {
@@ -67,6 +78,25 @@ class DetailTableViewController: UITableViewController {
         
     }
     
+    func changeCP() {
+        let fetchRequest: NSFetchRequest<Goal> = Goal.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "%K == %@", "uuid", passedGoal.uuid! as CVarArg)
+        do {
+            let goal = try managedContext.fetch(fetchRequest)
+            if goal.isEmpty == false {
+                
+                goal.first?.setValue(firstCPTextField.text, forKey: "cpOne")
+                goal.first?.setValue(secondCPTextField.text, forKey: "cpTwo")
+                goal.first?.setValue(goalNameTextField.text, forKey: "name")
+                
+                
+                try! managedContext.save()
+            }
+        } catch let error as NSError {
+            print("Error updating \(error), \(error.userInfo)")
+        }
+        
+    }
     
     
     // MARK: - Table view data source
@@ -74,6 +104,11 @@ class DetailTableViewController: UITableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 3
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let nameArray = ["Test", "Test2", passedGoal.name]
+        return nameArray[section]
     }
     
     //    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -149,5 +184,32 @@ class DetailTableViewController: UITableViewController {
     }
     @IBAction func secondCPChanged(_ sender: UISwitch) {
         updatingIsCPComplete(for: "isCpTwoComplete")
+    }
+    @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
+        
+        if sender.title == "Edit" {
+            sender.title = "Save"
+            firstCPTextField.isEnabled = true
+            secondCPTextField.isEnabled = true
+            goalNameTextField.isEnabled = true
+            
+        } else {
+            sender.title = "Edit"
+            firstCPTextField.isEnabled = false
+            secondCPTextField.isEnabled = false
+            goalNameTextField.isEnabled = false
+            changeCP()
+        }
+    }
+}
+
+extension DetailTableViewController: UITextFieldDelegate {
+    
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.delegate = self
+        textField.resignFirstResponder()
+        print("HI 2")
+        return true
     }
 }
