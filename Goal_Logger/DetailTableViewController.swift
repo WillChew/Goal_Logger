@@ -18,14 +18,16 @@ class DetailTableViewController: UITableViewController {
     var passedGoal: Goal!
     var managedContext: NSManagedObjectContext!
     
-
-    @IBOutlet weak var firstCPSwitch: UISwitch!
     
+    @IBOutlet weak var firstCPSwitch: UISwitch!
     @IBOutlet weak var secondCPSwitch: UISwitch!
+    
+    @IBOutlet weak var firstCPLabel: UILabel!
+    @IBOutlet weak var secondCPLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         managedContext = appDelegate?.persistentContainer.viewContext
         let format = DateFormatter()
@@ -36,14 +38,13 @@ class DetailTableViewController: UITableViewController {
         if passedGoal.isCpOneComplete == true {
             firstCPSwitch.isOn = true
         }
-    if passedGoal.isCpTwoComplete == true {
-        secondCPSwitch.isOn = true
-    }
-
+        if passedGoal.isCpTwoComplete == true {
+            secondCPSwitch.isOn = true
+        }
         
+        firstCPLabel.text = passedGoal.cpOne
+        secondCPLabel.text = passedGoal.cpTwo
         
-        tableView.tableFooterView?.backgroundColor = .clear
-
     }
     
     func updatingIsCPComplete(for checkpoint: String) {
@@ -55,7 +56,7 @@ class DetailTableViewController: UITableViewController {
             let goal = try managedContext.fetch(fetchRequest)
             if goal.isEmpty == false {
                 if checkpoint == "isCpOneComplete" {
-        goal.first?.setValue(firstCPSwitch.isOn, forKey: checkpoint)
+                    goal.first?.setValue(firstCPSwitch.isOn, forKey: checkpoint)
                 } else if checkpoint == "isCpTwoComplete" {
                     goal.first?.setValue(secondCPSwitch.isOn, forKey: checkpoint)
                 }
@@ -76,19 +77,14 @@ class DetailTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of sections
         return 3
     }
-
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        // #warning Incomplete implementation, return the number of rows
-//        return
-//    }
-//
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        let nameArray = [passedGoal?.cpOne, passedGoal?.cpTwo, passedGoalName]
-        
-        return nameArray[section]
-    }
+    //    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    //        // #warning Incomplete implementation, return the number of rows
+    //        return
+    //    }
+    //
+    
+    
     /*
      override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
      let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
@@ -100,9 +96,9 @@ class DetailTableViewController: UITableViewController {
      */
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-          tableView.deselectRow(at: indexPath, animated: true)
-      }
-      
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     /*
      // Override to support conditional editing of the table view.
      override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -150,7 +146,7 @@ class DetailTableViewController: UITableViewController {
     
     @IBAction func firstCPChanged(_ sender: UISwitch) {
         
-       
+        
         updatingIsCPComplete(for: "isCpOneComplete")
     }
     @IBAction func secondCPChanged(_ sender: UISwitch) {

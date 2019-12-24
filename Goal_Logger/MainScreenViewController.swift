@@ -13,10 +13,13 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var currentDuration: Duration?
     var selectedGoal: Goal?
-    let format = DateFormatter()
+    lazy var dateFormatter : DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = .current
+        dateFormatter.dateFormat = "MMM d, h:mm a"
+        return dateFormatter
+    }()
     var refreshControl: UIRefreshControl!
-    
-    //    lazy var coreDataStack = CoreDataStack(modelName: "GoalLogger")
     var managedContext: NSManagedObjectContext!
     
     
@@ -28,28 +31,23 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         managedContext = appDelegate?.persistentContainer.viewContext
-        format.timeZone = .current
-        format.dateFormat = "MMM d, h:mm a"
-        
-        
+
         refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         goalTableView.addSubview(refreshControl)
         
-        navigationController?.navigationBar.prefersLargeTitles = true
         
+        goalTableView.rowHeight = goalTableView.frame.size.height / 6
         
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
+        navigationController?.navigationBar.prefersLargeTitles = true
         fetchDurationName("Daily")
         goalTableView.reloadData()
-        print("HI")
-        print(segValue.selectedSegmentIndex)
         
     }
     
@@ -84,21 +82,14 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         } else {
             return 0
         }
-        
-        
-        
-        
-        
-        
     }
+    
+    
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GoalCell", for: indexPath) as! GoalCell
-        
-        tableView.rowHeight = tableView.frame.size.height / 6
-        
-//        removeGoal()
+
 
         if (currentDuration?.goals?.array.count) != 0 {
             let goalAtIP = (currentDuration?.goals?[indexPath.row] as! Goal)
@@ -106,21 +97,11 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.secondCpLabel.isHidden = false
             cell.endedLabel.isHidden = false
             cell.nameLabel.text = goalAtIP.name as String?
-            cell.startedLabel.text = "Started: " + format.string(from: goalAtIP.startDate!)
+            cell.startedLabel.text = "Started: " + dateFormatter.string(from: goalAtIP.startDate!)
             cell.endedLabel.text = calculateTimeRemaining(deadline: goalAtIP.endDate!)
             cell.firstCpLabel.text = goalAtIP.cpOne
             cell.secondCpLabel.text = goalAtIP.cpTwo
 
-            
-//        } else {
-            
-//            cell.nameLabel.text = "No Current Goals"
-//            cell.startedLabel.text = "Start One Now!"
-//            cell.firstCpLabel.isHidden = true
-//            cell.secondCpLabel.isHidden = true
-//            cell.endedLabel.isHidden = true
-//            return cell
-//
         }
         
   
@@ -163,10 +144,6 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
         if editingStyle == .delete {
             
-            
-            
-            
-            
             managedContext.delete(goalToRemove)
             do {
                 try managedContext.save()
@@ -204,6 +181,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         goalTableView.deselectRow(at: indexPath, animated: true)
         
         if (currentDuration?.goals?.array.first) != nil {
+            navigationController?.navigationBar.prefersLargeTitles.toggle()
             selectedGoal = currentDuration?.goals?[indexPath.row] as? Goal
             performSegue(withIdentifier: "DetailSegue", sender: nil)
         }
