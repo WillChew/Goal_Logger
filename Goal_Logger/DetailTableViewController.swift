@@ -15,11 +15,16 @@ class DetailTableViewController: UITableViewController {
     let cpOneCriteria = "isCpOneComplete"
     let cpTwoCriteria = "isCpTwoComplete"
     var passedGoal: Goal!
+    
     var managedContext: NSManagedObjectContext!
     
     @IBOutlet weak var firstCPTextField: UITextField!
     @IBOutlet weak var secondCPTextField: UITextField!
     @IBOutlet weak var goalNameTextField: UITextField!
+    
+    @IBOutlet weak var completeButton: UIButton!
+    
+    
     lazy var dateFormatter : DateFormatter = {
         
         let format = DateFormatter()
@@ -36,7 +41,7 @@ class DetailTableViewController: UITableViewController {
         managedContext = appDelegate?.persistentContainer.viewContext
         
         
-        
+        completeButton.setTitle("Complete \(passedGoal.name!)!", for: .normal)
         
         
         //        firstCPTextField.delegate = self
@@ -47,6 +52,9 @@ class DetailTableViewController: UITableViewController {
         secondCPTextField.isEnabled = false
         goalNameTextField.text = passedGoal.name
         goalNameTextField.isEnabled = false
+        goalNameTextField.isHidden = true
+        
+        
         
     }
     
@@ -99,26 +107,26 @@ class DetailTableViewController: UITableViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 4
+        return 5
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let nameArray = ["Test", "Test2", passedGoal.name, "Test"]
-        return nameArray[section]
-    }
-    
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerText = UILabel()
-        headerText.textAlignment = .right
-        headerText.textColor = .lightGray
-        switch section {
-        case 0:
-            headerText.text = "Completed?"
-        default:
-            break
-        }
-        return headerText
-    }
+//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        let nameArray = ["Test", "Test2", passedGoal.name, "Test"]
+//        return nameArray[section]
+//    }
+//    
+//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let headerText = UILabel()
+//        headerText.textAlignment = .right
+//        headerText.textColor = .lightGray
+//        switch section {
+//        case 0:
+//            headerText.text = "Completed?"
+//        default:
+//            break
+//        }
+//        return headerText
+//    }
     
     //    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     //        // #warning Incomplete implementation, return the number of rows
@@ -145,13 +153,15 @@ class DetailTableViewController: UITableViewController {
                 } else {
                     cell.accessoryType = .checkmark
                 }
+            case "NameCell":
+                cell.selectionStyle = .none
             default:
                 break
             }
         }
     }
     
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
@@ -238,6 +248,7 @@ class DetailTableViewController: UITableViewController {
             firstCPTextField.isEnabled = true
             secondCPTextField.isEnabled = true
             goalNameTextField.isEnabled = true
+            goalNameTextField.isHidden = false
             tableView.allowsSelection = false
         } else {
             sender.title = "Edit"
@@ -245,7 +256,9 @@ class DetailTableViewController: UITableViewController {
             secondCPTextField.isEnabled = false
             goalNameTextField.isEnabled = false
             tableView.allowsSelection = true
+            goalNameTextField.isHidden = true
             changeCP()
+            completeButton.setTitle("Complete \(passedGoal.name!)!", for: .normal)
         }
     }
 }
