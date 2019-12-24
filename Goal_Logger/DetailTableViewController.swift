@@ -12,9 +12,7 @@ import CoreData
 
 class DetailTableViewController: UITableViewController {
     
-    var passedGoalName: String?
-    var passedGoalPoints: Int?
-    var passedDuration: String?
+    
     var passedGoal: Goal!
     var managedContext: NSManagedObjectContext!
     

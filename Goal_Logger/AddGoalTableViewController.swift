@@ -14,8 +14,6 @@ class AddGoalTableViewController: UITableViewController {
     
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     var managedContext: NSManagedObjectContext!
-    
-    
     var currentDuration: Duration?
     
     

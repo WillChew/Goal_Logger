@@ -13,6 +13,8 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var currentDuration: Duration?
     var selectedGoal: Goal?
+    var goals: [NSManagedObject] = []
+    
     lazy var dateFormatter : DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.timeZone = .current
@@ -31,7 +33,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         managedContext = appDelegate?.persistentContainer.viewContext
-
+        
         refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
@@ -46,14 +48,20 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         navigationController?.navigationBar.prefersLargeTitles = true
-        fetchDurationName("Daily")
+        
+        
+        if currentDuration != nil {
+            fetchDurationName((currentDuration?.name!)!)
+        } else {
+            segValue.selectedSegmentIndex = 0
+        }
         goalTableView.reloadData()
         
     }
     
     @objc func refresh(_ sender: Any) {
         
-        removeGoal()
+        removeExpiredGoals()
         goalTableView.reloadData()
         refreshControl.endRefreshing()
     }
@@ -67,10 +75,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         let segTitle = segValue.titleForSegment(at: segValue.selectedSegmentIndex)!
         
         
-        if segValue.selectedSegmentIndex == 0 {
-            fetchDurationName(segTitle)
-            return currentDuration?.goals?.count ?? 1
-        } else if segValue.selectedSegmentIndex == 1 {
+        if segValue.selectedSegmentIndex == 1 {
             fetchDurationName(segTitle)
             return currentDuration?.goals?.count ?? 1
         } else if segValue.selectedSegmentIndex == 2 {
@@ -79,6 +84,12 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         } else if segValue.selectedSegmentIndex == 3 {
             fetchDurationName(segTitle)
             return currentDuration?.goals?.count ?? 1
+        } else if segValue.selectedSegmentIndex == 4 {
+            fetchDurationName(segTitle)
+            return currentDuration?.goals?.count ?? 1
+        } else if segValue.selectedSegmentIndex == 0 {
+            fetchAll()
+            return goals.count
         } else {
             return 0
         }
@@ -89,9 +100,17 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GoalCell", for: indexPath) as! GoalCell
-
-
-        if (currentDuration?.goals?.array.count) != 0 {
+        
+        if segValue.selectedSegmentIndex == 0 {
+                 let goalAtIP = goals[indexPath.row] as! Goal
+                 cell.nameLabel.text = goalAtIP.name as String?
+                 cell.startedLabel.text = "Started: " + dateFormatter.string(from: goalAtIP.startDate!)
+                 cell.endedLabel.text = calculateTimeRemaining(deadline: goalAtIP.endDate!)
+                 cell.firstCpLabel.text = goalAtIP.cpOne
+                 cell.secondCpLabel.text = goalAtIP.cpTwo
+             }
+        
+        if (currentDuration?.goals?.array.count) != 0 && segValue.selectedSegmentIndex != 0 {
             let goalAtIP = (currentDuration?.goals?[indexPath.row] as! Goal)
             cell.firstCpLabel.isHidden = false
             cell.secondCpLabel.isHidden = false
@@ -101,10 +120,11 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.endedLabel.text = calculateTimeRemaining(deadline: goalAtIP.endDate!)
             cell.firstCpLabel.text = goalAtIP.cpOne
             cell.secondCpLabel.text = goalAtIP.cpTwo
-
+            
         }
         
-  
+     
+        
         return cell
     }
     
@@ -114,21 +134,23 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         
-        
-        let goal = currentDuration?.goals?[indexPath.row] as! Goal
-        
-        if goal.endDate! < Date() {
-            return false
-        }
-        
-        for g in currentDuration!.goals! {
-            let g2 = g as! Goal
-            if g2.endDate! < Date() {
+        if segValue.selectedSegmentIndex != 0 {
+            guard let goal = currentDuration?.goals?[indexPath.row] as? Goal else { return false }
+            if goal.endDate! < Date() {
                 return false
             }
+            
+            for g in currentDuration!.goals! {
+                let g2 = g as! Goal
+                if g2.endDate! < Date() {
+                    return false
+                }
+            }
+             return true
+        } else {
+            return false
         }
-        
-        return true
+       
     }
     
     
@@ -181,10 +203,16 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         goalTableView.deselectRow(at: indexPath, animated: true)
         
         if (currentDuration?.goals?.array.first) != nil {
-            navigationController?.navigationBar.prefersLargeTitles.toggle()
+            
             selectedGoal = currentDuration?.goals?[indexPath.row] as? Goal
-            performSegue(withIdentifier: "DetailSegue", sender: nil)
+            
+        } else if !goals.isEmpty {
+            selectedGoal = goals[indexPath.row] as? Goal
+            
         }
+        navigationController?.navigationBar.prefersLargeTitles.toggle()
+        performSegue(withIdentifier: "DetailSegue", sender: nil)
+        
     }
     
     
@@ -192,9 +220,9 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "DetailSegue" {
             let vc = segue.destination as! DetailTableViewController
-            vc.passedGoalName = selectedGoal?.name
+            
             //            vc.passedGoalPoints = selectedGoal?.points as? Int32
-            vc.passedDuration = selectedGoal?.duration
+            
             vc.passedGoal = selectedGoal
             
         }
@@ -235,20 +263,24 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func fetchAll(){
-        let fetchRequest = NSFetchRequest<Duration>(entityName: "Goal")
+        removeExpiredGoals()
+        let fetchRequest = NSFetchRequest<Goal>(entityName: "Goal")
+        let sort = NSSortDescriptor(key: #keyPath(Goal.endDate), ascending: true)
+        fetchRequest.sortDescriptors = [sort]
+        
         
         do {
-            let results = try managedContext.fetch(fetchRequest)
-            if results.count > 0 {
-                
-            }
+            goals = try managedContext.fetch(fetchRequest)
+            
+            
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
+        title = "All Goals"
     }
     
     func fetchDurationName(_ duration: String) {
-        removeGoal()
+        removeExpiredGoals()
         
         let goalFetch: NSFetchRequest<Duration> = Duration.fetchRequest()
         goalFetch.predicate = NSPredicate(format: "%K == %@", #keyPath(Duration.name), duration)
@@ -269,11 +301,11 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         } catch let error as NSError {
             print("Fetch error: \(error) description: \(error.userInfo)")
         }
-        title = "Your " + (currentDuration?.name)! + " Goals"
         
+        title = "Your " + (currentDuration?.name)! + " Goals"
     }
     
-    func removeGoal() {
+    func removeExpiredGoals() {
         
         let now = Date()
         let request : NSFetchRequest<Goal> = Goal.fetchRequest()
@@ -283,18 +315,13 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
         for exp in expired {
             managedContext.delete(exp)
-            
         }
-        
         do {
             try managedContext.save()
             
         } catch let error as NSError {
             print("Error deleting: \(error), \(error.userInfo)")
         }
-        
-        
-        
     }
     
     
@@ -302,10 +329,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let segTitle = segValue.titleForSegment(at: segValue.selectedSegmentIndex)!
         fetchDurationName(segTitle)
-        
         goalTableView.reloadData()
-        
-    }
 }
 
-
+}

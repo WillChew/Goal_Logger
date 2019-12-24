@@ -132,6 +132,7 @@
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="7F7-WU-bMc">
                                 <rect key="frame" x="0.0" y="88" width="414" height="32"/>
                                 <segments>
+                                    <segment title="All"/>
                                     <segment title="Daily"/>
                                     <segment title="Weekly"/>
                                     <segment title="Monthly"/>
@@ -341,7 +342,7 @@
                                                     <rect key="frame" x="347" y="6" width="49" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <connections>
-                                                        <action selector="secondCPChanged:" destination="187-0M-hhu" eventType="valueChanged" id="q1X-L4-JNQ"/>
+                                                        <action selector="secondCPChanged:" destination="187-0M-hhu" eventType="valueChanged" id="iJ7-jD-but"/>
                                                     </connections>
                                                 </switch>
                                             </subviews>
@@ -381,7 +382,9 @@
                     </navigationItem>
                     <connections>
                         <outlet property="firstCPLabel" destination="ZIQ-Yo-IXR" id="BXn-Cz-GcA"/>
+                        <outlet property="firstCPSwitch" destination="jMU-DB-Y4B" id="heh-gV-bJ5"/>
                         <outlet property="secondCPLabel" destination="4PD-Ru-JN5" id="y6X-Jo-SER"/>
+                        <outlet property="secondCPSwitch" destination="3Wz-BL-Y6v" id="0ud-YT-aZE"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8e1-4l-6lS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
