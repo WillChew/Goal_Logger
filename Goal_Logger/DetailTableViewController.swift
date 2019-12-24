@@ -12,17 +12,21 @@ import CoreData
 
 class DetailTableViewController: UITableViewController {
     
-    
+    let cpOneCriteria = "isCpOneComplete"
+    let cpTwoCriteria = "isCpTwoComplete"
     var passedGoal: Goal!
     var managedContext: NSManagedObjectContext!
     
-    let cpOneCriteria = "isCpOneComplete"
-    let cpTwoCriteria = "isCpTwoComplete"
-    @IBOutlet weak var firstCPSwitch: UISwitch!
-    @IBOutlet weak var secondCPSwitch: UISwitch!
     @IBOutlet weak var firstCPTextField: UITextField!
     @IBOutlet weak var secondCPTextField: UITextField!
     @IBOutlet weak var goalNameTextField: UITextField!
+    lazy var dateFormatter : DateFormatter = {
+        
+        let format = DateFormatter()
+        format.timeZone = .current
+        format.dateFormat = "yyyy-MM-dd HH:mm"
+        return format
+    }()
     
     
     override func viewDidLoad() {
@@ -30,9 +34,7 @@ class DetailTableViewController: UITableViewController {
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         managedContext = appDelegate?.persistentContainer.viewContext
-        let format = DateFormatter()
-        format.timeZone = .current
-        format.dateFormat = "yyyy-MM-dd HH:mm"
+        
         
         
         
@@ -57,10 +59,10 @@ class DetailTableViewController: UITableViewController {
             let goal = try managedContext.fetch(fetchRequest)
             if goal.isEmpty == false {
                 if checkpoint == cpOneCriteria {
-                    print("First")
+                    
                     goal.first?.setValue(complete, forKey: checkpoint)
                 } else if checkpoint == cpTwoCriteria {
-                    print("Second")
+                    
                     goal.first?.setValue(complete, forKey: checkpoint)
                 }
                 //                goal.first?.setValue(newDate, forKey: "endDate")
@@ -95,15 +97,11 @@ class DetailTableViewController: UITableViewController {
     
     // MARK: - Table view data source
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 3
-    }
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let nameArray = ["Test", "Test2", passedGoal.name]
-        return nameArray[section]
-    }
+//    override func numberOfSections(in tableView: UITableView) -> Int {
+//        // #warning Incomplete implementation, return the number of sections
+//        return 3
+//    }
+
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerText = UILabel()
@@ -152,17 +150,17 @@ class DetailTableViewController: UITableViewController {
             }
         }
     }
-        
+    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let section = indexPath.section
         let numberOfRows = tableView.numberOfRows(inSection: section)
-
+        
         for row in 0..<numberOfRows {
             if let cell = tableView.cellForRow(at: IndexPath(row: row, section: section)) {
-
+                
                 if cell.reuseIdentifier == cpOneCriteria {
                     if cell.accessoryType == .none {
                         updatingIsCPComplete(for: cpOneCriteria, complete: true)
@@ -231,8 +229,8 @@ class DetailTableViewController: UITableViewController {
      }
      */
     
- 
-
+    
+    
     @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
         
         if sender.title == "Edit" {
@@ -240,12 +238,13 @@ class DetailTableViewController: UITableViewController {
             firstCPTextField.isEnabled = true
             secondCPTextField.isEnabled = true
             goalNameTextField.isEnabled = true
-            
+            tableView.allowsSelection = false
         } else {
             sender.title = "Edit"
             firstCPTextField.isEnabled = false
             secondCPTextField.isEnabled = false
             goalNameTextField.isEnabled = false
+            tableView.allowsSelection = true
             changeCP()
         }
     }
@@ -257,7 +256,6 @@ extension DetailTableViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.delegate = self
         textField.resignFirstResponder()
-        print("HI 2")
         return true
     }
 }
