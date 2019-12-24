@@ -97,11 +97,15 @@ class DetailTableViewController: UITableViewController {
     
     // MARK: - Table view data source
     
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 3
-//    }
-
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 4
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let nameArray = ["Test", "Test2", passedGoal.name, "Test"]
+        return nameArray[section]
+    }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerText = UILabel()
@@ -110,12 +114,8 @@ class DetailTableViewController: UITableViewController {
         switch section {
         case 0:
             headerText.text = "Completed?"
-        case 1:
-            headerText.text = ""
-        case 2:
-            headerText.text = ""
         default:
-            headerText.text = ""
+            break
         }
         return headerText
     }
