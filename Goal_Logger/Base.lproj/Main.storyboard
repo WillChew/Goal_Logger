@@ -125,7 +125,7 @@
                     <navigationItem key="navigationItem" id="ycM-Gg-FwX">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="bT6-Yk-ag1">
                             <connections>
-                                <segue destination="CDh-HW-5q0" kind="unwind" identifier="SaveGoalSegue" unwindAction="saveButtonPressed:" id="GGX-FZ-wGa"/>
+                                <segue destination="CDh-HW-5q0" kind="unwind" unwindAction="unwindSegue:" id="G71-hj-bDs"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -402,6 +402,7 @@
                                                     <state key="normal" title="Button"/>
                                                     <connections>
                                                         <action selector="completeButtonPressed:" destination="187-0M-hhu" eventType="touchUpInside" id="dfd-jc-z7e"/>
+                                                        <segue destination="lzh-rg-Ag8" kind="unwind" unwindAction="unwindSegue:" id="neW-uS-cb9"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -436,6 +437,7 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8e1-4l-6lS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="lzh-rg-Ag8" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4247.826086956522" y="630.80357142857144"/>
         </scene>

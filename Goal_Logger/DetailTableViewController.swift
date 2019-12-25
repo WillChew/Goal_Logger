@@ -209,6 +209,7 @@ class DetailTableViewController: UITableViewController {
             
             if checkpoint == cpOneCriteria {
                 goal.first?.setValue(complete, forKey: checkpoint)
+               
             } else if checkpoint == cpTwoCriteria {
                 
                 goal.first?.setValue(complete, forKey: checkpoint)
@@ -284,9 +285,20 @@ class DetailTableViewController: UITableViewController {
     
     @IBAction func completeButtonPressed(_ sender: UIButton) {
         let fetchRequest = NSFetchRequest<Goal>(entityName: "Goal")
+        fetchRequest.predicate = NSPredicate(format: "uuid == %@", passedGoal.uuid! as CVarArg)
+        
         
         do {
+            let results = try managedContext.fetch(fetchRequest)
             
+            if results.count > 0 {
+                results.first?.isCompleted = true
+                adjustPoints(Int(results.first!.points / 3))
+                
+            }
+            
+        } catch let error as NSError {
+            print("Error completing task: \(error), \(error.userInfo)")
         }
         
         

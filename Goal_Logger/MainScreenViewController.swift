@@ -249,7 +249,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
-    @IBAction func saveButtonPressed(_ segue: UIStoryboardSegue) {
+    @IBAction func unwindSegue(_ segue: UIStoryboardSegue) {
         //        guard let addGoalVC = segue.source as? AddGoalTableViewController else { return }
         
         goalTableView.reloadData()
@@ -329,15 +329,23 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     func removeExpiredGoals() {
         
         let now = Date()
-        let request : NSFetchRequest<Goal> = Goal.fetchRequest()
-        request.predicate = NSPredicate(format: "%K < %@", #keyPath(Goal.endDate), now as CVarArg)
         
-        let expired = try! managedContext.fetch(request)
+        let expiredPredicate = NSPredicate(format: "%K < %@", #keyPath(Goal.endDate), now as CVarArg)
+        let completePredicate = NSPredicate(format: "isCompleted == %@", NSNumber(value: true))
+        let orPredicate = NSCompoundPredicate(type: .or, subpredicates: [expiredPredicate, completePredicate])
         
-        for exp in expired {
-            managedContext.delete(exp)
-        }
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Goal")
+        fetchRequest.predicate = orPredicate
+        
+        
+        
         do {
+            let results = try managedContext.fetch(fetchRequest)
+            if results.count > 0 {
+        for result in results {
+            managedContext.delete(result as! NSManagedObject)
+        }
+            }
             try managedContext.save()
             
         } catch let error as NSError {
