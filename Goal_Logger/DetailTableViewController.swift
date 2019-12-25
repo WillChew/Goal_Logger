@@ -107,32 +107,32 @@ class DetailTableViewController: UITableViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 5
+        return 4
     }
     
-//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        let nameArray = ["Test", "Test2", passedGoal.name, "Test"]
-//        return nameArray[section]
-//    }
-//    
-//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let headerText = UILabel()
-//        headerText.textAlignment = .right
-//        headerText.textColor = .lightGray
-//        switch section {
-//        case 0:
-//            headerText.text = "Completed?"
-//        default:
-//            break
-//        }
-//        return headerText
-//    }
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let nameArray = ["Test", "Test2", passedGoal.name, "Test"]
+        return nameArray[section]
+    }
     
-    //    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    //        // #warning Incomplete implementation, return the number of rows
-    //        return
-    //    }
-    //
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerText = UILabel()
+        headerText.textAlignment = .right
+        headerText.textColor = .lightGray
+        switch section {
+        case 0:
+            headerText.text = "Completed?"
+        default:
+            break
+        }
+        return headerText
+    }
+//    
+//        override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//            
+//            return
+//        }
+    
     
     
     
