@@ -106,6 +106,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.endedLabel.text = calculateTimeRemaining(deadline: goalAtIP.endDate!)
             cell.firstCpLabel.text = goalAtIP.cpOne
             cell.secondCpLabel.text = goalAtIP.cpTwo
+            cell.progressLabel.text = "Progress to \(goalAtIP.points) points"
             
             if (goalAtIP.isCpOneComplete && !goalAtIP.isCpTwoComplete) || (goalAtIP.isCpTwoComplete && !goalAtIP.isCpOneComplete) {
                 cell.progressBar.progress = 0.5
@@ -126,6 +127,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.endedLabel.text = calculateTimeRemaining(deadline: goalAtIP.endDate!)
             cell.firstCpLabel.text = goalAtIP.cpOne
             cell.secondCpLabel.text = goalAtIP.cpTwo
+            cell.progressLabel.text = "Progress to \(goalAtIP.points) points"
             
             
             if (goalAtIP.isCpOneComplete && !goalAtIP.isCpTwoComplete) || (goalAtIP.isCpTwoComplete && !goalAtIP.isCpOneComplete) {

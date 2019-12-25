@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 class AddGoalTableViewController: UITableViewController {
-//    lazy var coreDataStack = CoreDataStack(modelName: "GoalLogger")
+
     
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     var managedContext: NSManagedObjectContext!
@@ -22,7 +22,7 @@ class AddGoalTableViewController: UITableViewController {
     @IBOutlet weak var durationTextField: UITextField!
     @IBOutlet weak var checkpointOneTextField: UITextField!
     @IBOutlet weak var checkpointTwoTextField: UITextField!
-    
+    @IBOutlet weak var pointsTextField: UITextField!
     let durationArray = ["Daily", "Weekly", "Monthly", "Annual"]
     let durationPickerView = UIPickerView()
     
@@ -66,37 +66,29 @@ class AddGoalTableViewController: UITableViewController {
         
         
         var futureDate = Date()
-        var points = 0
+        
         let format = DateFormatter()
         format.timeZone = .current
         format.dateFormat = "yyyy-MM-dd HH:mm"
-        
-        
         let minute: TimeInterval = 60.0
         let hour: TimeInterval = 60.0 * minute
         let day: TimeInterval = 24.0 * hour
         
         
-        
-        
-        
         switch durationTextField.text {
         case "Daily":
             futureDate.addTimeInterval(day)
-            points = 50
         case "Weekly":
             futureDate.addTimeInterval(day * 7.0)
-            points = 250
         case "Monthly":
             futureDate.addTimeInterval(day * 30.0)
-            points = 1000
         case "Annual":
             futureDate.addTimeInterval(day * 365.0)
-            points = 2500
         default:
             print("No date")
         }
         
+       
         
         guard let checkpointOne = checkpointOneTextField.text,
             let checkpointTwo = checkpointTwoTextField.text else { return }
@@ -110,15 +102,34 @@ class AddGoalTableViewController: UITableViewController {
             
             let goal = Goal(context: managedContext)
             goal.name = goalName
-            goal.points = Int32(points)
+            
             goal.duration = goalDuration
-            
-            
             goal.cpOne = checkpointOne
             goal.cpTwo = checkpointTwo
             goal.endDate = futureDate
             goal.startDate = Date()
             goal.uuid = UUID()
+            
+            var points: Int32 = 0
+            if pointsTextField.text!.isEmpty {
+                switch durationTextField.text {
+                case "Daily":
+                    goal.points = 100 as Int32
+                    print(goal.points)
+                case "Weekly":
+                    goal.points = 250 as Int32
+                case "Monthly":
+                    goal.points = 1000 as Int32
+                case "Annual":
+                    goal.points = 2500 as Int32
+                default:
+                    break
+                }
+            } else {
+                points = Int32(pointsTextField.text!)!
+                goal.points = points
+            }
+            
             
             
             
@@ -203,6 +214,13 @@ extension AddGoalTableViewController: UIPickerViewDelegate, UIPickerViewDataSour
     //            textField.endEditing(true)
     //        }
     //    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.delegate = self
+        textField.resignFirstResponder()
+        return true
+        
+    }
     
     
     

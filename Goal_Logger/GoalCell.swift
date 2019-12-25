@@ -16,6 +16,7 @@ class GoalCell: UITableViewCell {
     @IBOutlet weak var firstCpLabel: UILabel!
     @IBOutlet weak var secondCpLabel: UILabel!
     @IBOutlet weak var progressBar: UIProgressView!
+    @IBOutlet weak var progressLabel: UILabel!
     
     
 }
