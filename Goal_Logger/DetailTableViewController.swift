@@ -301,8 +301,15 @@ class DetailTableViewController: UITableViewController {
             print("Error completing task: \(error), \(error.userInfo)")
         }
         
+        let alert = UIAlertController(title: "Task Complete", message: "\(passedGoal.points) points rewarded!", preferredStyle: .alert)
+        self.present(alert, animated: true, completion: nil)
         
-        
+        let timer = DispatchTime.now() + 0.75
+        DispatchQueue.main.asyncAfter(deadline: timer) {
+            alert.dismiss(animated: true, completion: nil)
+            self.performSegue(withIdentifier: "SaveGoalSegue", sender: self)
+        }
+ 
     }
     
     
