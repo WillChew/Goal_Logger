@@ -297,7 +297,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
-        title = "All Goals"
+        title = "Goals"
     }
     
     func fetchDurationName(_ duration: String) {

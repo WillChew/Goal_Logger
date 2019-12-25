@@ -458,11 +458,11 @@
             </objects>
             <point key="canvasLocation" x="4247.826086956522" y="-75"/>
         </scene>
-        <!--Item-->
+        <!--Goals-->
         <scene sceneID="ZEP-oD-NnE">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4KU-Hy-Jy0" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Ha5-sv-FDN"/>
+                    <tabBarItem key="tabBarItem" title="Goals" image="calendar" catalog="system" id="Ha5-sv-FDN"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="WND-nE-0vz">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -477,6 +477,38 @@
             </objects>
             <point key="canvasLocation" x="2566.666666666667" y="336.83035714285711"/>
         </scene>
+        <!--Rewards-->
+        <scene sceneID="d6Y-s6-O33">
+            <objects>
+                <viewController id="Lg0-Nb-BwE" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eqg-ba-pT5">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nxm-EN-Uvd">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <items>
+                                    <navigationItem title="Reward Center" id="cdn-qH-z8F">
+                                        <barButtonItem key="leftBarButtonItem" title="Item" id="o19-RT-pLw"/>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Uiq-ob-LUW"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="nxm-EN-Uvd" firstAttribute="trailing" secondItem="kcu-Bl-Qkb" secondAttribute="trailing" id="GzJ-kD-Kuw"/>
+                            <constraint firstItem="nxm-EN-Uvd" firstAttribute="leading" secondItem="kcu-Bl-Qkb" secondAttribute="leading" id="KgM-ZF-6eB"/>
+                            <constraint firstItem="nxm-EN-Uvd" firstAttribute="top" secondItem="kcu-Bl-Qkb" secondAttribute="top" id="MuD-qq-h2v"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="kcu-Bl-Qkb"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Rewards" image="gift" catalog="system" id="BHv-zq-lAK"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6wW-xo-NE8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1657" y="1134"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="pPx-XR-qaJ">
             <objects>
@@ -489,6 +521,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="4KU-Hy-Jy0" kind="relationship" relationship="viewControllers" id="fJP-nc-0bW"/>
+                        <segue destination="Lg0-Nb-BwE" kind="relationship" relationship="viewControllers" id="0yc-gz-Vkg"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bAQ-Qh-v6e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -496,4 +529,8 @@
             <point key="canvasLocation" x="1656.521739130435" y="336.83035714285711"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="calendar" catalog="system" width="64" height="52"/>
+        <image name="gift" catalog="system" width="64" height="60"/>
+    </resources>
 </document>

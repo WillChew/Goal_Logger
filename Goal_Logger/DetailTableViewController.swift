@@ -268,15 +268,9 @@ class DetailTableViewController: UITableViewController {
         
         let userDefaults = UserDefaults.standard
         var points = userDefaults.integer(forKey: "Points")
-        print(points)
         points += pointsChanged
-        
-        print(points)
         userDefaults.set(points, forKey: "Points")
 
-        
-        
-        
     }
     
     
@@ -289,7 +283,11 @@ class DetailTableViewController: UITableViewController {
     
     
     @IBAction func completeButtonPressed(_ sender: UIButton) {
+        let fetchRequest = NSFetchRequest<Goal>(entityName: "Goal")
         
+        do {
+            
+        }
         
         
         
