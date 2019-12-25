@@ -100,13 +100,21 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         let cell = tableView.dequeueReusableCell(withIdentifier: "GoalCell", for: indexPath) as! GoalCell
         
         if segValue.selectedSegmentIndex == 0 {
-                 let goalAtIP = goals[indexPath.row] as! Goal
-                 cell.nameLabel.text = goalAtIP.name as String?
-                 cell.startedLabel.text = "Started: " + dateFormatter.string(from: goalAtIP.startDate!)
-                 cell.endedLabel.text = calculateTimeRemaining(deadline: goalAtIP.endDate!)
-                 cell.firstCpLabel.text = goalAtIP.cpOne
-                 cell.secondCpLabel.text = goalAtIP.cpTwo
-             }
+            let goalAtIP = goals[indexPath.row] as! Goal
+            cell.nameLabel.text = goalAtIP.name as String?
+            cell.startedLabel.text = "Started: " + dateFormatter.string(from: goalAtIP.startDate!)
+            cell.endedLabel.text = calculateTimeRemaining(deadline: goalAtIP.endDate!)
+            cell.firstCpLabel.text = goalAtIP.cpOne
+            cell.secondCpLabel.text = goalAtIP.cpTwo
+            
+            if (goalAtIP.isCpOneComplete && !goalAtIP.isCpTwoComplete) || (goalAtIP.isCpTwoComplete && !goalAtIP.isCpOneComplete) {
+                cell.progressBar.progress = 0.5
+            } else if goalAtIP.isCpOneComplete && goalAtIP.isCpTwoComplete {
+                cell.progressBar.progress = 1.0
+            } else {
+                cell.progressBar.progress = 0.0
+            }
+        }
         
         if (currentDuration?.goals?.array.count) != 0 && segValue.selectedSegmentIndex != 0 {
             let goalAtIP = (currentDuration?.goals?[indexPath.row] as! Goal)
@@ -119,9 +127,19 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.firstCpLabel.text = goalAtIP.cpOne
             cell.secondCpLabel.text = goalAtIP.cpTwo
             
+            
+            if (goalAtIP.isCpOneComplete && !goalAtIP.isCpTwoComplete) || (goalAtIP.isCpTwoComplete && !goalAtIP.isCpOneComplete) {
+                cell.progressBar.progress = 0.5
+            } else if goalAtIP.isCpOneComplete && goalAtIP.isCpTwoComplete {
+                cell.progressBar.progress = 1.0
+            } else {
+                cell.progressBar.progress = 0.0
+            }
+            
+            
         }
         
-     
+        
         
         return cell
     }
@@ -144,11 +162,11 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
                     return false
                 }
             }
-             return true
+            return true
         } else {
             return false
         }
-       
+        
     }
     
     
@@ -328,6 +346,6 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         let segTitle = segValue.titleForSegment(at: segValue.selectedSegmentIndex)!
         fetchDurationName(segTitle)
         goalTableView.reloadData()
-}
-
+    }
+    
 }

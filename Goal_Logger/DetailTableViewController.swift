@@ -65,9 +65,8 @@ class DetailTableViewController: UITableViewController {
         //        let newDate = Date().addingTimeInterval(1.0)
         do {
             let goal = try managedContext.fetch(fetchRequest)
-            if goal.isEmpty == false {
+            
                 if checkpoint == cpOneCriteria {
-                    
                     goal.first?.setValue(complete, forKey: checkpoint)
                 } else if checkpoint == cpTwoCriteria {
                     
@@ -75,7 +74,7 @@ class DetailTableViewController: UITableViewController {
                 }
                 //                goal.first?.setValue(newDate, forKey: "endDate")
                 try! managedContext.save()
-            }
+            
         } catch let error as NSError {
             print("Error fetching \(error), \(error.userInfo)")
         }
@@ -264,8 +263,6 @@ class DetailTableViewController: UITableViewController {
 }
 
 extension DetailTableViewController: UITextFieldDelegate {
-    
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.delegate = self
         textField.resignFirstResponder()

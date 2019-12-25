@@ -144,7 +144,6 @@
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="128" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gHj-Gw-nbh">
                                 <rect key="frame" x="0.0" y="127" width="414" height="769"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GoalCell" id="wwH-Cv-D4B" customClass="GoalCell" customModule="Goal_Logger" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="128"/>
@@ -183,14 +182,29 @@
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="xx4-rc-crt">
+                                                    <rect key="frame" x="20" y="106" width="374" height="2"/>
+                                                    <color key="progressTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </progressView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Progress" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gpB-ha-6nT">
+                                                    <rect key="frame" x="176.5" y="110" width="61" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="V2d-EU-2Ba" firstAttribute="top" secondItem="UoI-kE-br6" secondAttribute="bottom" constant="-3" id="9N5-pT-moh"/>
+                                                <constraint firstItem="xx4-rc-crt" firstAttribute="leading" secondItem="bEv-2b-dcb" secondAttribute="leadingMargin" id="Ahr-Fu-2b2"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="V2d-EU-2Ba" secondAttribute="trailing" constant="20" symbolic="YES" id="FJb-7q-9RA"/>
                                                 <constraint firstAttribute="trailing" secondItem="UoI-kE-br6" secondAttribute="trailing" id="H3n-tb-y38"/>
                                                 <constraint firstItem="HaW-sC-zBc" firstAttribute="top" secondItem="FIb-R2-0gz" secondAttribute="bottom" constant="4" id="OQs-sd-14q"/>
+                                                <constraint firstItem="gpB-ha-6nT" firstAttribute="centerX" secondItem="bEv-2b-dcb" secondAttribute="centerX" id="QIQ-mO-Cmx"/>
+                                                <constraint firstItem="xx4-rc-crt" firstAttribute="top" secondItem="HaW-sC-zBc" secondAttribute="bottom" constant="8" id="X5m-5j-7D3"/>
+                                                <constraint firstItem="xx4-rc-crt" firstAttribute="trailing" secondItem="bEv-2b-dcb" secondAttribute="trailingMargin" id="XAs-ED-GBg"/>
                                                 <constraint firstAttribute="trailing" secondItem="FIb-R2-0gz" secondAttribute="trailing" id="Xzu-Em-2Dn"/>
                                                 <constraint firstAttribute="bottom" secondItem="bJG-g8-EiC" secondAttribute="bottom" id="aXB-ai-Tqy"/>
+                                                <constraint firstAttribute="bottom" secondItem="gpB-ha-6nT" secondAttribute="bottom" id="bRK-cv-Cfv"/>
                                                 <constraint firstItem="HaW-sC-zBc" firstAttribute="leading" secondItem="bEv-2b-dcb" secondAttribute="leading" id="bm9-21-I2v"/>
                                                 <constraint firstItem="UoI-kE-br6" firstAttribute="top" secondItem="bEv-2b-dcb" secondAttribute="top" id="gwT-ZK-dOb"/>
                                                 <constraint firstItem="FIb-R2-0gz" firstAttribute="leading" secondItem="bEv-2b-dcb" secondAttribute="leading" id="hx4-0m-EUk"/>
@@ -206,6 +220,7 @@
                                             <outlet property="endedLabel" destination="bJG-g8-EiC" id="Jtw-cc-UwT"/>
                                             <outlet property="firstCpLabel" destination="FIb-R2-0gz" id="ve0-D1-yhA"/>
                                             <outlet property="nameLabel" destination="UoI-kE-br6" id="uPe-sv-34F"/>
+                                            <outlet property="progressBar" destination="xx4-rc-crt" id="Wr6-S3-ayp"/>
                                             <outlet property="secondCpLabel" destination="HaW-sC-zBc" id="jC7-aq-ARe"/>
                                             <outlet property="startedLabel" destination="V2d-EU-2Ba" id="6dH-7Y-LHB"/>
                                         </connections>
