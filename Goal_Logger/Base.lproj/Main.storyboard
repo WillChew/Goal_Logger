@@ -400,6 +400,9 @@
                                                     <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal" title="Button"/>
+                                                    <connections>
+                                                        <action selector="completeButtonPressed:" destination="187-0M-hhu" eventType="touchUpInside" id="dfd-jc-z7e"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>

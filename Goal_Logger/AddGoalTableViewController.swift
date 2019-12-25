@@ -114,14 +114,14 @@ class AddGoalTableViewController: UITableViewController {
             if pointsTextField.text!.isEmpty {
                 switch durationTextField.text {
                 case "Daily":
-                    goal.points = 100 as Int32
-                    print(goal.points)
+                    goal.points = 300 as Int32
+                    
                 case "Weekly":
-                    goal.points = 250 as Int32
+                    goal.points = 600 as Int32
                 case "Monthly":
-                    goal.points = 1000 as Int32
+                    goal.points = 1800 as Int32
                 case "Annual":
-                    goal.points = 2500 as Int32
+                    goal.points = 3600 as Int32
                 default:
                     break
                 }

@@ -40,6 +40,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         goalTableView.addSubview(refreshControl)
         goalTableView.rowHeight = goalTableView.frame.size.height / 6
         
+//        UserDefaults.standard.set(0, forKey: "Points")
         
     }
     
@@ -50,10 +51,12 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
         if currentDuration != nil {
             fetchDurationName((currentDuration?.name!)!)
-        } else {
-            segValue.selectedSegmentIndex = 0
         }
+//        } else {
+//            segValue.selectedSegmentIndex = 0
+//        }
         goalTableView.reloadData()
+        
         
     }
     

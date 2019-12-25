@@ -15,16 +15,7 @@ class DetailTableViewController: UITableViewController {
     let cpOneCriteria = "isCpOneComplete"
     let cpTwoCriteria = "isCpTwoComplete"
     var passedGoal: Goal!
-    
     var managedContext: NSManagedObjectContext!
-    
-    @IBOutlet weak var firstCPTextField: UITextField!
-    @IBOutlet weak var secondCPTextField: UITextField!
-    @IBOutlet weak var goalNameTextField: UITextField!
-    
-    @IBOutlet weak var completeButton: UIButton!
-    
-    
     lazy var dateFormatter : DateFormatter = {
         
         let format = DateFormatter()
@@ -34,12 +25,17 @@ class DetailTableViewController: UITableViewController {
     }()
     
     
+    
+    @IBOutlet weak var firstCPTextField: UITextField!
+    @IBOutlet weak var secondCPTextField: UITextField!
+    @IBOutlet weak var goalNameTextField: UITextField!
+    @IBOutlet weak var completeButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         managedContext = appDelegate?.persistentContainer.viewContext
-        
         
         completeButton.setTitle("Complete \(passedGoal.name!)!", for: .normal)
         
@@ -58,48 +54,6 @@ class DetailTableViewController: UITableViewController {
         
     }
     
-    func updatingIsCPComplete(for checkpoint: String, complete: Bool) {
-        let fetchRequest: NSFetchRequest<Goal> = Goal.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "%K == %@", "uuid", passedGoal.uuid! as CVarArg)
-        
-        //        let newDate = Date().addingTimeInterval(1.0)
-        do {
-            let goal = try managedContext.fetch(fetchRequest)
-            
-                if checkpoint == cpOneCriteria {
-                    goal.first?.setValue(complete, forKey: checkpoint)
-                } else if checkpoint == cpTwoCriteria {
-                    
-                    goal.first?.setValue(complete, forKey: checkpoint)
-                }
-                //                goal.first?.setValue(newDate, forKey: "endDate")
-                try! managedContext.save()
-            
-        } catch let error as NSError {
-            print("Error fetching \(error), \(error.userInfo)")
-        }
-        
-    }
-    
-    func changeCP() {
-        let fetchRequest: NSFetchRequest<Goal> = Goal.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "%K == %@", "uuid", passedGoal.uuid! as CVarArg)
-        do {
-            let goal = try managedContext.fetch(fetchRequest)
-            if goal.isEmpty == false {
-                
-                goal.first?.setValue(firstCPTextField.text, forKey: "cpOne")
-                goal.first?.setValue(secondCPTextField.text, forKey: "cpTwo")
-                goal.first?.setValue(goalNameTextField.text, forKey: "name")
-                
-                
-                try! managedContext.save()
-            }
-        } catch let error as NSError {
-            print("Error updating \(error), \(error.userInfo)")
-        }
-        
-    }
     
     
     // MARK: - Table view data source
@@ -126,11 +80,11 @@ class DetailTableViewController: UITableViewController {
         }
         return headerText
     }
-//    
-//        override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//            
-//            return
-//        }
+    //
+    //        override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    //
+    //            return
+    //        }
     
     
     
@@ -160,7 +114,7 @@ class DetailTableViewController: UITableViewController {
         }
     }
     
-
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
@@ -174,9 +128,11 @@ class DetailTableViewController: UITableViewController {
                     if cell.accessoryType == .none {
                         updatingIsCPComplete(for: cpOneCriteria, complete: true)
                         cell.accessoryType = .checkmark
+                        adjustPoints(Int(passedGoal!.points / 3))
                     } else if cell.accessoryType == .checkmark{
                         updatingIsCPComplete(for: cpOneCriteria, complete: false)
                         cell.accessoryType = .none
+                        adjustPoints(Int(-passedGoal.points / 3))
                     }
                 }
                 
@@ -184,9 +140,11 @@ class DetailTableViewController: UITableViewController {
                     if cell.accessoryType == .none {
                         updatingIsCPComplete(for: cpTwoCriteria, complete: true)
                         cell.accessoryType = .checkmark
+                        adjustPoints(Int(passedGoal!.points / 3))
                     } else if cell.accessoryType == .checkmark{
                         updatingIsCPComplete(for: cpTwoCriteria, complete: false)
                         cell.accessoryType = .none
+                        adjustPoints(Int(-passedGoal.points / 3))
                     }
                     
                 }
@@ -239,6 +197,51 @@ class DetailTableViewController: UITableViewController {
      */
     
     
+    //MARK: - Custom Functions
+    
+    func updatingIsCPComplete(for checkpoint: String, complete: Bool) {
+        let fetchRequest: NSFetchRequest<Goal> = Goal.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "%K == %@", "uuid", passedGoal.uuid! as CVarArg)
+        
+        //        let newDate = Date().addingTimeInterval(1.0)
+        do {
+            let goal = try managedContext.fetch(fetchRequest)
+            
+            if checkpoint == cpOneCriteria {
+                goal.first?.setValue(complete, forKey: checkpoint)
+            } else if checkpoint == cpTwoCriteria {
+                
+                goal.first?.setValue(complete, forKey: checkpoint)
+            }
+            //                goal.first?.setValue(newDate, forKey: "endDate")
+            try! managedContext.save()
+            
+        } catch let error as NSError {
+            print("Error fetching \(error), \(error.userInfo)")
+        }
+        
+    }
+    
+    func changeCP() {
+        let fetchRequest: NSFetchRequest<Goal> = Goal.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "%K == %@", "uuid", passedGoal.uuid! as CVarArg)
+        do {
+            let goal = try managedContext.fetch(fetchRequest)
+            if goal.isEmpty == false {
+                
+                goal.first?.setValue(firstCPTextField.text, forKey: "cpOne")
+                goal.first?.setValue(secondCPTextField.text, forKey: "cpTwo")
+                goal.first?.setValue(goalNameTextField.text, forKey: "name")
+                
+                
+                try! managedContext.save()
+            }
+        } catch let error as NSError {
+            print("Error updating \(error), \(error.userInfo)")
+        }
+        
+    }
+    
     
     @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
         
@@ -260,6 +263,43 @@ class DetailTableViewController: UITableViewController {
             completeButton.setTitle("Complete \(passedGoal.name!)!", for: .normal)
         }
     }
+    
+    func adjustPoints(_ pointsChanged: Int) {
+        
+        let userDefaults = UserDefaults.standard
+        var points = userDefaults.integer(forKey: "Points")
+        print(points)
+        points += pointsChanged
+        
+        print(points)
+        userDefaults.set(points, forKey: "Points")
+
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    @IBAction func completeButtonPressed(_ sender: UIButton) {
+        
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
 }
 
 extension DetailTableViewController: UITextFieldDelegate {
