@@ -48,14 +48,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewWillAppear(true)
         navigationController?.navigationBar.prefersLargeTitles = true
         
-        
-        if currentDuration != nil {
-            fetchDurationName((currentDuration?.name!)!)
-        }
-//        } else {
-//            segValue.selectedSegmentIndex = 0
-//        }
-        goalTableView.reloadData()
+
         
         
     }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
     
@@ -18,13 +19,18 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var stockTF: UITextField!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var blurView: UIVisualEffectView!
     
-    
+    var managedContext: NSManagedObjectContext!
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        managedContext = appDelegate?.persistentContainer.viewContext
+        
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissView(_:)))
         view.addGestureRecognizer(tapGesture)
@@ -32,15 +38,25 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
         let points = UserDefaults.standard.integer(forKey: "Points")
         
         pointsLabel.text = "Your Points: \(points)"
-       
-
+        
+        addView.layer.cornerRadius = 8
+        blurView.alpha = 0.8
+        
+        saveButton.layer.cornerRadius = 10
+        saveButton.layer.borderWidth = 2
+        saveButton.layer.borderColor = UIColor.black.cgColor
+        
+        cancelButton.layer.cornerRadius = 10
+        cancelButton.layer.borderWidth = 2
+        cancelButton.layer.borderColor = UIColor.black.cgColor
+        
+        
+        
         // Do any additional setup after loading the view.
     }
     
-   
-    
-    @objc func dismissView(_ sender: UITapGestureRecognizer) {
-
+    @objc func dismissView(_ sender: Any) {
+        
         
         let alert = UIAlertController(title: "Leave without Saving?", message: "", preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "Confirm", style: .default) { _ in
@@ -53,7 +69,7 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
         present(alert, animated: true, completion: nil)
         
     }
-   
+    
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if touch.view == addView {
             return false
@@ -62,9 +78,57 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @IBAction func cancelButtonPressed(_ sender: UIButton) {
-
+        dismissView(self)
+    }
+    @IBAction func saveButtonPressed(_ sender: UIButton) {
+        
+//        dismiss(animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "unwindAfterAddingRewardSegue" {
+            addReward()
+        }
     }
     
     
+}
 
+extension AddRewardViewController {
+    
+    func addReward() {
+        let reward = Reward(context: managedContext)
+        
+        var rewardName = ""
+        
+        if rewardNameTF.text == "" {
+            rewardName = "Unnamed Reward"
+        } else {
+            rewardName = rewardNameTF.text!
+        }
+        reward.name = rewardName
+        
+        if costTF.text == "" {
+            saveButton.isEnabled = false
+        } else {
+        let cost = Int32(costTF.text!)!
+        reward.cost = cost
+            saveButton.isEnabled = true
+        }
+        
+        var stock : Int32 = 0
+        if stockTF.text == "" {
+            stock = 1
+        } else {
+            stock = Int32(stockTF.text!)!
+            
+        }
+        reward.stock = stock
+        
+        do {
+            try managedContext.save()
+        } catch let error as NSError {
+            print("Error Saving: \(error), \(error.userInfo)")
+        }
+    }
 }

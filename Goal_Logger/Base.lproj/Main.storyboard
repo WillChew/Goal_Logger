@@ -589,12 +589,19 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="cancelButtonPressed:" destination="kAn-z1-Mvf" eventType="touchUpInside" id="gAe-N4-Ao5"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OZF-Ds-4nP">
                                                 <rect key="frame" x="76" y="166" width="143" height="37"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="saveButtonPressed:" destination="kAn-z1-Mvf" eventType="touchUpInside" id="qYj-e0-NDy"/>
+                                                    <segue destination="2qq-Sg-68e" kind="unwind" identifier="unwindAfterAddingRewardSegue" unwindAction="unwindAfterAddingReward:" id="etY-bC-hPn"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -634,6 +641,7 @@
                     <navigationItem key="navigationItem" id="KHu-Kn-Sl9"/>
                     <connections>
                         <outlet property="addView" destination="d1B-8y-FnN" id="QeX-9t-iCD"/>
+                        <outlet property="blurView" destination="K9d-ZE-x3I" id="95i-nN-01N"/>
                         <outlet property="cancelButton" destination="xyA-tN-7Id" id="RHg-1N-C3g"/>
                         <outlet property="costTF" destination="haD-Xf-QJE" id="e6y-YK-R3E"/>
                         <outlet property="pointsLabel" destination="Tjy-vl-OVC" id="mXd-O3-692"/>
@@ -643,6 +651,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lFi-zq-sq6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="2qq-Sg-68e" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2488" y="1314"/>
         </scene>

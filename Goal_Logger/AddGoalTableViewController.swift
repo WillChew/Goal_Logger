@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 class AddGoalTableViewController: UITableViewController {
-
+    
     
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     var managedContext: NSManagedObjectContext!
@@ -36,7 +36,7 @@ class AddGoalTableViewController: UITableViewController {
         durationPickerView.delegate = self
         durationPickerView.dataSource = self
         
-   
+        
         
     }
     
@@ -88,7 +88,7 @@ class AddGoalTableViewController: UITableViewController {
             print("No date")
         }
         
-       
+        
         
         guard let checkpointOne = checkpointOneTextField.text,
             let checkpointTwo = checkpointTwoTextField.text else { return }
@@ -98,7 +98,6 @@ class AddGoalTableViewController: UITableViewController {
             let goalDuration = durationTextField.text
             
         {
-            
             
             let goal = Goal(context: managedContext)
             goal.name = goalName
@@ -130,41 +129,14 @@ class AddGoalTableViewController: UITableViewController {
                 goal.points = points
             }
             
+            self.fetchDurationName(goalDuration)
+            self.currentDuration?.addToGoals(goal)
+            try? self.managedContext.save()
             
-            
-            
-            
-                self.fetchDurationName(goalDuration)
-                self.currentDuration?.addToGoals(goal)
-                try! self.managedContext.save()
-                
-            
-            
-            
-            
-            //            goal = Goal(name: goalName, points: points, duration: goalDuration, checkpointOne: checkpointOne, checkpointTwo: checkpointTwo, endDate: futureDate)
         }
         
     }
     
-//    func fetchAll() {
-//       let allGoals = "All"
-//       let goalFetch: NSFetchRequest<Duration> = Duration.fetchRequest()
-//       goalFetch.predicate = NSPredicate(format: "%K == %@", #keyPath(Duration.name), allGoals)
-//
-//       do {
-//           let results = try managedContext.fetch(goalFetch)
-//           if results.count > 0 {
-//               currentDuration = results.first
-//           } else {
-//               currentDuration = Duration(context: managedContext)
-//               currentDuration?.name = allGoals
-//               try! managedContext.save()
-//           }
-//       } catch let error as NSError {
-//           print("Fetch error: \(error) description: \(error.userInfo)")
-//       }
-//       }
     
     
     func fetchDurationName(_ duration: String) {
@@ -207,13 +179,6 @@ extension AddGoalTableViewController: UIPickerViewDelegate, UIPickerViewDataSour
         durationTextField.text = durationArray[row]
     }
     
-    
-    //    func textFieldDidBeginEditing(_ textField: UITextField) {
-    //        if durationTextField.text!.isEmpty {
-    //            durationTextField.text = durationArray[0]
-    //            textField.endEditing(true)
-    //        }
-    //    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.delegate = self
