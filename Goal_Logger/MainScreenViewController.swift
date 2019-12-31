@@ -39,8 +39,8 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         goalTableView.addSubview(refreshControl)
         goalTableView.rowHeight = goalTableView.frame.size.height / 6
-        
-//        UserDefaults.standard.set(0, forKey: "Points")
+        print(UserDefaults.standard.integer(forKey: "Points"))
+        UserDefaults.standard.set(0, forKey: "Points")
         
     }
     
@@ -297,7 +297,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
-        title = "Goals"
+        title = "Your Goals"
     }
     
     func fetchDurationName(_ duration: String) {
