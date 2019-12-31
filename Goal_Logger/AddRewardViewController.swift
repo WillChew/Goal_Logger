@@ -10,6 +10,7 @@ import UIKit
 
 class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
     
+    
     @IBOutlet weak var addView: UIView!
     @IBOutlet weak var pointsLabel: UILabel!
     @IBOutlet weak var rewardNameTF: UITextField!
@@ -18,7 +19,6 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     
-    @IBOutlet weak var blurEffect: UIVisualEffectView!
     
     
     
@@ -32,23 +32,15 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
         let points = UserDefaults.standard.integer(forKey: "Points")
         
         pointsLabel.text = "Your Points: \(points)"
-        
-        blurEffect.alpha = 0.8
-        saveButton.layer.cornerRadius = 8
-        saveButton.layer.borderWidth = 2
-        saveButton.layer.borderColor = UIColor.black.cgColor
-        
-        cancelButton.layer.cornerRadius = 8
-        cancelButton.layer.borderWidth = 2
-        cancelButton.layer.borderColor = UIColor.black.cgColor
-        
+       
+
         // Do any additional setup after loading the view.
     }
     
+   
     
-    
-    @objc func dismissView(_ sender: Any) {
-        
+    @objc func dismissView(_ sender: UITapGestureRecognizer) {
+
         
         let alert = UIAlertController(title: "Leave without Saving?", message: "", preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "Confirm", style: .default) { _ in
@@ -61,7 +53,7 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
         present(alert, animated: true, completion: nil)
         
     }
-    
+   
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if touch.view == addView {
             return false
@@ -70,9 +62,9 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @IBAction func cancelButtonPressed(_ sender: UIButton) {
-        dismissView(self)
+
     }
     
     
-    
+
 }
