@@ -18,6 +18,11 @@ class RewardsViewController: UIViewController {
     
     
     
+
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,6 +37,14 @@ class RewardsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchRewards()
+        tableView.reloadData()
+    }
+    
+
+    
+    @IBAction func unwindAfterAddingReward(_ segue: UIStoryboardSegue) {
+        fetchRewards()
+        print(rewards.count)
         tableView.reloadData()
     }
     
@@ -54,12 +67,6 @@ class RewardsViewController: UIViewController {
         
     }
     
-    @IBAction func unwindAfterAddingReward(_ segue: UIStoryboardSegue) {
-        fetchRewards()
-        print(rewards.count)
-        tableView.reloadData()
-    }
-    
     
 }
 
@@ -70,11 +77,13 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource  {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RewardCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RewardCell", for: indexPath) as! RewardTableViewCell
         
-        cell.textLabel?.text = rewards[indexPath.row].name
+        let reward = rewards[indexPath.row]
         
-        
+        cell.nameLabel.text = reward.name
+        cell.costLabel.text = "\(reward.cost)"
+        cell.stockLevel.text = "\(reward.stock)"
         
         return cell
     }
@@ -82,4 +91,32 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource  {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        let rewardToRemove: NSManagedObject = rewards[indexPath.row] as! NSManagedObject
+    
+        if editingStyle == .delete {
+            
+            managedContext.delete(rewardToRemove)
+            
+            do {
+                try managedContext.save()
+            } catch let error as NSError {
+                print("Error deleting reward: \(error), \(error.userInfo)")
+            }
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            
+            
+            
+        }
+    }
+    
 }
+
+
