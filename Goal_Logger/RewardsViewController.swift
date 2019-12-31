@@ -12,8 +12,7 @@ class RewardsViewController: UIViewController {
     
     
     @IBOutlet weak var tableView: UITableView!
-    var width = CGFloat()
-    var height = CGFloat()
+
     
     
 
@@ -50,9 +49,4 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource  {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-  
-    
-    
-    
 }

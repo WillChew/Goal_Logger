@@ -16,6 +16,7 @@
 		2111FAD423AA0616009D310B /* Duration+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2111FACE23AA0616009D310B /* Duration+CoreDataClass.swift */; };
 		2111FAD523AA0616009D310B /* Duration+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2111FACF23AA0616009D310B /* Duration+CoreDataProperties.swift */; };
 		2123FAC223B5E353005BE8D8 /* RewardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2123FAC123B5E353005BE8D8 /* RewardsViewController.swift */; };
+		2123FAC423BB130D005BE8D8 /* AddRewardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2123FAC323BB130D005BE8D8 /* AddRewardViewController.swift */; };
 		212D480123767436005ABA0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212D480023767436005ABA0A /* AppDelegate.swift */; };
 		212D480323767436005ABA0A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212D480223767436005ABA0A /* SceneDelegate.swift */; };
 		212D480823767436005ABA0A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 212D480623767436005ABA0A /* Main.storyboard */; };
@@ -36,6 +37,7 @@
 		2111FACE23AA0616009D310B /* Duration+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Duration+CoreDataClass.swift"; sourceTree = "<group>"; };
 		2111FACF23AA0616009D310B /* Duration+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Duration+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2123FAC123B5E353005BE8D8 /* RewardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardsViewController.swift; sourceTree = "<group>"; };
+		2123FAC323BB130D005BE8D8 /* AddRewardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRewardViewController.swift; sourceTree = "<group>"; };
 		212D47FD23767436005ABA0A /* Goal_Logger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Goal_Logger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		212D480023767436005ABA0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		212D480223767436005ABA0A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 				212D480023767436005ABA0A /* AppDelegate.swift */,
 				212D480223767436005ABA0A /* SceneDelegate.swift */,
 				212D480623767436005ABA0A /* Main.storyboard */,
+				2123FAC323BB130D005BE8D8 /* AddRewardViewController.swift */,
 				2123FAC123B5E353005BE8D8 /* RewardsViewController.swift */,
 				2111FAB423A8D181009D310B /* DetailTableViewController.swift */,
 				212D48142376746E005ABA0A /* MainScreenViewController.swift */,
@@ -172,6 +175,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2111FAD223AA0616009D310B /* Reward+CoreDataClass.swift in Sources */,
+				2123FAC423BB130D005BE8D8 /* AddRewardViewController.swift in Sources */,
 				2123FAC223B5E353005BE8D8 /* RewardsViewController.swift in Sources */,
 				2111FAD123AA0616009D310B /* Goal+CoreDataProperties.swift in Sources */,
 				2111FAB523A8D181009D310B /* DetailTableViewController.swift in Sources */,
