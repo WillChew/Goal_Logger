@@ -27,7 +27,7 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        costTF.delegate = self
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         managedContext = appDelegate?.persistentContainer.viewContext
         
@@ -45,6 +45,7 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
         saveButton.layer.cornerRadius = 10
         saveButton.layer.borderWidth = 2
         saveButton.layer.borderColor = UIColor.black.cgColor
+        saveButton.isEnabled = false
         
         cancelButton.layer.cornerRadius = 10
         cancelButton.layer.borderWidth = 2
@@ -94,7 +95,7 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
     
 }
 
-extension AddRewardViewController {
+extension AddRewardViewController: UITextFieldDelegate {
     
     func addReward() {
         let reward = Reward(context: managedContext)
@@ -108,13 +109,11 @@ extension AddRewardViewController {
         }
         reward.name = rewardName
         
-        if costTF.text == "" {
-            saveButton.isEnabled = false
-        } else {
+        
         let cost = Int32(costTF.text!)!
         reward.cost = cost
-            saveButton.isEnabled = true
-        }
+            
+        
         
         var stock : Int32 = 0
         if stockTF.text == "" {
@@ -124,11 +123,26 @@ extension AddRewardViewController {
             
         }
         reward.stock = stock
+        reward.uuid = UUID()
         
         do {
             try managedContext.save()
         } catch let error as NSError {
             print("Error Saving: \(error), \(error.userInfo)")
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if costTF.text != "" {
+            saveButton.isEnabled = true
+        } else {
+            saveButton.isEnabled = false
         }
     }
 }

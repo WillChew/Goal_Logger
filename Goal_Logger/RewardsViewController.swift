@@ -15,11 +15,7 @@ class RewardsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var managedContext: NSManagedObjectContext!
     var rewards: [Reward] = []
-    
-    
-    
-
-    
+    var selectedReward: Reward!
     
     
     
@@ -40,7 +36,7 @@ class RewardsViewController: UIViewController {
         tableView.reloadData()
     }
     
-
+    
     
     @IBAction func unwindAfterAddingReward(_ segue: UIStoryboardSegue) {
         fetchRewards()
@@ -51,7 +47,7 @@ class RewardsViewController: UIViewController {
     func fetchRewards() {
         
         let fetchRequest: NSFetchRequest<Reward> = Reward.fetchRequest()
-        
+        fetchRequest.predicate = NSPredicate(format: "stock > 0")
         do {
             let results = try managedContext.fetch(fetchRequest)
             
@@ -63,8 +59,6 @@ class RewardsViewController: UIViewController {
         } catch let error as NSError {
             print("Error fetching rewards: \(error), \(error.userInfo)")
         }
-        
-        
     }
     
     
@@ -85,41 +79,102 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource  {
         cell.costLabel.text = "\(reward.cost)"
         cell.stockLevel.text = "\(reward.stock)"
         
+        if reward.stock == 0 {
+            cell.isUserInteractionEnabled = false
+        } else {
+            cell.isUserInteractionEnabled = true
+        }
+        
         return cell
     }
     
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        selectedReward = rewards[indexPath.row]
+        
+        
+      
+        
+        let alert = UIAlertController(title: "Redeem Reward", message: selectedReward.name, preferredStyle: .alert)
+        
+        let confirmAction = UIAlertAction(title: "Redeem!", style: .default) {  _ in
+            
+            self.updateStockLevels(self.selectedReward)
+            self.tableView.reloadData()
+            
+        }
+        
+        let cancelAction = UIAlertAction(title: "Nevermind", style: .cancel, handler: nil)
+        alert.addAction(confirmAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
     }
     
+    func updateStockLevels(_ reward: Reward) {
+        let fetchRequest: NSFetchRequest<Reward> = Reward.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "%K == %@", "uuid", reward.uuid! as CVarArg)
+        
+        do {
+            let result = try managedContext.fetch(fetchRequest)
+            
+            var newStock = 0
+            
+            if let stockAmt = result.first?.stock {
+                newStock = Int(stockAmt) - 1
+                
+                if newStock > 0 {
+                    result.first?.setValue(newStock, forKey: "stock")
+                }
+                    
+                else if newStock <= 0 {
+                    result.first?.isRedeemed = true
+                    result.first?.setValue(0, forKey: "stock")
+//                    managedContext.delete(reward)
+                }
+                
+                try managedContext.save()
+            }
+        } catch let error as NSError {
+            print("Error redeeming reward: \(error), \(error.userInfo)")
+        }
+        
+        self.tableView.reloadData()
+    }
+    
+    
+    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        
+        let reward = rewards[indexPath.row]
+        
+        if reward.stock == 0 {
+            return false
+        }
+        
+        
+        
         return true
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
-        
-    
         if editingStyle == .delete {
-            
             managedContext.delete(rewards[indexPath.row])
             
             do {
                 try managedContext.save()
-                
-                
             } catch let error as NSError {
                 print("Error deleting reward: \(error), \(error.userInfo)")
             }
             fetchRewards()
             tableView.deleteRows(at: [indexPath], with: .fade)
-            
-            
-            
-            
+        }
+        
+        if editingStyle == .insert {
+            print("HI")
         }
     }
-    
 }
 
 
