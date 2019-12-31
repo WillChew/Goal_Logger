@@ -98,17 +98,20 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource  {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
-        let rewardToRemove: NSManagedObject = rewards[indexPath.row] as! NSManagedObject
+        
     
         if editingStyle == .delete {
             
-            managedContext.delete(rewardToRemove)
+            managedContext.delete(rewards[indexPath.row])
             
             do {
                 try managedContext.save()
+                
+                
             } catch let error as NSError {
                 print("Error deleting reward: \(error), \(error.userInfo)")
             }
+            fetchRewards()
             tableView.deleteRows(at: [indexPath], with: .fade)
             
             
