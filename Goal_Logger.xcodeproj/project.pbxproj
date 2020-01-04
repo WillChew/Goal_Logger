@@ -88,22 +88,46 @@
 		212D47FF23767436005ABA0A /* Goal_Logger */ = {
 			isa = PBXGroup;
 			children = (
+				21304B6623BC6833004E848C /* Model */,
+				21304B6723BC6845004E848C /* View */,
+				21304B6823BC6853004E848C /* View Controller */,
 				212D480023767436005ABA0A /* AppDelegate.swift */,
 				212D480223767436005ABA0A /* SceneDelegate.swift */,
-				212D480623767436005ABA0A /* Main.storyboard */,
-				2123FAC123B5E353005BE8D8 /* RewardsViewController.swift */,
-				2123FACB23BB40C5005BE8D8 /* RewardTableViewCell.swift */,
-				2123FAC323BB130D005BE8D8 /* AddRewardViewController.swift */,
-				2111FAB423A8D181009D310B /* DetailTableViewController.swift */,
-				212D48142376746E005ABA0A /* MainScreenViewController.swift */,
-				212D481A237687D8005ABA0A /* AddGoalTableViewController.swift */,
-				212D48182376787E005ABA0A /* GoalCell.swift */,
 				212D480923767437005ABA0A /* Assets.xcassets */,
 				212D480B23767437005ABA0A /* LaunchScreen.storyboard */,
 				212D480E23767437005ABA0A /* Info.plist */,
-				2111FA8F23A847DE009D310B /* GoalLogger.xcdatamodeld */,
 			);
 			path = Goal_Logger;
+			sourceTree = "<group>";
+		};
+		21304B6623BC6833004E848C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2111FA8F23A847DE009D310B /* GoalLogger.xcdatamodeld */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		21304B6723BC6845004E848C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				212D480623767436005ABA0A /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		21304B6823BC6853004E848C /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				212D48142376746E005ABA0A /* MainScreenViewController.swift */,
+				212D481A237687D8005ABA0A /* AddGoalTableViewController.swift */,
+				2111FAB423A8D181009D310B /* DetailTableViewController.swift */,
+				2123FAC123B5E353005BE8D8 /* RewardsViewController.swift */,
+				2123FAC323BB130D005BE8D8 /* AddRewardViewController.swift */,
+				2123FACB23BB40C5005BE8D8 /* RewardTableViewCell.swift */,
+				212D48182376787E005ABA0A /* GoalCell.swift */,
+			);
+			path = "View Controller";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

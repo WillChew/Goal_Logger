@@ -66,9 +66,13 @@ class RewardsViewController: UIViewController {
 
 
 extension RewardsViewController: UITableViewDelegate, UITableViewDataSource  {
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return rewards.count
     }
+    
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RewardCell", for: indexPath) as! RewardTableViewCell
@@ -96,7 +100,7 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource  {
         
       
         
-        let alert = UIAlertController(title: "Redeem Reward", message: selectedReward.name, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Redeem \(selectedReward.name ?? "Reward")", message: "", preferredStyle: .alert)
         
         let confirmAction = UIAlertAction(title: "Redeem!", style: .default) {  _ in
             
