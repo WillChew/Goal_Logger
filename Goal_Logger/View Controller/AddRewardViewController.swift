@@ -20,8 +20,13 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var blurView: UIVisualEffectView!
+    @IBOutlet weak var addImageView: UIImageView!
+    
+    
     
     var managedContext: NSManagedObjectContext!
+    
+    
     
     
     
@@ -30,7 +35,7 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
         costTF.delegate = self
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         managedContext = appDelegate?.persistentContainer.viewContext
-        
+        setupView()
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissView(_:)))
         view.addGestureRecognizer(tapGesture)
@@ -39,21 +44,32 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
         
         pointsLabel.text = "Your Points: \(points)"
         
-        addView.layer.cornerRadius = 8
-        blurView.alpha = 0.8
-        
-        saveButton.layer.cornerRadius = 10
-        saveButton.layer.borderWidth = 2
-        saveButton.layer.borderColor = UIColor.black.cgColor
-        saveButton.isEnabled = false
-        
-        cancelButton.layer.cornerRadius = 10
-        cancelButton.layer.borderWidth = 2
-        cancelButton.layer.borderColor = UIColor.black.cgColor
-        
+        let imageViewGesture = UITapGestureRecognizer(target: self, action: #selector(imagePressed(_:)))
+        addImageView.addGestureRecognizer(imageViewGesture)
         
         
         // Do any additional setup after loading the view.
+    }
+    
+    @objc func imagePressed(_ sender: UITapGestureRecognizer) {
+        let alert = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action) in
+            self.getImage(fromSourceType: .camera)
+        }))
+        alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { (action) in
+            self.getImage(fromSourceType: .photoLibrary)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func getImage(fromSourceType sourceType: UIImagePickerController.SourceType) {
+        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
+            let myPickerController = UIImagePickerController()
+            myPickerController.delegate = self
+            myPickerController.sourceType = sourceType
+            self.present(myPickerController, animated: true, completion: nil)
+        }
     }
     
     @objc func dismissView(_ sender: Any) {
@@ -78,12 +94,32 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
         return true
     }
     
+    func setupView() {
+        addView.layer.cornerRadius = 8
+        blurView.alpha = 0.8
+        
+        saveButton.layer.cornerRadius = 10
+        saveButton.layer.borderWidth = 2
+        saveButton.layer.borderColor = UIColor.black.cgColor
+        saveButton.isEnabled = false
+        
+        cancelButton.layer.cornerRadius = 10
+        cancelButton.layer.borderWidth = 2
+        cancelButton.layer.borderColor = UIColor.black.cgColor
+        
+        addImageView.layer.borderWidth = 1
+        addImageView.layer.borderColor = UIColor.black.cgColor
+    }
+    
+    
+    
+    
     @IBAction func cancelButtonPressed(_ sender: UIButton) {
         dismissView(self)
     }
     @IBAction func saveButtonPressed(_ sender: UIButton) {
         
-//        dismiss(animated: true, completion: nil)
+        //        dismiss(animated: true, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -91,6 +127,11 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
             addReward()
         }
     }
+    
+    
+    
+    
+    
     
     
 }
@@ -112,7 +153,7 @@ extension AddRewardViewController: UITextFieldDelegate {
         
         let cost = Int32(costTF.text!)!
         reward.cost = cost
-            
+        
         
         
         var stock : Int32 = 0
@@ -144,5 +185,21 @@ extension AddRewardViewController: UITextFieldDelegate {
         } else {
             saveButton.isEnabled = false
         }
+    }
+}
+
+extension AddRewardViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            addImageView.image = image
+        } else {
+            print("SOmething went wrong")
+        }
+        self.dismiss(animated: true, completion: nil)
     }
 }

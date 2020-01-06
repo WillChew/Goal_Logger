@@ -67,6 +67,11 @@ class RewardsViewController: UIViewController {
 
 extension RewardsViewController: UITableViewDelegate, UITableViewDataSource  {
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        print(tableView.frame.size.height / 7)
+        return tableView.frame.size.height / 7
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return rewards.count
@@ -80,8 +85,8 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource  {
         let reward = rewards[indexPath.row]
         
         cell.nameLabel.text = reward.name
-        cell.costLabel.text = "\(reward.cost)"
-        cell.stockLevel.text = "\(reward.stock)"
+        cell.costLabel.text = "\(reward.cost) Points"
+        cell.stockLevel.text = "\(reward.stock) in stock"
         
         if reward.stock == 0 {
             cell.isUserInteractionEnabled = false
