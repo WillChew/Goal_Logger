@@ -47,6 +47,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         navigationController?.navigationBar.prefersLargeTitles = true
+        goalTableView.reloadData()
         
 
         

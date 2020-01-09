@@ -63,10 +63,10 @@ class DetailTableViewController: UITableViewController {
         return 4
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let nameArray = ["Test", "Test2", passedGoal.name, "Test"]
-        return nameArray[section]
-    }
+//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        let nameArray = ["Test", "Test2", passedGoal.name, "Test"]
+//        return nameArray[section]
+//    }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerText = UILabel()

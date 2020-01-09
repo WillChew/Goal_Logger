@@ -63,7 +63,7 @@ class RewardsViewController: UIViewController {
             let results = try managedContext.fetch(fetchRequest)
             
             rewards = results
-            print(results.count)
+            
             try managedContext.save()
             
             
