@@ -2,8 +2,8 @@
 //  Reward+CoreDataClass.swift
 //  Goal_Logger
 //
-//  Created by Will Chew on 2019-12-31.
-//  Copyright © 2019 Will Chew. All rights reserved.
+//  Created by Will Chew on 2020-01-06.
+//  Copyright © 2020 Will Chew. All rights reserved.
 //
 //
 

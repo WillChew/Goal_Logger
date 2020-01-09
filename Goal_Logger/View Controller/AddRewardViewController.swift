@@ -25,7 +25,7 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
     
     
     var managedContext: NSManagedObjectContext!
-    
+    var data: Data!
     
     
     
@@ -47,12 +47,13 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
         let imageViewGesture = UITapGestureRecognizer(target: self, action: #selector(imagePressed(_:)))
         addImageView.addGestureRecognizer(imageViewGesture)
         
-        
+        let dismissKB = UITapGestureRecognizer(target: self.addView, action: #selector(UIView.endEditing(_:)))
+        addView.addGestureRecognizer(dismissKB)
         // Do any additional setup after loading the view.
     }
     
     @objc func imagePressed(_ sender: UITapGestureRecognizer) {
-        let alert = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Select a Picture", message: "", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action) in
             self.getImage(fromSourceType: .camera)
         }))
@@ -129,11 +130,6 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     
-    
-    
-    
-    
-    
 }
 
 extension AddRewardViewController: UITextFieldDelegate {
@@ -166,6 +162,10 @@ extension AddRewardViewController: UITextFieldDelegate {
         reward.stock = stock
         reward.uuid = UUID()
         
+        if data != nil {
+            reward.image = data
+        }
+        
         do {
             try managedContext.save()
         } catch let error as NSError {
@@ -197,8 +197,10 @@ extension AddRewardViewController: UIImagePickerControllerDelegate, UINavigation
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             addImageView.image = image
+            data = image.jpegData(compressionQuality: 0.7)
+ 
         } else {
-            print("SOmething went wrong")
+            print("Something went wrong")
         }
         self.dismiss(animated: true, completion: nil)
     }

@@ -35,8 +35,15 @@ class AddGoalTableViewController: UITableViewController {
         durationTextField.text = durationArray[0]
         durationPickerView.delegate = self
         durationPickerView.dataSource = self
+        goalNameTextField.delegate = self
+        durationTextField.delegate = self
+        checkpointOneTextField.delegate = self
+        checkpointTwoTextField.delegate = self
+        pointsTextField.delegate = self
         
-        
+        let dismissKB = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        dismissKB.cancelsTouchesInView = false
+        view.addGestureRecognizer(dismissKB)
         
     }
     
@@ -181,7 +188,7 @@ extension AddGoalTableViewController: UIPickerViewDelegate, UIPickerViewDataSour
     
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.delegate = self
+        
         textField.resignFirstResponder()
         return true
         

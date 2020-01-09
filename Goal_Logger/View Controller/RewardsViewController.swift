@@ -16,7 +16,7 @@ class RewardsViewController: UIViewController {
     var managedContext: NSManagedObjectContext!
     var rewards: [Reward] = []
     var selectedReward: Reward!
-    
+    var refreshControl: UIRefreshControl!
     
     
     override func viewDidLoad() {
@@ -25,10 +25,15 @@ class RewardsViewController: UIViewController {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         managedContext = appDelegate?.persistentContainer.viewContext
         
+        tableView.rowHeight = tableView.frame.size.height / 7
+        refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        tableView.addSubview(refreshControl)
         
         
-        // Do any additional setup after loading the view.
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -40,8 +45,14 @@ class RewardsViewController: UIViewController {
     
     @IBAction func unwindAfterAddingReward(_ segue: UIStoryboardSegue) {
         fetchRewards()
-        print(rewards.count)
+        
         tableView.reloadData()
+    }
+    
+    @objc func refresh() {
+        fetchRewards()
+        tableView.reloadData()
+        refreshControl.endRefreshing()
     }
     
     func fetchRewards() {
@@ -67,10 +78,6 @@ class RewardsViewController: UIViewController {
 
 extension RewardsViewController: UITableViewDelegate, UITableViewDataSource  {
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        print(tableView.frame.size.height / 7)
-        return tableView.frame.size.height / 7
-    }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -93,6 +100,13 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource  {
         } else {
             cell.isUserInteractionEnabled = true
         }
+        if let data = reward.image {
+            cell.rewardImage.image = UIImage(data: data)
+            cell.rewardImage.layer.borderWidth = 2
+            cell.rewardImage.layer.borderColor = UIColor.black.cgColor
+            
+        }
+        
         
         return cell
     }
@@ -103,14 +117,23 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource  {
         selectedReward = rewards[indexPath.row]
         
         
-      
+        
         
         let alert = UIAlertController(title: "Redeem \(selectedReward.name ?? "Reward")", message: "", preferredStyle: .alert)
         
         let confirmAction = UIAlertAction(title: "Redeem!", style: .default) {  _ in
             
             self.updateStockLevels(self.selectedReward)
-            self.tableView.reloadData()
+            
+            let alert = UIAlertController(title: "\(self.selectedReward.name!) Redeemed!", message: "\(self.selectedReward.cost) points redeemed!", preferredStyle: .alert)
+            self.present(alert, animated: true, completion: nil)
+            
+            let timer = DispatchTime.now() + 1.5
+            DispatchQueue.main.asyncAfter(deadline: timer) {
+                alert.dismiss(animated: true, completion: nil)
+                
+            }
+            
             
         }
         
@@ -139,7 +162,7 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource  {
                 else if newStock <= 0 {
                     result.first?.isRedeemed = true
                     result.first?.setValue(0, forKey: "stock")
-//                    managedContext.delete(reward)
+                    fetchRewards()
                 }
                 
                 try managedContext.save()
@@ -180,9 +203,7 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource  {
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
         
-        if editingStyle == .insert {
-            print("HI")
-        }
+
     }
 }
 

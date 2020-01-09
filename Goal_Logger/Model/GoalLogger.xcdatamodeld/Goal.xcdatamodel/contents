@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15508" systemVersion="19B88" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Duration" representedClassName="Duration" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="goals" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Goal" inverseName="time" inverseEntity="Goal"/>
@@ -21,6 +21,7 @@
     </entity>
     <entity name="Reward" representedClassName="Reward" syncable="YES">
         <attribute name="cost" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
         <attribute name="isRedeemed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="stock" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
@@ -29,6 +30,6 @@
     <elements>
         <element name="Duration" positionX="150.16796875" positionY="42.8046875" width="128" height="73"/>
         <element name="Goal" positionX="337.54296875" positionY="146.33984375" width="128" height="238"/>
-        <element name="Reward" positionX="0" positionY="126" width="128" height="118"/>
+        <element name="Reward" positionX="0" positionY="126" width="128" height="133"/>
     </elements>
 </model>

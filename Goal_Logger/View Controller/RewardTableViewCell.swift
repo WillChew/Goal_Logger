@@ -13,6 +13,8 @@ class RewardTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var costLabel: UILabel!
     @IBOutlet weak var stockLevel: UILabel!
+    @IBOutlet weak var rewardImage: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
