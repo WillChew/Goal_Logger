@@ -180,14 +180,14 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FIb-R2-0gz">
-                                                    <rect key="frame" x="11" y="51.666666666666664" width="392" height="19.333333333333336"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <rect key="frame" x="11" y="55.333333333333336" width="392" height="21.666666666666664"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HaW-sC-zBc">
-                                                    <rect key="frame" x="11" y="71" width="392" height="20.333333333333329"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="11" y="77" width="392" height="21.666666666666671"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -204,7 +204,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="xx4-rc-crt">
-                                                    <rect key="frame" x="11" y="105.33333333333333" width="392" height="2"/>
+                                                    <rect key="frame" x="11" y="107.33333333333326" width="392" height="2"/>
                                                     <color key="progressTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </progressView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Progress" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gpB-ha-6nT">
@@ -222,7 +222,7 @@
                                                 <constraint firstItem="V2d-EU-2Ba" firstAttribute="leading" secondItem="xx4-rc-crt" secondAttribute="leading" id="MdM-oY-5ti"/>
                                                 <constraint firstItem="HaW-sC-zBc" firstAttribute="top" secondItem="FIb-R2-0gz" secondAttribute="bottom" id="OQs-sd-14q"/>
                                                 <constraint firstItem="gpB-ha-6nT" firstAttribute="leading" secondItem="xx4-rc-crt" secondAttribute="leading" id="WeD-NC-N4k"/>
-                                                <constraint firstItem="xx4-rc-crt" firstAttribute="top" secondItem="HaW-sC-zBc" secondAttribute="bottom" constant="13.999999999999929" id="X5m-5j-7D3"/>
+                                                <constraint firstItem="xx4-rc-crt" firstAttribute="top" secondItem="HaW-sC-zBc" secondAttribute="bottom" constant="8.6666666666665861" id="X5m-5j-7D3"/>
                                                 <constraint firstAttribute="bottom" secondItem="bJG-g8-EiC" secondAttribute="bottom" constant="2" id="aXB-ai-Tqy"/>
                                                 <constraint firstAttribute="bottom" secondItem="gpB-ha-6nT" secondAttribute="bottom" id="bRK-cv-Cfv"/>
                                                 <constraint firstItem="FIb-R2-0gz" firstAttribute="leading" secondItem="xx4-rc-crt" secondAttribute="leading" id="baE-OP-n7y"/>
@@ -233,7 +233,7 @@
                                                 <constraint firstItem="bJG-g8-EiC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bEv-2b-dcb" secondAttribute="leading" constant="20" symbolic="YES" id="k6N-6L-yGq"/>
                                                 <constraint firstAttribute="trailing" secondItem="bJG-g8-EiC" secondAttribute="trailing" constant="4" id="nmJ-fN-pNB"/>
                                                 <constraint firstItem="xx4-rc-crt" firstAttribute="leading" secondItem="bEv-2b-dcb" secondAttribute="leading" constant="11" id="shE-u6-BHl"/>
-                                                <constraint firstItem="FIb-R2-0gz" firstAttribute="top" secondItem="V2d-EU-2Ba" secondAttribute="bottom" constant="1.5" id="vij-Be-raZ"/>
+                                                <constraint firstItem="FIb-R2-0gz" firstAttribute="top" secondItem="V2d-EU-2Ba" secondAttribute="bottom" constant="5" id="vij-Be-raZ"/>
                                                 <constraint firstAttribute="trailing" secondItem="xx4-rc-crt" secondAttribute="trailing" constant="11" id="xbx-x0-xeD"/>
                                                 <constraint firstItem="UoI-kE-br6" firstAttribute="leading" secondItem="bEv-2b-dcb" secondAttribute="leading" id="ypC-uu-C7L"/>
                                             </constraints>

@@ -119,7 +119,7 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource  {
         
         
         
-        let alert = UIAlertController(title: "Redeem \(selectedReward.name ?? "Reward")", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Redeem \(selectedReward.name ?? "Reward")?", message: "", preferredStyle: .alert)
         
         let confirmAction = UIAlertAction(title: "Redeem!", style: .default) {  _ in
             
