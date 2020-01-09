@@ -11,12 +11,15 @@ import CoreData
 
 class RewardsViewController: UIViewController {
     
+    @IBOutlet weak var editButton: UIBarButtonItem!
     
     @IBOutlet weak var tableView: UITableView!
     var managedContext: NSManagedObjectContext!
     var rewards: [Reward] = []
     var selectedReward: Reward!
     var refreshControl: UIRefreshControl!
+    var editModeOn = false
+    var rewardToPass: Reward!
     
     
     override func viewDidLoad() {
@@ -72,6 +75,17 @@ class RewardsViewController: UIViewController {
         }
     }
     
+    @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
+        
+        if editButton.title == "Edit" {
+            editButton.title = "Save"
+            editModeOn = true
+        } else {
+            editButton.title = "Edit"
+            editModeOn = false
+        }
+        tableView.reloadData()
+    }
     
 }
 
@@ -117,7 +131,7 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource  {
         selectedReward = rewards[indexPath.row]
         
         
-        
+        if editModeOn == false {
         
         let alert = UIAlertController(title: "Redeem \(selectedReward.name ?? "Reward")?", message: "", preferredStyle: .alert)
         
@@ -133,14 +147,15 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource  {
                 alert.dismiss(animated: true, completion: nil)
                 
             }
-            
-            
         }
         
         let cancelAction = UIAlertAction(title: "Nevermind", style: .cancel, handler: nil)
         alert.addAction(confirmAction)
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
+        }
+        
+        performSegue(withIdentifier: "editSegue", sender: self)
     }
     
     func updateStockLevels(_ reward: Reward) {
@@ -180,7 +195,7 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource  {
         
         let reward = rewards[indexPath.row]
         
-        if reward.stock == 0 {
+        if reward.stock == 0 || editModeOn == true {
             return false
         }
         
@@ -205,6 +220,17 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource  {
         
 
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "editSegue" {
+            let vc = segue.destination as! AddRewardViewController
+            vc.passedReward = selectedReward
+        }
+    }
+    
+    
 }
+
+
 
 

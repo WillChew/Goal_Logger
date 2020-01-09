@@ -24,9 +24,11 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
     
     
     
+    
+    
     var managedContext: NSManagedObjectContext!
     var data: Data!
-    
+    var passedReward: Reward!
     
     
     
@@ -50,6 +52,8 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
         let dismissKB = UITapGestureRecognizer(target: self.addView, action: #selector(UIView.endEditing(_:)))
         addView.addGestureRecognizer(dismissKB)
         // Do any additional setup after loading the view.
+        
+        print(passedReward.cost ?? 0)
     }
     
     @objc func imagePressed(_ sender: UITapGestureRecognizer) {
@@ -198,7 +202,7 @@ extension AddRewardViewController: UIImagePickerControllerDelegate, UINavigation
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             addImageView.image = image
             data = image.jpegData(compressionQuality: 0.7)
- 
+            
         } else {
             print("Something went wrong")
         }

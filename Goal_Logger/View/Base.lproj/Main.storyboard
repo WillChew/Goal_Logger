@@ -204,7 +204,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="xx4-rc-crt">
-                                                    <rect key="frame" x="11" y="107.33333333333326" width="392" height="2"/>
+                                                    <rect key="frame" x="11" y="107.33333333333333" width="392" height="2"/>
                                                     <color key="progressTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </progressView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Progress" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gpB-ha-6nT">
@@ -491,7 +491,11 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                                 <items>
                                     <navigationItem title="Reward Center" id="cdn-qH-z8F">
-                                        <barButtonItem key="leftBarButtonItem" title="Item" id="o19-RT-pLw"/>
+                                        <barButtonItem key="leftBarButtonItem" title="Edit" id="o19-RT-pLw">
+                                            <connections>
+                                                <action selector="editButtonPressed:" destination="Lg0-Nb-BwE" id="4fA-H3-o1j"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Uiq-ob-LUW">
                                             <connections>
                                                 <segue destination="kAn-z1-Mvf" kind="show" id="MnG-5C-FNE"/>
@@ -566,8 +570,10 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Rewards" image="gift" catalog="system" id="BHv-zq-lAK"/>
                     <connections>
+                        <outlet property="editButton" destination="o19-RT-pLw" id="BXJ-br-ZFT"/>
                         <outlet property="tableView" destination="Kk2-vK-LoL" id="Ko0-3z-1VP"/>
                         <segue destination="MZ5-ZE-KSN" kind="unwind" identifier="unwindAfterAddingReward" unwindAction="unwindAfterAddingReward:" id="ry7-TZ-iE2"/>
+                        <segue destination="kAn-z1-Mvf" kind="show" identifier="editSegue" id="uc8-Qj-St2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6wW-xo-NE8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -732,4 +738,7 @@
         <image name="camera" catalog="system" width="64" height="48"/>
         <image name="gift" catalog="system" width="64" height="60"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="uc8-Qj-St2"/>
+    </inferredMetricsTieBreakers>
 </document>
