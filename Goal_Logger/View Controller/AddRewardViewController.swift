@@ -28,7 +28,7 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
     
     var managedContext: NSManagedObjectContext!
     var data: Data!
-    var passedReward: Reward!
+    var passedReward: Reward?
     
     
     
@@ -53,7 +53,7 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
         addView.addGestureRecognizer(dismissKB)
         // Do any additional setup after loading the view.
         
-        print(passedReward.cost ?? 0)
+        print(passedReward?.cost ?? 0)
     }
     
     @objc func imagePressed(_ sender: UITapGestureRecognizer) {

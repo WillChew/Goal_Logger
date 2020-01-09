@@ -40,6 +40,7 @@ class RewardsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         fetchRewards()
         tableView.reloadData()
     }
@@ -154,8 +155,9 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource  {
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
         }
-        
+        if editModeOn == true {
         performSegue(withIdentifier: "editSegue", sender: self)
+    }
     }
     
     func updateStockLevels(_ reward: Reward) {
