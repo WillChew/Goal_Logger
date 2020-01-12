@@ -22,13 +22,10 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var blurView: UIVisualEffectView!
     @IBOutlet weak var addImageView: UIImageView!
     
-    
-    
-    
-    
     var managedContext: NSManagedObjectContext!
     var data: Data!
     var passedReward: Reward?
+    var editMode = false
     
     
     
@@ -53,7 +50,30 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
         addView.addGestureRecognizer(dismissKB)
         // Do any additional setup after loading the view.
         
-        print(passedReward?.cost ?? 0)
+        if passedReward == nil {
+            editMode = false
+        } else {
+            editMode = true
+            saveButton.setTitle("Save", for: .normal)
+            
+            guard let passedReward = passedReward else { return }
+            rewardNameTF.text = passedReward.name
+            costTF.text = "\(passedReward.cost)"
+            stockTF.text = "\(passedReward.stock)"
+            guard let data = passedReward.image else { return }
+            addImageView.image = UIImage(data: data)
+            
+        }
+        
+        
+       
+        
+        
+        
+       
+        
+        
+        
     }
     
     @objc func imagePressed(_ sender: UITapGestureRecognizer) {
