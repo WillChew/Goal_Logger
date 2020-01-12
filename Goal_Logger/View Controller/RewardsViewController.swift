@@ -79,7 +79,7 @@ class RewardsViewController: UIViewController {
     @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
         
         if editButton.title == "Edit" {
-            editButton.title = "Save"
+            editButton.title = "Done"
             editModeOn = true
         } else {
             editButton.title = "Edit"

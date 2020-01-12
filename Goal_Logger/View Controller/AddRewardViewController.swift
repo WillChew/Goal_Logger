@@ -55,6 +55,7 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
         } else {
             editMode = true
             saveButton.setTitle("Save", for: .normal)
+            saveButton.isEnabled = true
             
             guard let passedReward = passedReward else { return }
             rewardNameTF.text = passedReward.name
@@ -149,14 +150,14 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "unwindAfterAddingRewardSegue" {
-            addReward()
+            if editMode == false {
+                addReward()
+            } else if editMode == true {
+                editReward(for: passedReward!)
+            }
         }
     }
     
-    
-}
-
-extension AddRewardViewController: UITextFieldDelegate {
     
     func addReward() {
         let reward = Reward(context: managedContext)
@@ -173,8 +174,6 @@ extension AddRewardViewController: UITextFieldDelegate {
         
         let cost = Int32(costTF.text!)!
         reward.cost = cost
-        
-        
         
         var stock : Int32 = 0
         if stockTF.text == "" {
@@ -196,6 +195,48 @@ extension AddRewardViewController: UITextFieldDelegate {
             print("Error Saving: \(error), \(error.userInfo)")
         }
     }
+    
+    func editReward(for reward: Reward) {
+        let fetchRequest : NSFetchRequest<Reward> = Reward.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "%K == %@", "uuid", reward.uuid! as CVarArg)
+        
+        do {
+           let reward = try managedContext.fetch(fetchRequest)
+            let rewardToChange = reward.first
+            
+            let cost = Int32(costTF.text!)
+            let name = rewardNameTF.text ?? "Unnamed Reward"
+            var stock : Int32 = 0
+            
+            if stockTF.text != nil {
+                stock = 1
+            } else {
+            stock = Int32(stockTF.text!)!
+            }
+            
+            if let data = addImageView.image?.jpegData(compressionQuality: 0.6) {
+                rewardToChange?.setValue(data, forKey: "image")
+            }
+            
+            rewardToChange?.setValue(name, forKey: "name")
+            rewardToChange?.setValue(cost, forKey: "cost")
+            rewardToChange?.setValue(stock, forKey: "stock")
+            
+            
+            try managedContext.save()
+            
+            
+        } catch let error as NSError {
+            print("Error editing: \(error), \(error.userInfo)")
+        }
+    }
+    
+    
+}
+
+extension AddRewardViewController: UITextFieldDelegate {
+    
+    
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
@@ -221,7 +262,7 @@ extension AddRewardViewController: UIImagePickerControllerDelegate, UINavigation
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             addImageView.image = image
-            data = image.jpegData(compressionQuality: 0.7)
+            data = image.jpegData(compressionQuality: 0.6)
             
         } else {
             print("Something went wrong")
