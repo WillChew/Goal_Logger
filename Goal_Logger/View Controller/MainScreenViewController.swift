@@ -23,10 +23,13 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     }()
     var refreshControl: UIRefreshControl!
     var managedContext: NSManagedObjectContext!
+    var blurEffectView: UIVisualEffectView!
     
-    
+    @IBOutlet weak var infoButton: UIBarButtonItem!
+    @IBOutlet var infoView: UIView!
     @IBOutlet weak var segValue: UISegmentedControl!
     @IBOutlet weak var goalTableView: UITableView!
+    @IBOutlet weak var addButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +42,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         goalTableView.addSubview(refreshControl)
         goalTableView.rowHeight = goalTableView.frame.size.height / 6
+        
         
         //#PRAGMA MARK: SET POINTS TOTAL
         //        UserDefaults.standard.set(1000, forKey: "Points")
@@ -348,6 +352,58 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
+    @IBAction func infoButtonPressed(_ sender: Any) {
+        
+        animateViewIn()
+        
+    }
+    @IBAction func dismissInfoViewButtonPressed(_ sender: UIButton) {
+        
+        animateOut()
+    }
+    
+    func animateViewIn() {
+        
+        if !UIAccessibility.isReduceTransparencyEnabled {
+            infoView.layer.cornerRadius = 5
+            blurEffectView = UIVisualEffectView(effect: nil)
+            blurEffectView.frame = self.view.bounds
+            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            view.addSubview(blurEffectView)
+        } else {
+            view.backgroundColor = .black
+        }
+        
+        self.view.addSubview(infoView)
+        infoView.center = self.view.center
+        
+        
+        infoView.alpha = 0
+        
+        UIView.animate(withDuration: 0.4) {
+            self.blurEffectView.effect = UIBlurEffect(style: .dark)
+            self.infoView.alpha = 1
+            self.infoButton.isEnabled = false
+            self.addButton.isEnabled = false
+            
+        }
+    }
+    
+    func animateOut() {
+        
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            
+            self.infoView.alpha = 0
+            self.infoButton.isEnabled = true
+            self.addButton.isEnabled = true
+            self.blurEffectView.effect = nil
+        }) { (_) in
+            self.infoView.removeFromSuperview()
+            self.blurEffectView.removeFromSuperview()
+            
+        }
+    }
     
     @IBAction func segChanged(_ sender: UISegmentedControl) {
         

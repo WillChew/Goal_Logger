@@ -274,6 +274,11 @@
                         <viewLayoutGuide key="safeArea" id="arr-4m-uny"/>
                     </view>
                     <navigationItem key="navigationItem" id="qgx-K5-bVJ">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="info.circle" catalog="system" id="9BT-5d-9dB">
+                            <connections>
+                                <action selector="infoButtonPressed:" destination="E03-LZ-Pme" id="pdi-xS-gao"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="la8-dK-kzK">
                             <connections>
                                 <segue destination="WcD-5V-uN4" kind="show" id="bjf-Q5-PHD"/>
@@ -281,12 +286,38 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addButton" destination="la8-dK-kzK" id="8sb-Vr-X0U"/>
                         <outlet property="goalTableView" destination="gHj-Gw-nbh" id="epq-Xw-Md7"/>
+                        <outlet property="infoButton" destination="9BT-5d-9dB" id="2EH-VI-Trx"/>
+                        <outlet property="infoView" destination="gsj-En-dQG" id="kwM-9U-6SY"/>
                         <outlet property="segValue" destination="7F7-WU-bMc" id="IZp-2N-vgz"/>
                         <segue destination="187-0M-hhu" kind="show" identifier="DetailSegue" id="6Rx-B9-PLs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aum-TI-KNU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="gsj-En-dQG">
+                    <rect key="frame" x="0.0" y="0.0" width="274" height="262"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eeT-if-tF8">
+                            <rect key="frame" x="116" y="121" width="42" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nZZ-Jk-Ova">
+                            <rect key="frame" x="114" y="212" width="46" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Button"/>
+                            <connections>
+                                <action selector="dismissInfoViewButtonPressed:" destination="E03-LZ-Pme" eventType="touchUpInside" id="bxI-dR-f0e"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <viewLayoutGuide key="safeArea" id="0z2-Ih-3wO"/>
+                </view>
             </objects>
             <point key="canvasLocation" x="3402.898550724638" y="336.83035714285711"/>
         </scene>
@@ -737,6 +768,7 @@
         <image name="calendar" catalog="system" width="64" height="52"/>
         <image name="camera" catalog="system" width="64" height="48"/>
         <image name="gift" catalog="system" width="64" height="60"/>
+        <image name="info.circle" catalog="system" width="64" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="uc8-Qj-St2"/>
