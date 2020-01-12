@@ -31,72 +31,15 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        costTF.delegate = self
+        
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         managedContext = appDelegate?.persistentContainer.viewContext
         setupView()
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissView(_:)))
-        view.addGestureRecognizer(tapGesture)
-        tapGesture.delegate = self
-        let points = UserDefaults.standard.integer(forKey: "Points")
-        
-        pointsLabel.text = "Your Points: \(points)"
-        
-        let imageViewGesture = UITapGestureRecognizer(target: self, action: #selector(imagePressed(_:)))
-        addImageView.addGestureRecognizer(imageViewGesture)
-        
-        let dismissKB = UITapGestureRecognizer(target: self.addView, action: #selector(UIView.endEditing(_:)))
-        addView.addGestureRecognizer(dismissKB)
-        // Do any additional setup after loading the view.
-        
-        if passedReward == nil {
-            editMode = false
-        } else {
-            editMode = true
-            saveButton.setTitle("Save", for: .normal)
-            saveButton.isEnabled = true
-            
-            guard let passedReward = passedReward else { return }
-            rewardNameTF.text = passedReward.name
-            costTF.text = "\(passedReward.cost)"
-            stockTF.text = "\(passedReward.stock)"
-            guard let data = passedReward.image else { return }
-            addImageView.image = UIImage(data: data)
-            
-        }
-        
-        
-       
-        
-        
-        
-       
-        
         
         
     }
     
-    @objc func imagePressed(_ sender: UITapGestureRecognizer) {
-        let alert = UIAlertController(title: "Select a Picture", message: "", preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action) in
-            self.getImage(fromSourceType: .camera)
-        }))
-        alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { (action) in
-            self.getImage(fromSourceType: .photoLibrary)
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    func getImage(fromSourceType sourceType: UIImagePickerController.SourceType) {
-        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
-            let myPickerController = UIImagePickerController()
-            myPickerController.delegate = self
-            myPickerController.sourceType = sourceType
-            self.present(myPickerController, animated: true, completion: nil)
-        }
-    }
     
     @objc func dismissView(_ sender: Any) {
         
@@ -121,6 +64,9 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func setupView() {
+        
+        costTF.delegate = self
+        
         addView.layer.cornerRadius = 8
         blurView.alpha = 0.8
         
@@ -129,25 +75,50 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
         saveButton.layer.borderColor = UIColor.black.cgColor
         saveButton.isEnabled = false
         
+        if !saveButton.isEnabled {
+            saveButton.setTitleColor(.gray, for: .disabled)
+        }
+        
         cancelButton.layer.cornerRadius = 10
         cancelButton.layer.borderWidth = 2
         cancelButton.layer.borderColor = UIColor.black.cgColor
         
         addImageView.layer.borderWidth = 1
         addImageView.layer.borderColor = UIColor.black.cgColor
-    }
-    
-    
-    
-    
-    @IBAction func cancelButtonPressed(_ sender: UIButton) {
-        dismissView(self)
-    }
-    @IBAction func saveButtonPressed(_ sender: UIButton) {
         
-        //        dismiss(animated: true, completion: nil)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissView(_:)))
+        view.addGestureRecognizer(tapGesture)
+        tapGesture.delegate = self
+        let points = UserDefaults.standard.integer(forKey: "Points")
+        
+        pointsLabel.text = "Your Points: \(points)"
+        
+        let imageViewGesture = UITapGestureRecognizer(target: self, action: #selector(imagePressed(_:)))
+        addImageView.addGestureRecognizer(imageViewGesture)
+        
+        let dismissKB = UITapGestureRecognizer(target: self.addView, action: #selector(UIView.endEditing(_:)))
+        addView.addGestureRecognizer(dismissKB)
+        
+        
+        if passedReward == nil {
+            editMode = false
+        } else {
+            editMode = true
+            saveButton.setTitle("Save", for: .normal)
+            saveButton.isEnabled = true
+            
+            guard let passedReward = passedReward else { return }
+            rewardNameTF.text = passedReward.name
+            costTF.text = "\(passedReward.cost)"
+            stockTF.text = "\(passedReward.stock)"
+            guard let data = passedReward.image else { return }
+            addImageView.image = UIImage(data: data)
+            
+        }
     }
     
+    // #PRAGMA MARK: SEGUE
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "unwindAfterAddingRewardSegue" {
             if editMode == false {
@@ -158,7 +129,7 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    
+    // #PRAGMA MARK: CORE DATA FUNCTIONS
     func addReward() {
         let reward = Reward(context: managedContext)
         
@@ -201,7 +172,7 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
         fetchRequest.predicate = NSPredicate(format: "%K == %@", "uuid", reward.uuid! as CVarArg)
         
         do {
-           let reward = try managedContext.fetch(fetchRequest)
+            let reward = try managedContext.fetch(fetchRequest)
             let rewardToChange = reward.first
             
             let cost = Int32(costTF.text!)
@@ -211,7 +182,7 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
             if stockTF.text != nil {
                 stock = 1
             } else {
-            stock = Int32(stockTF.text!)!
+                stock = Int32(stockTF.text!)!
             }
             
             if let data = addImageView.image?.jpegData(compressionQuality: 0.6) {
@@ -232,6 +203,14 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     
+    @IBAction func cancelButtonPressed(_ sender: UIButton) {
+        dismissView(self)
+    }
+    @IBAction func saveButtonPressed(_ sender: UIButton) {
+        
+        //        dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 extension AddRewardViewController: UITextFieldDelegate {
@@ -247,13 +226,39 @@ extension AddRewardViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if costTF.text != "" {
             saveButton.isEnabled = true
+            saveButton.setTitleColor(.white, for: .normal)
         } else {
             saveButton.isEnabled = false
+            saveButton.setTitleColor(.darkGray, for: .disabled)
         }
     }
 }
 
 extension AddRewardViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    // #PRAMGA MARK: IMAGE SELECTION RELATED FUNCTIONS
+    
+    @objc func imagePressed(_ sender: UITapGestureRecognizer) {
+        let alert = UIAlertController(title: "Select a Picture", message: "", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action) in
+            self.getImage(fromSourceType: .camera)
+        }))
+        alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { (action) in
+            self.getImage(fromSourceType: .photoLibrary)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func getImage(fromSourceType sourceType: UIImagePickerController.SourceType) {
+        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
+            let myPickerController = UIImagePickerController()
+            myPickerController.delegate = self
+            myPickerController.sourceType = sourceType
+            self.present(myPickerController, animated: true, completion: nil)
+        }
+    }
+    
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.dismiss(animated: true, completion: nil)

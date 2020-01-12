@@ -39,8 +39,9 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         goalTableView.addSubview(refreshControl)
         goalTableView.rowHeight = goalTableView.frame.size.height / 6
-        print(UserDefaults.standard.integer(forKey: "Points"))
-        UserDefaults.standard.set(0, forKey: "Points")
+        
+        //#PRAGMA MARK: SET POINTS TOTAL
+        //        UserDefaults.standard.set(1000, forKey: "Points")
         
     }
     
@@ -49,7 +50,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         navigationController?.navigationBar.prefersLargeTitles = true
         goalTableView.reloadData()
         
-
+        
         
         
     }
@@ -336,9 +337,9 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         do {
             let results = try managedContext.fetch(fetchRequest)
             if results.count > 0 {
-        for result in results {
-            managedContext.delete(result as! NSManagedObject)
-        }
+                for result in results {
+                    managedContext.delete(result as! NSManagedObject)
+                }
             }
             try managedContext.save()
             

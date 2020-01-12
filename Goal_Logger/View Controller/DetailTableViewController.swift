@@ -31,24 +31,15 @@ class DetailTableViewController: UITableViewController {
     @IBOutlet weak var goalNameTextField: UITextField!
     @IBOutlet weak var completeButton: UIButton!
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         managedContext = appDelegate?.persistentContainer.viewContext
         
-        completeButton.setTitle("Complete \(passedGoal.name!)!", for: .normal)
-        
-        
-        //        firstCPTextField.delegate = self
-        //        secondCPTextField.delegate = self
-        firstCPTextField.text = passedGoal.cpOne
-        firstCPTextField.isEnabled = false
-        secondCPTextField.text = passedGoal.cpTwo
-        secondCPTextField.isEnabled = false
-        goalNameTextField.text = passedGoal.name
-        goalNameTextField.isEnabled = false
-        goalNameTextField.isHidden = true
+        configureTextFields()
         
         
         
@@ -63,10 +54,10 @@ class DetailTableViewController: UITableViewController {
         return 4
     }
     
-//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        let nameArray = ["Test", "Test2", passedGoal.name, "Test"]
-//        return nameArray[section]
-//    }
+    //    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    //        let nameArray = ["Test", "Test2", passedGoal.name, "Test"]
+    //        return nameArray[section]
+    //    }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerText = UILabel()
@@ -80,11 +71,6 @@ class DetailTableViewController: UITableViewController {
         }
         return headerText
     }
-    //
-    //        override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    //
-    //            return
-    //        }
     
     
     
@@ -199,6 +185,19 @@ class DetailTableViewController: UITableViewController {
     
     //MARK: - Custom Functions
     
+    fileprivate func configureTextFields() {
+        completeButton.setTitle("Complete \(passedGoal.name!)!", for: .normal)
+        
+        
+        firstCPTextField.text = passedGoal.cpOne
+        firstCPTextField.isEnabled = false
+        secondCPTextField.text = passedGoal.cpTwo
+        secondCPTextField.isEnabled = false
+        goalNameTextField.text = passedGoal.name
+        goalNameTextField.isEnabled = false
+        goalNameTextField.isHidden = true
+    }
+    
     func updatingIsCPComplete(for checkpoint: String, complete: Bool) {
         let fetchRequest: NSFetchRequest<Goal> = Goal.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "%K == %@", "uuid", passedGoal.uuid! as CVarArg)
@@ -209,7 +208,7 @@ class DetailTableViewController: UITableViewController {
             
             if checkpoint == cpOneCriteria {
                 goal.first?.setValue(complete, forKey: checkpoint)
-               
+                
             } else if checkpoint == cpTwoCriteria {
                 
                 goal.first?.setValue(complete, forKey: checkpoint)
@@ -271,17 +270,8 @@ class DetailTableViewController: UITableViewController {
         var points = userDefaults.integer(forKey: "Points")
         points += pointsChanged
         userDefaults.set(points, forKey: "Points")
-
+        
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     @IBAction func completeButtonPressed(_ sender: UIButton) {
         let fetchRequest = NSFetchRequest<Goal>(entityName: "Goal")
@@ -309,14 +299,8 @@ class DetailTableViewController: UITableViewController {
             alert.dismiss(animated: true, completion: nil)
             self.performSegue(withIdentifier: "SaveGoalSegue", sender: self)
         }
- 
+        
     }
-    
-    
-    
-    
-    
-    
 }
 
 extension DetailTableViewController: UITextFieldDelegate {

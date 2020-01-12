@@ -15,7 +15,8 @@ class AddGoalTableViewController: UITableViewController {
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
     var managedContext: NSManagedObjectContext!
     var currentDuration: Duration?
-    
+    let durationArray = ["Daily", "Weekly", "Monthly", "Annual"]
+    let durationPickerView = UIPickerView()
     
     
     @IBOutlet weak var goalNameTextField: UITextField!
@@ -23,14 +24,27 @@ class AddGoalTableViewController: UITableViewController {
     @IBOutlet weak var checkpointOneTextField: UITextField!
     @IBOutlet weak var checkpointTwoTextField: UITextField!
     @IBOutlet weak var pointsTextField: UITextField!
-    let durationArray = ["Daily", "Weekly", "Monthly", "Annual"]
-    let durationPickerView = UIPickerView()
+    
+    
+    
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         managedContext = appDelegate?.persistentContainer.viewContext
+        setupTextFields()
+        let dismissKB = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        dismissKB.cancelsTouchesInView = false
+        view.addGestureRecognizer(dismissKB)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: self)
+        
+    }
+    
+    fileprivate func setupTextFields() {
         durationTextField.inputView = durationPickerView
         durationTextField.text = durationArray[0]
         durationPickerView.delegate = self
@@ -40,14 +54,6 @@ class AddGoalTableViewController: UITableViewController {
         checkpointOneTextField.delegate = self
         checkpointTwoTextField.delegate = self
         pointsTextField.delegate = self
-        
-        let dismissKB = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
-        dismissKB.cancelsTouchesInView = false
-        view.addGestureRecognizer(dismissKB)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: self)
-        
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {
@@ -62,10 +68,13 @@ class AddGoalTableViewController: UITableViewController {
         }
     }
     
+    
+    // #PRAMGA MARK: TABLEVIEW FUNCTIONS
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    // #PRAMGA MARK: CORE DATA RELATED FUNCTIONS
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if goalNameTextField.text == "" {
@@ -77,14 +86,12 @@ class AddGoalTableViewController: UITableViewController {
         }
         
         if checkpointOneTextField.text == "" {
-            checkpointOneTextField.text = "checkpoint one"
+            checkpointOneTextField.text = "First Checkpoint"
         }
         
         if checkpointTwoTextField.text == "" {
-            checkpointTwoTextField.text = "checkpoint two"
+            checkpointTwoTextField.text = "Second Checkpoint"
         }
-        
-        
         
         var futureDate = Date()
         
