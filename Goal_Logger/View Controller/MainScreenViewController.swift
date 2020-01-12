@@ -24,6 +24,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     var refreshControl: UIRefreshControl!
     var managedContext: NSManagedObjectContext!
     var blurEffectView: UIVisualEffectView!
+    var dismissInfoViewTapGesture: UITapGestureRecognizer!
     
     @IBOutlet weak var infoButton: UIBarButtonItem!
     @IBOutlet var infoView: UIView!
@@ -64,6 +65,10 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         removeExpiredGoals()
         goalTableView.reloadData()
         refreshControl.endRefreshing()
+    }
+    
+    @objc func dismissInfo(_ sender: UITapGestureRecognizer) {
+        animateOut()
     }
     
     // MARK: - Table view data source
@@ -376,22 +381,21 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
         self.view.addSubview(infoView)
         infoView.center = self.view.center
-        
-        
         infoView.alpha = 0
+        
+        dismissInfoViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissInfo(_:)))
+        self.view.addGestureRecognizer(dismissInfoViewTapGesture)
         
         UIView.animate(withDuration: 0.4) {
             self.blurEffectView.effect = UIBlurEffect(style: .dark)
             self.infoView.alpha = 1
             self.infoButton.isEnabled = false
             self.addButton.isEnabled = false
-            
         }
     }
     
     func animateOut() {
-        
-        
+
         UIView.animate(withDuration: 0.3, animations: {
             
             self.infoView.alpha = 0
@@ -401,7 +405,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         }) { (_) in
             self.infoView.removeFromSuperview()
             self.blurEffectView.removeFromSuperview()
-            
+            self.view.removeGestureRecognizer(self.dismissInfoViewTapGesture)
         }
     }
     
