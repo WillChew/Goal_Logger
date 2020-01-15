@@ -16,11 +16,12 @@ class DetailTableViewController: UITableViewController {
     let cpTwoCriteria = "isCpTwoComplete"
     var passedGoal: Goal!
     var managedContext: NSManagedObjectContext!
+    var editMode = false
     lazy var dateFormatter : DateFormatter = {
         
         let format = DateFormatter()
         format.timeZone = .current
-        format.dateFormat = "yyyy-MM-dd HH:mm"
+        format.dateFormat = "MMM d, yyyy"
         return format
     }()
     
@@ -54,6 +55,17 @@ class DetailTableViewController: UITableViewController {
         return 4
     }
     
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if editMode == false {
+        if section == 2 {
+            return 0
+        } else {
+            return 1
+        }
+        } else {
+            return 1
+        }
+    }
     //    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     //        let nameArray = ["Test", "Test2", passedGoal.name, "Test"]
     //        return nameArray[section]
@@ -247,13 +259,16 @@ class DetailTableViewController: UITableViewController {
         
         if sender.title == "Edit" {
             sender.title = "Save"
+            editMode = true
             firstCPTextField.isEnabled = true
             secondCPTextField.isEnabled = true
             goalNameTextField.isEnabled = true
             goalNameTextField.isHidden = false
             tableView.allowsSelection = false
+            tableView.reloadData()
         } else {
             sender.title = "Edit"
+            editMode = false
             firstCPTextField.isEnabled = false
             secondCPTextField.isEnabled = false
             goalNameTextField.isEnabled = false
@@ -261,6 +276,7 @@ class DetailTableViewController: UITableViewController {
             goalNameTextField.isHidden = true
             changeCP()
             completeButton.setTitle("Complete \(passedGoal.name!)!", for: .normal)
+            tableView.reloadData()
         }
     }
     
@@ -270,6 +286,10 @@ class DetailTableViewController: UITableViewController {
         var points = userDefaults.integer(forKey: "Points")
         points += pointsChanged
         userDefaults.set(points, forKey: "Points")
+        
+        var totalPoints = userDefaults.integer(forKey: "TotalPoints")
+                       totalPoints += pointsChanged
+        userDefaults.set(points, forKey: "TotalPoints")
         
     }
     
@@ -282,9 +302,24 @@ class DetailTableViewController: UITableViewController {
             let results = try managedContext.fetch(fetchRequest)
             
             if results.count > 0 {
-                results.first?.isCompleted = true
+                results.first!.isCompleted = true
                 adjustPoints(Int(results.first!.points / 3))
                 
+                var goalCount = UserDefaults.standard.integer(forKey: "TotalGoals")
+                goalCount += 1
+                UserDefaults.standard.set(goalCount, forKey: "TotalGoals")
+                
+                
+                if UserDefaults.standard.string(forKey: "StartDate") == nil {
+                    UserDefaults.standard.set(dateFormatter.string(from: Date()), forKey: "StartDate")
+                }
+                
+                UserDefaults.standard.set(dateFormatter.string(from: Date()), forKey: "LastGoal")
+                
+              
+                
+                
+                try managedContext.save()
             }
             
         } catch let error as NSError {

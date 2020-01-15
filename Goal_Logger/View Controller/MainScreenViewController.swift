@@ -32,6 +32,14 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var goalTableView: UITableView!
     @IBOutlet weak var addButton: UIBarButtonItem!
     
+    //InfoViewVC outlets
+    @IBOutlet weak var currentPointsLabel: UILabel!
+    
+    @IBOutlet weak var totalPointsLabel: UILabel!
+    @IBOutlet weak var redeemedRewardsLabel: UILabel!
+    @IBOutlet weak var completedGoalsLabel: UILabel!
+    @IBOutlet weak var lastCompletedGoalLabel: UILabel!
+    @IBOutlet weak var firstGoalCompletedLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -355,7 +363,42 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         } catch let error as NSError {
             print("Error deleting: \(error), \(error.userInfo)")
         }
+        
+        
+        
     }
+    @IBAction func segChanged(_ sender: UISegmentedControl) {
+        
+        let segTitle = segValue.titleForSegment(at: segValue.selectedSegmentIndex)!
+        fetchDurationName(segTitle)
+        goalTableView.reloadData()
+    }
+    
+    @IBAction func resetButtonPressed(_ sender: UIButton) {
+        
+        UserDefaults.standard.set(0, forKey: "Points")
+        UserDefaults.standard.set(0, forKey: "TotalPoints")
+        UserDefaults.standard.set(0, forKey: "TotalRewards")
+        UserDefaults.standard.set(0, forKey: "TotalGoals")
+        UserDefaults.standard.set("", forKey: "StartDate")
+        UserDefaults.standard.set("", forKey: "LastGoal")
+        
+        animateOut()
+        
+        
+    }
+    
+    
+    
+}
+extension MainScreenViewController {
+    
+    
+    
+    
+    
+    
+    
     
     @IBAction func infoButtonPressed(_ sender: Any) {
         
@@ -386,16 +429,32 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         dismissInfoViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissInfo(_:)))
         self.view.addGestureRecognizer(dismissInfoViewTapGesture)
         
-        UIView.animate(withDuration: 0.4) {
+        UIView.animate(withDuration: 0.4, animations:  {
             self.blurEffectView.effect = UIBlurEffect(style: .dark)
             self.infoView.alpha = 1
             self.infoButton.isEnabled = false
             self.addButton.isEnabled = false
+            
+            
+            
+            
+        }) { (_) in
+            self.currentPointsLabel.text = "Current Points: \(UserDefaults.standard.integer(forKey: "Points"))"
+            self.totalPointsLabel.text = "Total Points Earned: \(UserDefaults.standard.integer(forKey: "TotalPoints"))"
+            self.redeemedRewardsLabel.text = "Number of Redeemed Rewards: \(UserDefaults.standard.integer(forKey: "TotalRewards"))"
+            self.completedGoalsLabel.text = "Number of Goals Completed: \(UserDefaults.standard.integer(forKey: "TotalGoals")) "
+            if let start = UserDefaults.standard.string(forKey: "StartDate") {
+                self.firstGoalCompletedLabel.text = "Started On: " + start
+            }
+            if let end = UserDefaults.standard.string(forKey: "LastGoal") {
+                self.lastCompletedGoalLabel.text = "Last Goal Completed On: " + end
+                
+            }
         }
     }
     
     func animateOut() {
-
+        
         UIView.animate(withDuration: 0.3, animations: {
             
             self.infoView.alpha = 0
@@ -409,11 +468,6 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
-    @IBAction func segChanged(_ sender: UISegmentedControl) {
-        
-        let segTitle = segValue.titleForSegment(at: segValue.selectedSegmentIndex)!
-        fetchDurationName(segTitle)
-        goalTableView.reloadData()
-    }
+    
     
 }

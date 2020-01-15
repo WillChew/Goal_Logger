@@ -160,7 +160,7 @@
                                     <segment title="Annual"/>
                                 </segments>
                                 <connections>
-                                    <action selector="segChanged:" destination="E03-LZ-Pme" eventType="valueChanged" id="mSQ-Ps-43C"/>
+                                    <action selector="segChanged:" destination="E03-LZ-Pme" eventType="valueChanged" id="O8p-xP-bmE"/>
                                 </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="128" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gHj-Gw-nbh">
@@ -287,31 +287,87 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addButton" destination="la8-dK-kzK" id="8sb-Vr-X0U"/>
+                        <outlet property="completedGoalsLabel" destination="bp9-92-uvb" id="bFo-gC-AGX"/>
+                        <outlet property="currentPointsLabel" destination="eeT-if-tF8" id="NBu-k4-3IZ"/>
+                        <outlet property="firstGoalCompletedLabel" destination="xWd-Kb-Gij" id="W37-ws-Jdc"/>
                         <outlet property="goalTableView" destination="gHj-Gw-nbh" id="epq-Xw-Md7"/>
                         <outlet property="infoButton" destination="9BT-5d-9dB" id="2EH-VI-Trx"/>
                         <outlet property="infoView" destination="gsj-En-dQG" id="kwM-9U-6SY"/>
+                        <outlet property="lastCompletedGoalLabel" destination="iM0-ea-Jgd" id="YOQ-pw-rKN"/>
+                        <outlet property="redeemedRewardsLabel" destination="fKp-W7-q4a" id="n7x-k1-bKZ"/>
                         <outlet property="segValue" destination="7F7-WU-bMc" id="IZp-2N-vgz"/>
+                        <outlet property="totalPointsLabel" destination="MGs-kJ-nw0" id="wec-V1-C3W"/>
                         <segue destination="187-0M-hhu" kind="show" identifier="DetailSegue" id="6Rx-B9-PLs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aum-TI-KNU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="gsj-En-dQG">
-                    <rect key="frame" x="0.0" y="0.0" width="274" height="262"/>
+                    <rect key="frame" x="0.0" y="0.0" width="349" height="262"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eeT-if-tF8">
-                            <rect key="frame" x="116" y="121" width="42" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current Points:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eeT-if-tF8">
+                            <rect key="frame" x="16" y="44" width="317" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nZZ-Jk-Ova">
-                            <rect key="frame" x="114" y="212" width="46" height="30"/>
+                            <rect key="frame" x="147" y="212" width="54" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Button"/>
+                            <state key="normal" title="Dismiss"/>
                             <connections>
                                 <action selector="dismissInfoViewButtonPressed:" destination="E03-LZ-Pme" eventType="touchUpInside" id="bxI-dR-f0e"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Your Statistics" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sro-oW-EGe">
+                            <rect key="frame" x="119" y="15" width="110" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Total Points:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MGs-kJ-nw0">
+                            <rect key="frame" x="16" y="73" width="317" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Completed Goals:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bp9-92-uvb">
+                            <rect key="frame" x="16" y="131" width="317" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="First Goal Completed:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xWd-Kb-Gij">
+                            <rect key="frame" x="16" y="160" width="317" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Redeemed Rewards:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fKp-W7-q4a">
+                            <rect key="frame" x="16" y="102" width="317" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last Completed Goal:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iM0-ea-Jgd">
+                            <rect key="frame" x="16" y="189" width="317" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n8l-13-l43">
+                            <rect key="frame" x="273" y="10" width="60" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Reset All"/>
+                            <connections>
+                                <action selector="resetButtonPressed:" destination="E03-LZ-Pme" eventType="touchUpInside" id="OzY-0a-rPc"/>
                             </connections>
                         </button>
                     </subviews>

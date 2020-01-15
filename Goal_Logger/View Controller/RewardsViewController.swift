@@ -76,6 +76,7 @@ class RewardsViewController: UIViewController {
             let result = try managedContext.fetch(fetchRequest)
             
             var newStock = 0
+            var rewardCount = UserDefaults.standard.integer(forKey: "TotalRewards")
             
             if let stockAmt = result.first?.stock, let cost = result.first?.cost {
                 newStock = Int(stockAmt) - 1
@@ -84,6 +85,14 @@ class RewardsViewController: UIViewController {
                 points -= Int(cost)
                 UserDefaults.standard.setValue(points, forKey: "Points")
                 print(points)
+                
+                rewardCount += 1
+                
+                UserDefaults.standard.set(rewardCount, forKey: "TotalRewards")
+                
+                
+                
+                
                 if newStock > 0 {
                     result.first?.setValue(newStock, forKey: "stock")
                 }
