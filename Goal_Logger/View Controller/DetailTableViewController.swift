@@ -31,7 +31,8 @@ class DetailTableViewController: UITableViewController {
     @IBOutlet weak var secondCPTextField: UITextField!
     @IBOutlet weak var goalNameTextField: UITextField!
     @IBOutlet weak var completeButton: UIButton!
-    
+    @IBOutlet weak var cpOneSwitch: UISwitch!
+    @IBOutlet weak var cpTwoSwitch: UISwitch!
     
     
     override func viewDidLoad() {
@@ -42,7 +43,23 @@ class DetailTableViewController: UITableViewController {
         
         configureTextFields()
         
+        if passedGoal.isCpOneComplete == true {
+            cpOneSwitch.isOn = true
+        } else {
+            cpOneSwitch.isOn = false
+        }
         
+        if passedGoal.isCpTwoComplete == true {
+            cpTwoSwitch.isOn = true
+        } else {
+            cpTwoSwitch.isOn = false
+        }
+        
+        checkButton()
+        
+        let dismissKB = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+               dismissKB.cancelsTouchesInView = false
+               tableView.addGestureRecognizer(dismissKB)
         
     }
     
@@ -57,11 +74,11 @@ class DetailTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if editMode == false {
-        if section == 2 {
-            return 0
-        } else {
-            return 1
-        }
+            if section == 2 {
+                return 0
+            } else {
+                return 1
+            }
         } else {
             return 1
         }
@@ -87,67 +104,12 @@ class DetailTableViewController: UITableViewController {
     
     
     
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let identifier = cell.reuseIdentifier {
-            switch identifier {
-            case cpOneCriteria:
-                
-                if passedGoal.isCpOneComplete == false {
-                    cell.accessoryType = .none
-                } else {
-                    cell.accessoryType = .checkmark
-                }
-            case cpTwoCriteria:
-                
-                if passedGoal.isCpTwoComplete == false {
-                    cell.accessoryType = .none
-                } else {
-                    cell.accessoryType = .checkmark
-                }
-            case "NameCell":
-                cell.selectionStyle = .none
-            default:
-                break
-            }
-        }
-    }
+    
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let section = indexPath.section
-        let numberOfRows = tableView.numberOfRows(inSection: section)
-        
-        for row in 0..<numberOfRows {
-            if let cell = tableView.cellForRow(at: IndexPath(row: row, section: section)) {
-                
-                if cell.reuseIdentifier == cpOneCriteria {
-                    if cell.accessoryType == .none {
-                        updatingIsCPComplete(for: cpOneCriteria, complete: true)
-                        cell.accessoryType = .checkmark
-                        adjustPoints(Int(passedGoal!.points / 3))
-                    } else if cell.accessoryType == .checkmark{
-                        updatingIsCPComplete(for: cpOneCriteria, complete: false)
-                        cell.accessoryType = .none
-                        adjustPoints(Int(-passedGoal.points / 3))
-                    }
-                }
-                
-                if cell.reuseIdentifier == cpTwoCriteria {
-                    if cell.accessoryType == .none {
-                        updatingIsCPComplete(for: cpTwoCriteria, complete: true)
-                        cell.accessoryType = .checkmark
-                        adjustPoints(Int(passedGoal!.points / 3))
-                    } else if cell.accessoryType == .checkmark{
-                        updatingIsCPComplete(for: cpTwoCriteria, complete: false)
-                        cell.accessoryType = .none
-                        adjustPoints(Int(-passedGoal.points / 3))
-                    }
-                    
-                }
-            }
-        }
     }
     /*
      // Override to support conditional editing of the table view.
@@ -239,15 +201,15 @@ class DetailTableViewController: UITableViewController {
         fetchRequest.predicate = NSPredicate(format: "%K == %@", "uuid", passedGoal.uuid! as CVarArg)
         do {
             let goal = try managedContext.fetch(fetchRequest)
-            if goal.isEmpty == false {
-                
-                goal.first?.setValue(firstCPTextField.text, forKey: "cpOne")
-                goal.first?.setValue(secondCPTextField.text, forKey: "cpTwo")
-                goal.first?.setValue(goalNameTextField.text, forKey: "name")
-                
-                
-                try! managedContext.save()
-            }
+            
+            
+            goal.first?.setValue(firstCPTextField.text, forKey: "cpOne")
+            goal.first?.setValue(secondCPTextField.text, forKey: "cpTwo")
+            goal.first?.setValue(goalNameTextField.text, forKey: "name")
+            
+            
+            try! managedContext.save()
+            
         } catch let error as NSError {
             print("Error updating \(error), \(error.userInfo)")
         }
@@ -255,40 +217,39 @@ class DetailTableViewController: UITableViewController {
     }
     
     fileprivate func completeGoal() {
-         let fetchRequest = NSFetchRequest<Goal>(entityName: "Goal")
-         fetchRequest.predicate = NSPredicate(format: "uuid == %@", passedGoal.uuid! as CVarArg)
-         
-         
-         do {
-             let results = try managedContext.fetch(fetchRequest)
-             
-             if results.count > 0 {
-                 results.first!.isCompleted = true
+        let fetchRequest = NSFetchRequest<Goal>(entityName: "Goal")
+        fetchRequest.predicate = NSPredicate(format: "uuid == %@", passedGoal.uuid! as CVarArg)
+        
+        
+        do {
+            let results = try managedContext.fetch(fetchRequest)
+            
+            if results.count > 0 {
+                results.first!.isCompleted = true
+                
+                adjustPoints(Int(results.first!.points / 3))
+                
+                var goalCount = UserDefaults.standard.integer(forKey: "TotalGoals")
+                goalCount += 1
+                UserDefaults.standard.set(goalCount, forKey: "TotalGoals")
                 
                 
-                 adjustPoints(Int(results.first!.points / 3))
-                 
-                 var goalCount = UserDefaults.standard.integer(forKey: "TotalGoals")
-                 goalCount += 1
-                 UserDefaults.standard.set(goalCount, forKey: "TotalGoals")
-                 
-                 
-                 if UserDefaults.standard.string(forKey: "StartDate") == nil {
-                     UserDefaults.standard.set(dateFormatter.string(from: Date()), forKey: "StartDate")
-                 }
-                 
-                 UserDefaults.standard.set(dateFormatter.string(from: Date()), forKey: "LastGoal")
-                 
-                 
-                 
-                 
-                 try managedContext.save()
-             }
-             
-         } catch let error as NSError {
-             print("Error completing task: \(error), \(error.userInfo)")
-         }
-     }
+                if UserDefaults.standard.string(forKey: "StartDate") == "" {
+                    UserDefaults.standard.set(dateFormatter.string(from: Date()), forKey: "StartDate")
+                }
+                
+                UserDefaults.standard.set(dateFormatter.string(from: Date()), forKey: "LastGoal")
+                
+                
+                
+                
+                try managedContext.save()
+            }
+            
+        } catch let error as NSError {
+            print("Error completing task: \(error), \(error.userInfo)")
+        }
+    }
     
     
     @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
@@ -324,12 +285,51 @@ class DetailTableViewController: UITableViewController {
         userDefaults.set(points, forKey: "Points")
         
         var totalPoints = userDefaults.integer(forKey: "TotalPoints")
-                       totalPoints += pointsChanged
+        totalPoints += pointsChanged
         userDefaults.set(points, forKey: "TotalPoints")
         
     }
     
- 
+    func checkButton() {
+        if cpTwoSwitch.isOn && cpOneSwitch.isOn {
+            completeButton.isEnabled = true
+        } else {
+            completeButton.isEnabled = false
+        }
+        tableView.reloadData()
+    }
+    
+    @IBAction func cpOneSwitchChanged(_ sender: UISwitch) {
+        
+        
+        if sender.isOn == true {
+            updatingIsCPComplete(for: cpOneCriteria, complete: true)
+            adjustPoints(Int(passedGoal!.points / 3))
+        } else {
+            updatingIsCPComplete(for: cpOneCriteria, complete: false)
+            adjustPoints(Int(-passedGoal.points / 3))
+        }
+        checkButton()
+        
+        
+    }
+    
+    @IBAction func cpTwoSwitchChanged(_ sender: UISwitch) {
+        
+        if sender.isOn == true {
+            updatingIsCPComplete(for: cpTwoCriteria, complete: true)
+            adjustPoints(Int(passedGoal!.points / 3))
+        } else {
+            updatingIsCPComplete(for: cpTwoCriteria, complete: false)
+            adjustPoints(Int(-passedGoal.points / 3))
+        }
+        checkButton()
+    }
+    
+    
+    
+    
+    
     
     @IBAction func completeButtonPressed(_ sender: UIButton) {
         completeGoal()
@@ -351,5 +351,25 @@ extension DetailTableViewController: UITextFieldDelegate {
         textField.delegate = self
         textField.resignFirstResponder()
         return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        if textField == firstCPTextField {
+            if textField.text == "" {
+                textField.text = "First Checkpoint"
+            }
+        }
+        if textField == secondCPTextField {
+            if textField.text == "" {
+                textField.text = "First Checkpoint"
+            }
+        }
+        
+        if textField == goalNameTextField {
+            if textField.text == "" {
+                textField.text = "Unnamed Goal"
+            }
+        }
     }
 }

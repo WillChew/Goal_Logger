@@ -508,13 +508,16 @@ extension MainScreenViewController: UIGestureRecognizerDelegate {
             self.totalPointsLabel.text = "Total Points Earned: \(UserDefaults.standard.integer(forKey: "TotalPoints"))"
             self.redeemedRewardsLabel.text = "Number of Redeemed Rewards: \(UserDefaults.standard.integer(forKey: "TotalRewards"))"
             self.completedGoalsLabel.text = "Number of Goals Completed: \(UserDefaults.standard.integer(forKey: "TotalGoals")) "
+            
             if let start = UserDefaults.standard.string(forKey: "StartDate") {
-                self.firstGoalCompletedLabel.text = "Started On: " + start
+                self.firstGoalCompletedLabel.text = "First Goal Completed On: " + start
             }
             if let end = UserDefaults.standard.string(forKey: "LastGoal") {
                 self.lastCompletedGoalLabel.text = "Last Goal Completed On: " + end
                 
             }
+            
+            print(UserDefaults.standard.string(forKey: "StartDate"))
         }
     }
     
@@ -532,6 +535,7 @@ extension MainScreenViewController: UIGestureRecognizerDelegate {
             self.infoView.removeFromSuperview()
             self.blurEffectView.removeFromSuperview()
             self.view.removeGestureRecognizer(self.dismissInfoViewTapGesture)
+            self.goalTableView.reloadData()
         }
     }
     

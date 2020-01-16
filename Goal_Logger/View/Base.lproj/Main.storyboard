@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kkR-Lf-qI2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kkR-Lf-qI2">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -215,6 +215,7 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="xx4-rc-crt" firstAttribute="top" secondItem="bEv-2b-dcb" secondAttribute="top" constant="107.33333333333333" id="4IO-V6-68g"/>
                                                 <constraint firstItem="HaW-sC-zBc" firstAttribute="trailing" secondItem="xx4-rc-crt" secondAttribute="trailing" id="5kd-DN-tfb"/>
                                                 <constraint firstItem="V2d-EU-2Ba" firstAttribute="top" secondItem="UoI-kE-br6" secondAttribute="bottom" constant="-1.5" id="9N5-pT-moh"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="V2d-EU-2Ba" secondAttribute="trailing" constant="20" symbolic="YES" id="FJb-7q-9RA"/>
@@ -222,7 +223,6 @@
                                                 <constraint firstItem="V2d-EU-2Ba" firstAttribute="leading" secondItem="xx4-rc-crt" secondAttribute="leading" id="MdM-oY-5ti"/>
                                                 <constraint firstItem="HaW-sC-zBc" firstAttribute="top" secondItem="FIb-R2-0gz" secondAttribute="bottom" id="OQs-sd-14q"/>
                                                 <constraint firstItem="gpB-ha-6nT" firstAttribute="leading" secondItem="xx4-rc-crt" secondAttribute="leading" id="WeD-NC-N4k"/>
-                                                <constraint firstItem="xx4-rc-crt" firstAttribute="top" secondItem="HaW-sC-zBc" secondAttribute="bottom" constant="8.6666666666665861" id="X5m-5j-7D3"/>
                                                 <constraint firstAttribute="bottom" secondItem="bJG-g8-EiC" secondAttribute="bottom" constant="2" id="aXB-ai-Tqy"/>
                                                 <constraint firstAttribute="bottom" secondItem="gpB-ha-6nT" secondAttribute="bottom" id="bRK-cv-Cfv"/>
                                                 <constraint firstItem="FIb-R2-0gz" firstAttribute="leading" secondItem="xx4-rc-crt" secondAttribute="leading" id="baE-OP-n7y"/>
@@ -411,27 +411,37 @@
                         <sections>
                             <tableViewSection headerTitle="Header Text" id="fgT-a7-eGn">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="isCpOneComplete" rowHeight="40" id="aHU-lm-m4u">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="isCpOneComplete" rowHeight="40" id="aHU-lm-m4u">
                                         <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aHU-lm-m4u" id="Ozm-bF-J7U">
-                                            <rect key="frame" x="0.0" y="0.0" width="370" height="40"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="u2N-N8-hi3">
-                                                    <rect key="frame" x="20" y="0.0" width="350" height="40"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="u2N-N8-hi3">
+                                                    <rect key="frame" x="20" y="0.0" width="317" height="40"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="187-0M-hhu" id="mdz-T2-MVC"/>
                                                     </connections>
                                                 </textField>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Njr-tv-DRk">
+                                                    <rect key="frame" x="345" y="5" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="cpOneSwitchChanged:" destination="187-0M-hhu" eventType="valueChanged" id="NiT-1X-UXh"/>
+                                                    </connections>
+                                                </switch>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="Njr-tv-DRk" secondAttribute="bottom" constant="4" id="Fim-IQ-sPR"/>
                                                 <constraint firstItem="u2N-N8-hi3" firstAttribute="top" secondItem="Ozm-bF-J7U" secondAttribute="top" id="HKM-5P-Yfl"/>
                                                 <constraint firstItem="u2N-N8-hi3" firstAttribute="leading" secondItem="Ozm-bF-J7U" secondAttribute="leading" constant="20" id="MMH-2E-I5H"/>
-                                                <constraint firstAttribute="trailing" secondItem="u2N-N8-hi3" secondAttribute="trailing" id="OW8-hL-bvO"/>
+                                                <constraint firstAttribute="trailing" secondItem="u2N-N8-hi3" secondAttribute="trailing" constant="77" id="WMl-1L-Jcb"/>
+                                                <constraint firstItem="Njr-tv-DRk" firstAttribute="top" secondItem="Ozm-bF-J7U" secondAttribute="top" constant="5" id="YCZ-wp-Ewq"/>
                                                 <constraint firstAttribute="bottom" secondItem="u2N-N8-hi3" secondAttribute="bottom" id="iYa-dc-HjW"/>
+                                                <constraint firstItem="Njr-tv-DRk" firstAttribute="leading" secondItem="Ozm-bF-J7U" secondAttribute="leading" constant="345" id="noo-I9-U8M"/>
+                                                <constraint firstAttribute="trailing" secondItem="Njr-tv-DRk" secondAttribute="trailing" constant="20" id="zCq-JG-2Kp"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -439,25 +449,35 @@
                             </tableViewSection>
                             <tableViewSection id="GLK-Ca-vMn">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="isCpTwoComplete" rowHeight="40" id="ZTP-Pb-p3w">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="isCpTwoComplete" rowHeight="40" id="ZTP-Pb-p3w">
                                         <rect key="frame" x="0.0" y="116.33333206176758" width="414" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZTP-Pb-p3w" id="Zno-Z4-nmn">
-                                            <rect key="frame" x="0.0" y="0.0" width="370" height="40"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="qTl-df-0bT">
-                                                    <rect key="frame" x="20" y="0.0" width="350" height="40"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="qTl-df-0bT">
+                                                    <rect key="frame" x="20" y="0.0" width="317" height="40"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="187-0M-hhu" id="shl-f5-7Iq"/>
                                                     </connections>
                                                 </textField>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CRn-Bq-vg6">
+                                                    <rect key="frame" x="345" y="5" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="cpTwoSwitchChanged:" destination="187-0M-hhu" eventType="valueChanged" id="fiC-qB-pGk"/>
+                                                    </connections>
+                                                </switch>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="qTl-df-0bT" secondAttribute="trailing" id="26z-Bu-1RG"/>
                                                 <constraint firstItem="qTl-df-0bT" firstAttribute="top" secondItem="Zno-Z4-nmn" secondAttribute="top" id="A0u-wL-09m"/>
+                                                <constraint firstItem="CRn-Bq-vg6" firstAttribute="leading" secondItem="Zno-Z4-nmn" secondAttribute="leading" constant="345" id="N4F-z3-ebG"/>
+                                                <constraint firstAttribute="trailing" secondItem="CRn-Bq-vg6" secondAttribute="trailing" constant="20" id="Otk-Ek-uQf"/>
+                                                <constraint firstAttribute="trailing" secondItem="qTl-df-0bT" secondAttribute="trailing" constant="77" id="SUP-YN-AC2"/>
+                                                <constraint firstAttribute="bottom" secondItem="CRn-Bq-vg6" secondAttribute="bottom" constant="4" id="YMb-6G-mB0"/>
+                                                <constraint firstItem="CRn-Bq-vg6" firstAttribute="top" secondItem="Zno-Z4-nmn" secondAttribute="top" constant="5" id="iJI-OC-LIR"/>
                                                 <constraint firstItem="qTl-df-0bT" firstAttribute="leading" secondItem="Zno-Z4-nmn" secondAttribute="leading" constant="20" id="iLp-Oh-KPx"/>
                                                 <constraint firstAttribute="bottom" secondItem="qTl-df-0bT" secondAttribute="bottom" id="mQh-le-bNJ"/>
                                             </constraints>
@@ -540,6 +560,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="completeButton" destination="spA-eX-NS3" id="NCh-UP-AGC"/>
+                        <outlet property="cpOneSwitch" destination="Njr-tv-DRk" id="1uJ-8g-Iuj"/>
+                        <outlet property="cpTwoSwitch" destination="CRn-Bq-vg6" id="PW8-VQ-g5f"/>
                         <outlet property="firstCPTextField" destination="u2N-N8-hi3" id="MEL-Dm-YbD"/>
                         <outlet property="goalNameTextField" destination="txa-zx-2Uk" id="jEv-mB-Iqo"/>
                         <outlet property="secondCPTextField" destination="qTl-df-0bT" id="0Nm-J2-Tr2"/>
