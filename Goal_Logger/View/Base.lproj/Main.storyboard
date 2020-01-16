@@ -289,12 +289,14 @@
                         <outlet property="addButton" destination="la8-dK-kzK" id="8sb-Vr-X0U"/>
                         <outlet property="completedGoalsLabel" destination="bp9-92-uvb" id="bFo-gC-AGX"/>
                         <outlet property="currentPointsLabel" destination="eeT-if-tF8" id="NBu-k4-3IZ"/>
+                        <outlet property="dismissButton" destination="nZZ-Jk-Ova" id="hTn-wc-DLf"/>
                         <outlet property="firstGoalCompletedLabel" destination="xWd-Kb-Gij" id="W37-ws-Jdc"/>
                         <outlet property="goalTableView" destination="gHj-Gw-nbh" id="epq-Xw-Md7"/>
                         <outlet property="infoButton" destination="9BT-5d-9dB" id="2EH-VI-Trx"/>
                         <outlet property="infoView" destination="gsj-En-dQG" id="kwM-9U-6SY"/>
                         <outlet property="lastCompletedGoalLabel" destination="iM0-ea-Jgd" id="YOQ-pw-rKN"/>
                         <outlet property="redeemedRewardsLabel" destination="fKp-W7-q4a" id="n7x-k1-bKZ"/>
+                        <outlet property="resetButton" destination="n8l-13-l43" id="VHa-5p-Mla"/>
                         <outlet property="segValue" destination="7F7-WU-bMc" id="IZp-2N-vgz"/>
                         <outlet property="totalPointsLabel" destination="MGs-kJ-nw0" id="wec-V1-C3W"/>
                         <segue destination="187-0M-hhu" kind="show" identifier="DetailSegue" id="6Rx-B9-PLs"/>
@@ -305,73 +307,94 @@
                     <rect key="frame" x="0.0" y="0.0" width="349" height="262"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current Points:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eeT-if-tF8">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Points:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eeT-if-tF8">
                             <rect key="frame" x="16" y="44" width="317" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nZZ-Jk-Ova">
-                            <rect key="frame" x="147" y="212" width="54" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Statistics" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sro-oW-EGe">
+                            <rect key="frame" x="118.99999999999999" y="15" width="129.66666666666663" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Points:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MGs-kJ-nw0">
+                            <rect key="frame" x="16" y="73" width="317" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Completed Goals:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bp9-92-uvb">
+                            <rect key="frame" x="16" y="131" width="317" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Goal Completed:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xWd-Kb-Gij">
+                            <rect key="frame" x="16" y="160" width="317" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n8l-13-l43">
+                            <rect key="frame" x="279" y="13" width="54" height="30"/>
+                            <state key="normal" title="Reset"/>
+                            <connections>
+                                <action selector="resetButtonPressed:" destination="E03-LZ-Pme" eventType="touchUpInside" id="OzY-0a-rPc"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Redeemed Rewards:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fKp-W7-q4a">
+                            <rect key="frame" x="16" y="102" width="317" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Completed Goal:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iM0-ea-Jgd">
+                            <rect key="frame" x="16" y="189" width="317" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nZZ-Jk-Ova">
+                            <rect key="frame" x="126" y="218" width="97" height="30"/>
                             <state key="normal" title="Dismiss"/>
                             <connections>
                                 <action selector="dismissInfoViewButtonPressed:" destination="E03-LZ-Pme" eventType="touchUpInside" id="bxI-dR-f0e"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Your Statistics" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sro-oW-EGe">
-                            <rect key="frame" x="119" y="15" width="110" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Total Points:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MGs-kJ-nw0">
-                            <rect key="frame" x="16" y="73" width="317" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Completed Goals:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bp9-92-uvb">
-                            <rect key="frame" x="16" y="131" width="317" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="First Goal Completed:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xWd-Kb-Gij">
-                            <rect key="frame" x="16" y="160" width="317" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Redeemed Rewards:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fKp-W7-q4a">
-                            <rect key="frame" x="16" y="102" width="317" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last Completed Goal:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iM0-ea-Jgd">
-                            <rect key="frame" x="16" y="189" width="317" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n8l-13-l43">
-                            <rect key="frame" x="273" y="10" width="60" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Reset All"/>
-                            <connections>
-                                <action selector="resetButtonPressed:" destination="E03-LZ-Pme" eventType="touchUpInside" id="OzY-0a-rPc"/>
-                            </connections>
-                        </button>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="xWd-Kb-Gij" firstAttribute="top" secondItem="bp9-92-uvb" secondAttribute="bottom" constant="8" id="40k-af-5gm"/>
+                        <constraint firstItem="bp9-92-uvb" firstAttribute="top" secondItem="fKp-W7-q4a" secondAttribute="bottom" constant="8" id="CGY-pL-6p0"/>
+                        <constraint firstItem="fKp-W7-q4a" firstAttribute="leading" secondItem="0z2-Ih-3wO" secondAttribute="leading" constant="16" id="DY0-4v-pWH"/>
+                        <constraint firstItem="sro-oW-EGe" firstAttribute="top" secondItem="gsj-En-dQG" secondAttribute="top" constant="15" id="FcJ-bt-H8w"/>
+                        <constraint firstItem="0z2-Ih-3wO" firstAttribute="trailing" secondItem="bp9-92-uvb" secondAttribute="trailing" constant="16" id="HCn-mE-4nY"/>
+                        <constraint firstItem="fKp-W7-q4a" firstAttribute="top" secondItem="MGs-kJ-nw0" secondAttribute="bottom" constant="8" id="Hl7-E5-hLK"/>
+                        <constraint firstItem="bp9-92-uvb" firstAttribute="leading" secondItem="0z2-Ih-3wO" secondAttribute="leading" constant="16" id="MVu-Yk-ZE3"/>
+                        <constraint firstItem="n8l-13-l43" firstAttribute="leading" secondItem="sro-oW-EGe" secondAttribute="trailing" constant="30.329999999999998" id="Oga-Rt-LRN"/>
+                        <constraint firstItem="eeT-if-tF8" firstAttribute="top" secondItem="sro-oW-EGe" secondAttribute="bottom" constant="8" id="P9W-xb-Nko"/>
+                        <constraint firstItem="MGs-kJ-nw0" firstAttribute="leading" secondItem="0z2-Ih-3wO" secondAttribute="leading" constant="16" id="RlJ-vV-fcD"/>
+                        <constraint firstItem="0z2-Ih-3wO" firstAttribute="trailing" secondItem="iM0-ea-Jgd" secondAttribute="trailing" constant="16" id="SsH-8T-Bw8"/>
+                        <constraint firstItem="sro-oW-EGe" firstAttribute="leading" secondItem="gsj-En-dQG" secondAttribute="leading" constant="119" id="UC7-0J-QKY"/>
+                        <constraint firstItem="0z2-Ih-3wO" firstAttribute="trailing" secondItem="xWd-Kb-Gij" secondAttribute="trailing" constant="16" id="Xv9-YJ-nit"/>
+                        <constraint firstItem="xWd-Kb-Gij" firstAttribute="leading" secondItem="0z2-Ih-3wO" secondAttribute="leading" constant="16" id="Xxb-09-IcJ"/>
+                        <constraint firstItem="eeT-if-tF8" firstAttribute="leading" secondItem="0z2-Ih-3wO" secondAttribute="leading" constant="16" id="cSE-LD-YGe"/>
+                        <constraint firstItem="0z2-Ih-3wO" firstAttribute="bottom" secondItem="nZZ-Jk-Ova" secondAttribute="bottom" constant="14" id="dFj-OF-NQP"/>
+                        <constraint firstItem="n8l-13-l43" firstAttribute="top" secondItem="gsj-En-dQG" secondAttribute="top" constant="13" id="gaH-1z-c0f"/>
+                        <constraint firstItem="nZZ-Jk-Ova" firstAttribute="leading" secondItem="0z2-Ih-3wO" secondAttribute="leading" constant="126" id="hG8-ZM-NeQ"/>
+                        <constraint firstItem="iM0-ea-Jgd" firstAttribute="leading" secondItem="0z2-Ih-3wO" secondAttribute="leading" constant="16" id="huV-8b-HV8"/>
+                        <constraint firstItem="0z2-Ih-3wO" firstAttribute="trailing" secondItem="eeT-if-tF8" secondAttribute="trailing" constant="16" id="inx-Ml-9zv"/>
+                        <constraint firstItem="MGs-kJ-nw0" firstAttribute="top" secondItem="eeT-if-tF8" secondAttribute="bottom" constant="8" id="kvK-r2-DZ9"/>
+                        <constraint firstItem="0z2-Ih-3wO" firstAttribute="trailing" secondItem="nZZ-Jk-Ova" secondAttribute="trailing" constant="126" id="myK-mS-0O1"/>
+                        <constraint firstItem="0z2-Ih-3wO" firstAttribute="trailing" secondItem="fKp-W7-q4a" secondAttribute="trailing" constant="16" id="nuu-iC-3cx"/>
+                        <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="n8l-13-l43" secondAttribute="trailing" constant="16" id="ptC-nj-ROr"/>
+                        <constraint firstItem="0z2-Ih-3wO" firstAttribute="trailing" secondItem="MGs-kJ-nw0" secondAttribute="trailing" constant="16" id="vVg-7A-FVT"/>
+                        <constraint firstItem="iM0-ea-Jgd" firstAttribute="top" secondItem="xWd-Kb-Gij" secondAttribute="bottom" constant="8" id="x66-d3-roy"/>
+                        <constraint firstItem="nZZ-Jk-Ova" firstAttribute="top" secondItem="iM0-ea-Jgd" secondAttribute="bottom" constant="8" id="xrZ-Tb-rFL"/>
+                        <constraint firstItem="eeT-if-tF8" firstAttribute="top" secondItem="n8l-13-l43" secondAttribute="bottom" constant="1" id="ziH-Ws-XuG"/>
+                    </constraints>
                     <viewLayoutGuide key="safeArea" id="0z2-Ih-3wO"/>
                 </view>
             </objects>

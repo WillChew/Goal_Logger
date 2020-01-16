@@ -71,7 +71,7 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
         blurView.alpha = 0.8
         
         saveButton.layer.cornerRadius = 10
-        saveButton.layer.borderWidth = 2
+        saveButton.layer.borderWidth = 1
         saveButton.layer.borderColor = UIColor.black.cgColor
         saveButton.isEnabled = false
         
@@ -80,7 +80,7 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         
         cancelButton.layer.cornerRadius = 10
-        cancelButton.layer.borderWidth = 2
+        cancelButton.layer.borderWidth = 1
         cancelButton.layer.borderColor = UIColor.black.cgColor
         
         addImageView.layer.borderWidth = 1

@@ -40,6 +40,11 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var completedGoalsLabel: UILabel!
     @IBOutlet weak var lastCompletedGoalLabel: UILabel!
     @IBOutlet weak var firstGoalCompletedLabel: UILabel!
+    
+    @IBOutlet weak var dismissButton: UIButton!
+    
+    @IBOutlet weak var resetButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -51,10 +56,8 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         goalTableView.addSubview(refreshControl)
         goalTableView.rowHeight = goalTableView.frame.size.height / 6
+
         
-        
-        //#PRAGMA MARK: SET POINTS TOTAL
-        //        UserDefaults.standard.set(1000, forKey: "Points")
         
     }
     
@@ -376,14 +379,27 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBAction func resetButtonPressed(_ sender: UIButton) {
         
-        UserDefaults.standard.set(0, forKey: "Points")
-        UserDefaults.standard.set(0, forKey: "TotalPoints")
-        UserDefaults.standard.set(0, forKey: "TotalRewards")
-        UserDefaults.standard.set(0, forKey: "TotalGoals")
-        UserDefaults.standard.set("", forKey: "StartDate")
-        UserDefaults.standard.set("", forKey: "LastGoal")
+        let alert = UIAlertController(title: "Reset Everything", message: "This clears everything including goals and rewards as well. \n Are you sure?", preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "Confirm", style: .default) { _ in
+            
+            self.deleteGoals()
+            self.deleteRewards()
+            UserDefaults.standard.set(0, forKey: "Points")
+            UserDefaults.standard.set(0, forKey: "TotalPoints")
+            UserDefaults.standard.set(0, forKey: "TotalRewards")
+            UserDefaults.standard.set(0, forKey: "TotalGoals")
+            UserDefaults.standard.set("", forKey: "StartDate")
+            UserDefaults.standard.set("", forKey: "LastGoal")
+            self.animateOut()
+        }
         
-        animateOut()
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(confirmAction)
+        
+        present(alert, animated: true, completion: nil)
+        
+        
+
         
         
     }
@@ -391,13 +407,52 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
 }
-extension MainScreenViewController {
+extension MainScreenViewController: UIGestureRecognizerDelegate {
+  
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if touch.view == infoView {
+            return false
+        }
+        return true
+    }
     
     
+    func deleteGoals() {
+        
+        let fetchRequest: NSFetchRequest<Goal> = Goal.fetchRequest()
+        
+        do {
+            let results = try managedContext.fetch(fetchRequest)
+            
+            for result in results {
+                managedContext.delete(result)
+            }
+            
+            try managedContext.save()
+        } catch let error as NSError {
+            print("Error deleting goals: \(error), \(error.userInfo)")
+        }
+        
+    }
     
-    
-    
-    
+    func deleteRewards() {
+          
+          let fetchRequest: NSFetchRequest<Reward> = Reward.fetchRequest()
+          
+          do {
+              let results = try managedContext.fetch(fetchRequest)
+              
+              for result in results {
+                  managedContext.delete(result)
+              }
+              
+              try managedContext.save()
+          } catch let error as NSError {
+              print("Error deleting rewards: \(error), \(error.userInfo)")
+          }
+          
+      }
     
     
     @IBAction func infoButtonPressed(_ sender: Any) {
@@ -412,8 +467,20 @@ extension MainScreenViewController {
     
     func animateViewIn() {
         
+        dismissButton.layer.cornerRadius = 10
+        dismissButton.layer.borderWidth = 1
+        dismissButton.layer.borderColor = UIColor.black.cgColor
+        
+        
+        
+//        resetButton.layer.cornerRadius = 10
+//        resetButton.layer.borderWidth = 1
+//        resetButton.layer.borderColor = UIColor.black.cgColor
+        
+        
+        
         if !UIAccessibility.isReduceTransparencyEnabled {
-            infoView.layer.cornerRadius = 5
+            infoView.layer.cornerRadius = 10
             blurEffectView = UIVisualEffectView(effect: nil)
             blurEffectView.frame = self.view.bounds
             blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -425,17 +492,15 @@ extension MainScreenViewController {
         self.view.addSubview(infoView)
         infoView.center = self.view.center
         infoView.alpha = 0
-        
+        self.navigationController?.isNavigationBarHidden = true
         dismissInfoViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissInfo(_:)))
         self.view.addGestureRecognizer(dismissInfoViewTapGesture)
-        
-        UIView.animate(withDuration: 0.4, animations:  {
+        dismissInfoViewTapGesture.delegate = self
+        UIView.animate(withDuration: 0.3, animations:  {
             self.blurEffectView.effect = UIBlurEffect(style: .dark)
             self.infoView.alpha = 1
             self.infoButton.isEnabled = false
             self.addButton.isEnabled = false
-            
-            
             
             
         }) { (_) in
@@ -461,7 +526,9 @@ extension MainScreenViewController {
             self.infoButton.isEnabled = true
             self.addButton.isEnabled = true
             self.blurEffectView.effect = nil
+            self.navigationController?.isNavigationBarHidden = false
         }) { (_) in
+            
             self.infoView.removeFromSuperview()
             self.blurEffectView.removeFromSuperview()
             self.view.removeGestureRecognizer(self.dismissInfoViewTapGesture)

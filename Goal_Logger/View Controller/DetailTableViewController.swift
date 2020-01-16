@@ -234,7 +234,7 @@ class DetailTableViewController: UITableViewController {
         
     }
     
-    func changeCP() {
+    func editGoal() {
         let fetchRequest: NSFetchRequest<Goal> = Goal.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "%K == %@", "uuid", passedGoal.uuid! as CVarArg)
         do {
@@ -253,6 +253,42 @@ class DetailTableViewController: UITableViewController {
         }
         
     }
+    
+    fileprivate func completeGoal() {
+         let fetchRequest = NSFetchRequest<Goal>(entityName: "Goal")
+         fetchRequest.predicate = NSPredicate(format: "uuid == %@", passedGoal.uuid! as CVarArg)
+         
+         
+         do {
+             let results = try managedContext.fetch(fetchRequest)
+             
+             if results.count > 0 {
+                 results.first!.isCompleted = true
+                
+                
+                 adjustPoints(Int(results.first!.points / 3))
+                 
+                 var goalCount = UserDefaults.standard.integer(forKey: "TotalGoals")
+                 goalCount += 1
+                 UserDefaults.standard.set(goalCount, forKey: "TotalGoals")
+                 
+                 
+                 if UserDefaults.standard.string(forKey: "StartDate") == nil {
+                     UserDefaults.standard.set(dateFormatter.string(from: Date()), forKey: "StartDate")
+                 }
+                 
+                 UserDefaults.standard.set(dateFormatter.string(from: Date()), forKey: "LastGoal")
+                 
+                 
+                 
+                 
+                 try managedContext.save()
+             }
+             
+         } catch let error as NSError {
+             print("Error completing task: \(error), \(error.userInfo)")
+         }
+     }
     
     
     @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
@@ -274,7 +310,7 @@ class DetailTableViewController: UITableViewController {
             goalNameTextField.isEnabled = false
             tableView.allowsSelection = true
             goalNameTextField.isHidden = true
-            changeCP()
+            editGoal()
             completeButton.setTitle("Complete \(passedGoal.name!)!", for: .normal)
             tableView.reloadData()
         }
@@ -293,38 +329,10 @@ class DetailTableViewController: UITableViewController {
         
     }
     
+ 
+    
     @IBAction func completeButtonPressed(_ sender: UIButton) {
-        let fetchRequest = NSFetchRequest<Goal>(entityName: "Goal")
-        fetchRequest.predicate = NSPredicate(format: "uuid == %@", passedGoal.uuid! as CVarArg)
-        
-        
-        do {
-            let results = try managedContext.fetch(fetchRequest)
-            
-            if results.count > 0 {
-                results.first!.isCompleted = true
-                adjustPoints(Int(results.first!.points / 3))
-                
-                var goalCount = UserDefaults.standard.integer(forKey: "TotalGoals")
-                goalCount += 1
-                UserDefaults.standard.set(goalCount, forKey: "TotalGoals")
-                
-                
-                if UserDefaults.standard.string(forKey: "StartDate") == nil {
-                    UserDefaults.standard.set(dateFormatter.string(from: Date()), forKey: "StartDate")
-                }
-                
-                UserDefaults.standard.set(dateFormatter.string(from: Date()), forKey: "LastGoal")
-                
-              
-                
-                
-                try managedContext.save()
-            }
-            
-        } catch let error as NSError {
-            print("Error completing task: \(error), \(error.userInfo)")
-        }
+        completeGoal()
         
         let alert = UIAlertController(title: "Task Complete", message: "\(passedGoal.points) points rewarded!", preferredStyle: .alert)
         self.present(alert, animated: true, completion: nil)
