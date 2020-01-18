@@ -174,7 +174,7 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource  {
         if let data = reward.image {
             cell.rewardImage.image = UIImage(data: data)
             cell.rewardImage.layer.borderWidth = 1
-            cell.rewardImage.layer.borderColor = UIColor.black.cgColor
+            cell.rewardImage.layer.borderColor = UIColor.lightGray.cgColor
             
         }
         

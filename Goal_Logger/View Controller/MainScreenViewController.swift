@@ -275,22 +275,22 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func calculateTimeRemaining(deadline endDate: Date) -> String {
         //time remaining in seconds
-        let timeRemainingInhours = endDate.distance(to: Date()) / 3600
+        let timeRemainingInhours = -(endDate.distance(to: Date()) / 3600)
         var measureOfTime = 0
         
-        if -timeRemainingInhours / 730.0 > 1 {
+        if timeRemainingInhours / 730.0 > 1 {
             measureOfTime = abs(Int((timeRemainingInhours / 730.0).rounded()))
             return "\(measureOfTime) months remaining"
-        } else if -timeRemainingInhours / 168.0 > 1 {
+        } else if timeRemainingInhours / 168.0 > 1 {
             measureOfTime = abs(Int((timeRemainingInhours / 168.0).rounded()))
             return "\(measureOfTime) weeks remaining"
-        } else if -timeRemainingInhours / 24.0 > 1 {
+        } else if timeRemainingInhours / 24.0 > 1 {
             measureOfTime = abs(Int((timeRemainingInhours / 24.0).rounded()))
             return "\(measureOfTime) days remaining"
-        } else if -timeRemainingInhours > 1 {
+        } else if timeRemainingInhours > 1 {
             measureOfTime = abs(Int(timeRemainingInhours.rounded()))
             return "\(measureOfTime) hours remaining"
-        } else if -timeRemainingInhours > 0 {
+        } else if timeRemainingInhours > 0 {
             measureOfTime = abs(Int((timeRemainingInhours * 60.0).rounded()))
             return "\(measureOfTime) minutes remaining"
         } else {

@@ -653,7 +653,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nr3-se-qkt">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nr3-se-qkt">
                                                     <rect key="frame" x="4" y="5" width="151" height="87"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="4rY-Lo-gex">
@@ -788,7 +788,7 @@
                                                     <segue destination="2qq-Sg-68e" kind="unwind" identifier="unwindAfterAddingRewardSegue" unwindAction="unwindAfterAddingReward:" id="etY-bC-hPn"/>
                                                 </connections>
                                             </button>
-                                            <imageView clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="249" image="camera" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="EDq-eo-Ldi">
+                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="249" image="camera" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="EDq-eo-Ldi">
                                                 <rect key="frame" x="48" y="44" width="209" height="120.99999999999999"/>
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </imageView>
