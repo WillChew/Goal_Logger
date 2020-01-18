@@ -58,8 +58,8 @@ class DetailTableViewController: UITableViewController {
         checkButton()
         
         let dismissKB = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
-               dismissKB.cancelsTouchesInView = false
-               tableView.addGestureRecognizer(dismissKB)
+        dismissKB.cancelsTouchesInView = false
+        tableView.addGestureRecognizer(dismissKB)
         
     }
     

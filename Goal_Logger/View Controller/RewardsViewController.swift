@@ -41,6 +41,7 @@ class RewardsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        editButton.title = "Edit"
         fetchRewards()
         tableView.reloadData()
     }
@@ -84,13 +85,11 @@ class RewardsViewController: UIViewController {
                 
                 points -= Int(cost)
                 UserDefaults.standard.setValue(points, forKey: "Points")
-                print(points)
+                
                 
                 rewardCount += 1
                 
                 UserDefaults.standard.set(rewardCount, forKey: "TotalRewards")
-                
-                
                 
                 
                 if newStock > 0 {
@@ -208,6 +207,7 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource  {
                 }
                 
                 let cancelAction = UIAlertAction(title: "Nevermind", style: .cancel, handler: nil)
+                
                 alert.addAction(confirmAction)
                 alert.addAction(cancelAction)
                 present(alert, animated: true, completion: nil)
@@ -220,6 +220,8 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource  {
         }
         if editModeOn == true {
             performSegue(withIdentifier: "editSegue", sender: self)
+            editButton.title = "Edit"
+            editModeOn = false
         }
     }
     
@@ -256,7 +258,7 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource  {
         
         
     }
-
+    
     
 }
 

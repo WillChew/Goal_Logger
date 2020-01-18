@@ -156,7 +156,12 @@ class AddRewardViewController: UIViewController, UIGestureRecognizerDelegate {
         reward.stock = stock
         reward.uuid = UUID()
         
+        
+        
         if data != nil {
+            reward.image = data
+        } else {
+            data = addImageView.image?.jpegData(compressionQuality: 0.6)
             reward.image = data
         }
         

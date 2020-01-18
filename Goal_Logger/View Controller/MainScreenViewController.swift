@@ -56,7 +56,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         goalTableView.addSubview(refreshControl)
         goalTableView.rowHeight = goalTableView.frame.size.height / 6
-
+        
         
         
     }
@@ -399,7 +399,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         present(alert, animated: true, completion: nil)
         
         
-
+        
         
         
     }
@@ -408,7 +408,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
 }
 extension MainScreenViewController: UIGestureRecognizerDelegate {
-  
+    
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if touch.view == infoView {
@@ -437,22 +437,22 @@ extension MainScreenViewController: UIGestureRecognizerDelegate {
     }
     
     func deleteRewards() {
-          
-          let fetchRequest: NSFetchRequest<Reward> = Reward.fetchRequest()
-          
-          do {
-              let results = try managedContext.fetch(fetchRequest)
-              
-              for result in results {
-                  managedContext.delete(result)
-              }
-              
-              try managedContext.save()
-          } catch let error as NSError {
-              print("Error deleting rewards: \(error), \(error.userInfo)")
-          }
-          
-      }
+        
+        let fetchRequest: NSFetchRequest<Reward> = Reward.fetchRequest()
+        
+        do {
+            let results = try managedContext.fetch(fetchRequest)
+            
+            for result in results {
+                managedContext.delete(result)
+            }
+            
+            try managedContext.save()
+        } catch let error as NSError {
+            print("Error deleting rewards: \(error), \(error.userInfo)")
+        }
+        
+    }
     
     
     @IBAction func infoButtonPressed(_ sender: Any) {
@@ -473,9 +473,9 @@ extension MainScreenViewController: UIGestureRecognizerDelegate {
         
         
         
-//        resetButton.layer.cornerRadius = 10
-//        resetButton.layer.borderWidth = 1
-//        resetButton.layer.borderColor = UIColor.black.cgColor
+        //        resetButton.layer.cornerRadius = 10
+        //        resetButton.layer.borderWidth = 1
+        //        resetButton.layer.borderColor = UIColor.black.cgColor
         
         
         
@@ -516,8 +516,6 @@ extension MainScreenViewController: UIGestureRecognizerDelegate {
                 self.lastCompletedGoalLabel.text = "Last Goal Completed On: " + end
                 
             }
-            
-            print(UserDefaults.standard.string(forKey: "StartDate"))
         }
     }
     

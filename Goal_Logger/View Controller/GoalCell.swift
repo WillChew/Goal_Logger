@@ -9,7 +9,7 @@
 import UIKit
 
 class GoalCell: UITableViewCell {
-
+    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var startedLabel: UILabel!
     @IBOutlet weak var endedLabel: UILabel!
