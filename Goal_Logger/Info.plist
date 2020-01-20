@@ -3,26 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Application wants to assign a picture for rewards from your photos
-&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;
-&lt;plist version=&quot;1.0&quot;&gt;
-&lt;string&gt;Application uses the camera to take pictures of rewards&lt;/string&gt;
-&lt;/plist&gt;
-Application wants to assign a picture for rewards from your photos
-&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;
-&lt;plist version=&quot;1.0&quot;&gt;
-&lt;string&gt;Application uses the camera to take pictures of rewards&lt;/string&gt;
-&lt;/plist&gt;
-Application wants to assign a picture for rewards from your photos</string>
+	<string>Allows you to add photos to your rewards.</string>
 	<key>NSAppleMusicUsageDescription</key>
-	<string>Application wants to assign a picture for rewards from your photos
-&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;
-&lt;plist version=&quot;1.0&quot;&gt;
-&lt;string&gt;Application uses the camera to take pictures of rewards&lt;/string&gt;
-&lt;/plist&gt;
-</string>
+	<string>Allows you to add photos to your rewards.</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Application uses the camera to take pictures of rewards</string>
+	<string>Allows you to add photos to your rewards.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

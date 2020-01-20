@@ -280,19 +280,40 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
         if timeRemainingInhours / 730.0 > 1 {
             measureOfTime = abs(Int((timeRemainingInhours / 730.0).rounded()))
-            return "\(measureOfTime) months remaining"
+            if measureOfTime == 1 {
+                return "1 month remaining"
+            } else {
+                return "\(measureOfTime) months remaining"
+            }
         } else if timeRemainingInhours / 168.0 > 1 {
+            
             measureOfTime = abs(Int((timeRemainingInhours / 168.0).rounded()))
-            return "\(measureOfTime) weeks remaining"
+            if measureOfTime == 1 {
+                return "1 week remaining"
+            } else {
+                return "\(measureOfTime) weeks remaining"
+            }
         } else if timeRemainingInhours / 24.0 > 1 {
+            
             measureOfTime = abs(Int((timeRemainingInhours / 24.0).rounded()))
-            return "\(measureOfTime) days remaining"
+            if measureOfTime == 1 {
+                return "1 day remaining"
+            } else {
+                return "\(measureOfTime) days remaining"
+            }
         } else if timeRemainingInhours > 1 {
             measureOfTime = abs(Int(timeRemainingInhours.rounded()))
+            if measureOfTime == 1 {
+                return "1 hour remaining"
+            }
             return "\(measureOfTime) hours remaining"
         } else if timeRemainingInhours > 0 {
             measureOfTime = abs(Int((timeRemainingInhours * 60.0).rounded()))
-            return "\(measureOfTime) minutes remaining"
+            if measureOfTime == 1 {
+                return "1 minute remaining"
+            } else {
+                return "\(measureOfTime) minutes remaining"
+            }
         } else {
             return "Expired"
         }
@@ -493,6 +514,7 @@ extension MainScreenViewController: UIGestureRecognizerDelegate {
         infoView.center = self.view.center
         infoView.alpha = 0
         self.navigationController?.isNavigationBarHidden = true
+        self.tabBarController?.tabBar.isHidden = true
         dismissInfoViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissInfo(_:)))
         self.view.addGestureRecognizer(dismissInfoViewTapGesture)
         dismissInfoViewTapGesture.delegate = self
@@ -528,6 +550,7 @@ extension MainScreenViewController: UIGestureRecognizerDelegate {
             self.addButton.isEnabled = true
             self.blurEffectView.effect = nil
             self.navigationController?.isNavigationBarHidden = false
+            self.tabBarController?.tabBar.isHidden = false
         }) { (_) in
             
             self.infoView.removeFromSuperview()

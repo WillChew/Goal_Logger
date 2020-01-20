@@ -140,7 +140,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sVg-Gw-pLR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="CDh-HW-5q0" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5118.840579710145" y="-75"/>
+            <point key="canvasLocation" x="5207" y="-75"/>
         </scene>
         <!--Main Screen View Controller-->
         <scene sceneID="eLf-Jd-oAu">
@@ -403,7 +403,7 @@
         <!--Detail Table View Controller-->
         <scene sceneID="mTW-gd-JhB">
             <objects>
-                <tableViewController modalPresentationStyle="formSheet" id="187-0M-hhu" customClass="DetailTableViewController" customModule="Goal_Logger" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="187-0M-hhu" customClass="DetailTableViewController" customModule="Goal_Logger" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleAspectFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="10" sectionFooterHeight="1" id="Kdj-Rz-A2X">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -428,6 +428,7 @@
                                                 </textField>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Njr-tv-DRk">
                                                     <rect key="frame" x="345" y="5" width="51" height="31"/>
+                                                    <color key="onTintColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <connections>
                                                         <action selector="cpOneSwitchChanged:" destination="187-0M-hhu" eventType="valueChanged" id="NiT-1X-UXh"/>
                                                     </connections>
@@ -466,6 +467,7 @@
                                                 </textField>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CRn-Bq-vg6">
                                                     <rect key="frame" x="345" y="5" width="51" height="31"/>
+                                                    <color key="onTintColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <connections>
                                                         <action selector="cpTwoSwitchChanged:" destination="187-0M-hhu" eventType="valueChanged" id="fiC-qB-pGk"/>
                                                     </connections>
@@ -571,7 +573,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8e1-4l-6lS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="lzh-rg-Ag8" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4247.826086956522" y="630.80357142857144"/>
+            <point key="canvasLocation" x="4230" y="780"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="DaT-z0-HcR">
@@ -653,7 +655,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nr3-se-qkt">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="nr3-se-qkt">
                                                     <rect key="frame" x="4" y="5" width="151" height="87"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="4rY-Lo-gex">
@@ -788,8 +790,8 @@
                                                     <segue destination="2qq-Sg-68e" kind="unwind" identifier="unwindAfterAddingRewardSegue" unwindAction="unwindAfterAddingReward:" id="etY-bC-hPn"/>
                                                 </connections>
                                             </button>
-                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="249" image="camera" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="EDq-eo-Ldi">
-                                                <rect key="frame" x="48" y="44" width="209" height="120.99999999999999"/>
+                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="249" image="noPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="EDq-eo-Ldi">
+                                                <rect key="frame" x="48" y="42.999999999999993" width="209" height="123.33333333333331"/>
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </imageView>
                                             <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Reward Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="20C-Li-SSc">
@@ -857,7 +859,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lFi-zq-sq6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="2qq-Sg-68e" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2486.9565217391305" y="1313.1696428571429"/>
+            <point key="canvasLocation" x="2668" y="1313"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="pPx-XR-qaJ">
@@ -868,6 +870,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="4KU-Hy-Jy0" kind="relationship" relationship="viewControllers" id="fJP-nc-0bW"/>
@@ -881,11 +884,11 @@
     </scenes>
     <resources>
         <image name="calendar" catalog="system" width="64" height="52"/>
-        <image name="camera" catalog="system" width="64" height="48"/>
         <image name="gift" catalog="system" width="64" height="60"/>
         <image name="info.circle" catalog="system" width="64" height="60"/>
+        <image name="noPhoto" width="1080" height="1080"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="uc8-Qj-St2"/>
+        <segue reference="MnG-5C-FNE"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -61,6 +61,7 @@ class DetailTableViewController: UITableViewController {
         dismissKB.cancelsTouchesInView = false
         tableView.addGestureRecognizer(dismissKB)
         
+        
     }
     
     
@@ -182,6 +183,7 @@ class DetailTableViewController: UITableViewController {
             
             if checkpoint == cpOneCriteria {
                 goal.first?.setValue(complete, forKey: checkpoint)
+                
                 
             } else if checkpoint == cpTwoCriteria {
                 
