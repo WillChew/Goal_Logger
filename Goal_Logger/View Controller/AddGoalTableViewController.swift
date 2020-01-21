@@ -142,7 +142,6 @@ class AddGoalTableViewController: UITableViewController {
                     switch durationTextField.text {
                     case "Daily":
                         goal.points = 300 as Int32
-                        
                     case "Weekly":
                         goal.points = 600 as Int32
                     case "Monthly":

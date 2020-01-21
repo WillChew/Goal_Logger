@@ -11,7 +11,7 @@ import CoreData
 
 class MainScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var currentDuration: Duration?
+    //    var currentDuration: Duration?
     var selectedGoal: Goal?
     var goals: [NSManagedObject] = []
     
@@ -92,17 +92,17 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
         
         if segValue.selectedSegmentIndex == 1 {
-            fetchDurationName(segTitle)
-            return currentDuration?.goals?.count ?? 1
+            checkForComplete(for: segTitle)
+            return goals.count
         } else if segValue.selectedSegmentIndex == 2 {
-            fetchDurationName(segTitle)
-            return currentDuration?.goals?.count ?? 1
+            checkForComplete(for: segTitle)
+            return goals.count
         } else if segValue.selectedSegmentIndex == 3 {
-            fetchDurationName(segTitle)
-            return currentDuration?.goals?.count ?? 1
+            checkForComplete(for: segTitle)
+            return goals.count
         } else if segValue.selectedSegmentIndex == 4 {
-            fetchDurationName(segTitle)
-            return currentDuration?.goals?.count ?? 1
+            checkForComplete(for: segTitle)
+            return goals.count
         } else if segValue.selectedSegmentIndex == 0 {
             fetchAll()
             return goals.count
@@ -135,8 +135,8 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         }
         
-        if (currentDuration?.goals?.array.count) != 0 && segValue.selectedSegmentIndex != 0 {
-            let goalAtIP = (currentDuration?.goals?[indexPath.row] as! Goal)
+        if goals.count != 0 && segValue.selectedSegmentIndex != 0 {
+            let goalAtIP = (goals[indexPath.row] as! Goal)
             cell.firstCpLabel.isHidden = false
             cell.secondCpLabel.isHidden = false
             cell.endedLabel.isHidden = false
@@ -170,22 +170,20 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         
-        if segValue.selectedSegmentIndex != 0 {
-            guard let goal = currentDuration?.goals?[indexPath.row] as? Goal else { return false }
-            if goal.endDate! < Date() {
-                return false
-            }
-            
-            for g in currentDuration!.goals! {
-                let g2 = g as! Goal
-                if g2.endDate! < Date() {
-                    return false
-                }
-            }
-            return true
-        } else {
+        //        if segValue.selectedSegmentIndex != 0 {
+        guard let goal = goals[indexPath.row] as? Goal else { return false }
+        if goal.endDate! < Date() {
             return false
         }
+        
+        for g in goals {
+            let g2 = g as! Goal
+            if g2.endDate! < Date() {
+                return false
+            }
+        }
+        return true
+        
         
     }
     
@@ -196,8 +194,8 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
         
         
-        guard let currentDuration = currentDuration else { return }
-        let goalToRemove: NSManagedObject = currentDuration.goals?[indexPath.row] as! NSManagedObject
+        
+        let goalToRemove: NSManagedObject = goals[indexPath.row]
         
         
         if editingStyle == .delete {
@@ -238,16 +236,27 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         
         goalTableView.deselectRow(at: indexPath, animated: true)
         
-        if (currentDuration?.goals?.array.first) != nil {
-            
-            selectedGoal = currentDuration?.goals?[indexPath.row] as? Goal
-            
-        } else if !goals.isEmpty {
+        if !goals.isEmpty {
             selectedGoal = goals[indexPath.row] as? Goal
             
+            if (selectedGoal?.endDate!)! < Date() {
+                let alert = UIAlertController(title: "Goal has expired!", message: "Refreshing list...", preferredStyle: .alert)
+                self.present(alert, animated: true, completion: nil)
+                
+                let timer = DispatchTime.now() + 1.5
+                DispatchQueue.main.asyncAfter(deadline: timer) {
+                    alert.dismiss(animated: true, completion: nil)
+                    self.goalTableView.reloadData()
+                }
+                
+            } else {
+                
+                navigationController?.navigationBar.prefersLargeTitles.toggle()
+                performSegue(withIdentifier: "DetailSegue", sender: nil)
+            }
+            
         }
-        navigationController?.navigationBar.prefersLargeTitles.toggle()
-        performSegue(withIdentifier: "DetailSegue", sender: nil)
+        
         
     }
     
@@ -338,38 +347,58 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         title = "Your Goals"
     }
     
-    func fetchDurationName(_ duration: String) {
+    func checkForComplete(for duration: String) {
         removeExpiredGoals()
+        let fetch: NSFetchRequest<Goal> = Goal.fetchRequest()
+        let completePred = NSPredicate(format: "isCompleted == %@", NSNumber(value: false))
+        let durationPred = NSPredicate(format: "duration == %@", duration)
         
-        let goalFetch: NSFetchRequest<Duration> = Duration.fetchRequest()
-        goalFetch.predicate = NSPredicate(format: "%K == %@", #keyPath(Duration.name), duration)
+        let andPred = NSCompoundPredicate(andPredicateWithSubpredicates: [completePred, durationPred])
+        fetch.predicate = andPred
         
         do {
-            let results = try managedContext.fetch(goalFetch)
-            if results.count > 0 {
-                currentDuration = results.first
-            } else {
-                currentDuration = Duration(context: managedContext)
-                currentDuration?.name = duration
-                
-                do {
-                    try managedContext.save()
-                }
-            }
+            goals = try managedContext.fetch(fetch)
             
+            try managedContext.save()
         } catch let error as NSError {
-            print("Fetch error: \(error) description: \(error.userInfo)")
+            print("Error checking for complete goals : \(error), \(error.userInfo)")
         }
-        
-        title = "Your " + (currentDuration?.name)! + " Goals"
+        title = "Your " + duration + " Goals"
     }
+    
+    //    func fetchDurationName(_ duration: String) {
+    //        removeExpiredGoals()
+    //
+    //        let goalFetch: NSFetchRequest<Duration> = Duration.fetchRequest()
+    //        goalFetch.predicate = NSPredicate(format: "%K == %@", #keyPath(Duration.name), duration)
+    //
+    //        do {
+    //            let results = try managedContext.fetch(goalFetch)
+    //            if results.count > 0 {
+    //                currentDuration = results.first
+    //            } else {
+    //                currentDuration = Duration(context: managedContext)
+    //                currentDuration?.name = duration
+    //
+    //                do {
+    //                    try managedContext.save()
+    //                }
+    //            }
+    //
+    //        } catch let error as NSError {
+    //            print("Fetch error: \(error) description: \(error.userInfo)")
+    //        }
+    //
+    //        title = "Your " + (currentDuration?.name)! + " Goals"
+    //        checkForComplete(for: (currentDuration?.name!)!)
+    //    }
     
     func removeExpiredGoals() {
         
         let now = Date()
         
         let expiredPredicate = NSPredicate(format: "%K < %@", #keyPath(Goal.endDate), now as CVarArg)
-//        let completePredicate = NSPredicate(format: "isCompleted == %@", NSNumber(value: true))
+        //        let completePredicate = NSPredicate(format: "isCompleted == %@", NSNumber(value: true))
         let orPredicate = NSCompoundPredicate(type: .or, subpredicates: [expiredPredicate])
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Goal")
@@ -391,13 +420,14 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
-
+    
     
     
     @IBAction func segChanged(_ sender: UISegmentedControl) {
         
         let segTitle = segValue.titleForSegment(at: segValue.selectedSegmentIndex)!
-        fetchDurationName(segTitle)
+        //        fetchDurationName(segTitle)
+        checkForComplete(for: segTitle)
         goalTableView.reloadData()
     }
     
@@ -421,9 +451,6 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         alert.addAction(confirmAction)
         
         present(alert, animated: true, completion: nil)
-        
-        
-        
         
         
     }

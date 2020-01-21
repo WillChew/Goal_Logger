@@ -141,6 +141,10 @@ extension HistoryViewController : UICollectionViewDelegate, UICollectionViewData
             guard let data = rewardsArray[indexPath.row].image else { return cell }
             cell.imageView.image = UIImage(data: data)
             cell.nameLabel.text =  rewardsArray[indexPath.row].name! + " - \(rewardsArray[indexPath.row].cost) points"
+        } else {
+            cell.nameLabel.text = "Nothing has been claimed yet!"
+            cell.nameLabel.textAlignment = .right
+            
         }
         return cell
         

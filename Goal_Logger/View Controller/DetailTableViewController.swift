@@ -177,13 +177,13 @@ class DetailTableViewController: UITableViewController {
         let fetchRequest: NSFetchRequest<Goal> = Goal.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "%K == %@", "uuid", passedGoal.uuid! as CVarArg)
         
-        //        let newDate = Date().addingTimeInterval(1.0)
+//                let newDate = Date().addingTimeInterval(3.0)
         do {
             let goal = try managedContext.fetch(fetchRequest)
             
             if checkpoint == cpOneCriteria {
                 goal.first?.setValue(complete, forKey: checkpoint)
-                
+//                goal.first?.setValue(newDate, forKey: "endDate")
                 
             } else if checkpoint == cpTwoCriteria {
                 
