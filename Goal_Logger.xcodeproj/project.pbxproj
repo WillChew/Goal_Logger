@@ -29,6 +29,7 @@
 		21C6364923D6DB41000AB778 /* FirstTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21C6364823D6DB41000AB778 /* FirstTab.storyboard */; };
 		21C6364C23D6DB5B000AB778 /* SecondTab.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21C6364A23D6DB5B000AB778 /* SecondTab.storyboard */; };
 		21C6364E23D6DC79000AB778 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C6364D23D6DC79000AB778 /* HistoryViewController.swift */; };
+		21C6365123D6F21A000AB778 /* HistoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C6365023D6F21A000AB778 /* HistoryCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		21C6364823D6DB41000AB778 /* FirstTab.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FirstTab.storyboard; sourceTree = "<group>"; };
 		21C6364B23D6DB5B000AB778 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Goal_Logger/View/Base.lproj/SecondTab.storyboard; sourceTree = "<group>"; };
 		21C6364D23D6DC79000AB778 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		21C6365023D6F21A000AB778 /* HistoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +145,7 @@
 			children = (
 				2123FACB23BB40C5005BE8D8 /* RewardTableViewCell.swift */,
 				212D48182376787E005ABA0A /* GoalCell.swift */,
+				21C6365023D6F21A000AB778 /* HistoryCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -225,6 +228,7 @@
 				2111FAD123AA0616009D310B /* Goal+CoreDataProperties.swift in Sources */,
 				2111FAB523A8D181009D310B /* DetailTableViewController.swift in Sources */,
 				212D48152376746E005ABA0A /* MainScreenViewController.swift in Sources */,
+				21C6365123D6F21A000AB778 /* HistoryCollectionViewCell.swift in Sources */,
 				212D481B237687D8005ABA0A /* AddGoalTableViewController.swift in Sources */,
 				2111FA9123A847DE009D310B /* GoalLogger.xcdatamodeld in Sources */,
 				212D480123767436005ABA0A /* AppDelegate.swift in Sources */,

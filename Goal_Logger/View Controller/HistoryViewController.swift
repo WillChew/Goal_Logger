@@ -11,9 +11,9 @@ import CoreData
 
 
 class HistoryViewController: UIViewController {
-
+    
     var managedContext: NSManagedObjectContext!
-       var goalsArray = [Goal]()
+    var goalsArray = [Goal]()
     var rewardsArray = [Reward]()
     
     
@@ -45,7 +45,7 @@ class HistoryViewController: UIViewController {
         tableView.heightAnchor.constraint(equalToConstant: (self.view.bounds.size.height - goalsLabel.frame.size.height*2) / 2.5).isActive = true
         
         tableView.tableFooterView = UIView()
-
+        
         rewardsLabel.translatesAutoresizingMaskIntoConstraints = false
         rewardsLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         rewardsLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
@@ -54,7 +54,7 @@ class HistoryViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         collectionView.topAnchor.constraint(equalTo: rewardsLabel.bottomAnchor).isActive = true
         
         collectionView.automaticallyAdjustsScrollIndicatorInsets = false
@@ -68,19 +68,24 @@ class HistoryViewController: UIViewController {
         super.viewWillAppear(animated)
         checkCompleted()
         checkRewards()
+        collectionView.reloadData()
+        tableView.reloadData()
+        
+        rewardsLabel.text = "Redeemed Rewards"
+        goalsLabel.text = "Completed Goals"
     }
     
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
 
 extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
@@ -88,7 +93,7 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if !goalsArray.isEmpty {
-           return goalsArray.count
+            return goalsArray.count
         } else {
             return 1
         }
@@ -101,10 +106,11 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
         
         if !goalsArray.isEmpty {
             cell.textLabel?.text = goalsArray[indexPath.row].name
-            cell.detailTextLabel?.text = "\(goalsArray[indexPath.row].points)"
+            cell.detailTextLabel?.text = "Earned \(goalsArray[indexPath.row].points) points"
             
         } else {
-        cell.textLabel?.text = "HI"
+            cell.textLabel?.text = "No completed goals yet..."
+            cell.detailTextLabel?.text = "Get started now!"
         }
         return cell
     }
@@ -120,17 +126,28 @@ extension HistoryViewController : UICollectionViewDelegate, UICollectionViewData
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        
+        if !rewardsArray.isEmpty {
+            return rewardsArray.count
+        } else {
+            return 1
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RewardCell", for: indexPath)
-        cell.backgroundColor = .black
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RewardCell", for: indexPath) as! HistoryCollectionViewCell
+        
+        if !rewardsArray.isEmpty {
+            guard let data = rewardsArray[indexPath.row].image else { return cell }
+            cell.imageView.image = UIImage(data: data)
+            cell.nameLabel.text =  rewardsArray[indexPath.row].name! + " - \(rewardsArray[indexPath.row].cost) points"
+        }
         return cell
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height = collectionView.frame.size.height - 50
+        let height = collectionView.frame.size.height 
         
         return CGSize(width: height, height: height)
     }
@@ -140,16 +157,16 @@ extension HistoryViewController : UICollectionViewDelegate, UICollectionViewData
 extension HistoryViewController {
     
     func checkCompleted() {
-          let fetch : NSFetchRequest<Goal> = Goal.fetchRequest()
-          fetch.predicate = NSPredicate(format: "isCompleted == %@", NSNumber(value: true))
-          
-          do {
-              goalsArray = try managedContext.fetch(fetch)
-              
-          } catch {
-              print("Error fetching completed")
-          }
-      }
+        let fetch : NSFetchRequest<Goal> = Goal.fetchRequest()
+        fetch.predicate = NSPredicate(format: "isCompleted == %@", NSNumber(value: true))
+        
+        do {
+            goalsArray = try managedContext.fetch(fetch)
+            
+        } catch {
+            print("Error fetching completed")
+        }
+    }
     
     func checkRewards() {
         let fetch : NSFetchRequest<Reward> = Reward.fetchRequest()
