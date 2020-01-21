@@ -218,6 +218,8 @@ class DetailTableViewController: UITableViewController {
         
     }
     
+  
+    
     fileprivate func completeGoal() {
         let fetchRequest = NSFetchRequest<Goal>(entityName: "Goal")
         fetchRequest.predicate = NSPredicate(format: "uuid == %@", passedGoal.uuid! as CVarArg)
@@ -241,8 +243,6 @@ class DetailTableViewController: UITableViewController {
                 }
                 
                 UserDefaults.standard.set(dateFormatter.string(from: Date()), forKey: "LastGoal")
-                
-                
                 
                 
                 try managedContext.save()

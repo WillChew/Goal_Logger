@@ -255,6 +255,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "DetailSegue" {
+            
             let vc = segue.destination as! DetailTableViewController
             
             //            vc.passedGoalPoints = selectedGoal?.points as? Int32
@@ -322,6 +323,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     func fetchAll(){
         removeExpiredGoals()
         let fetchRequest = NSFetchRequest<Goal>(entityName: "Goal")
+        fetchRequest.predicate = NSPredicate(format: "isCompleted == %@", NSNumber(value: false))
         let sort = NSSortDescriptor(key: #keyPath(Goal.endDate), ascending: true)
         fetchRequest.sortDescriptors = [sort]
         
@@ -367,8 +369,8 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         let now = Date()
         
         let expiredPredicate = NSPredicate(format: "%K < %@", #keyPath(Goal.endDate), now as CVarArg)
-        let completePredicate = NSPredicate(format: "isCompleted == %@", NSNumber(value: true))
-        let orPredicate = NSCompoundPredicate(type: .or, subpredicates: [expiredPredicate, completePredicate])
+//        let completePredicate = NSPredicate(format: "isCompleted == %@", NSNumber(value: true))
+        let orPredicate = NSCompoundPredicate(type: .or, subpredicates: [expiredPredicate])
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Goal")
         fetchRequest.predicate = orPredicate
@@ -387,10 +389,21 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         } catch let error as NSError {
             print("Error deleting: \(error), \(error.userInfo)")
         }
-        
-        
-        
     }
+    
+    func checkCompleted() {
+          let fetch : NSFetchRequest<Goal> = Goal.fetchRequest()
+          fetch.predicate = NSPredicate(format: "isCompleted == %@", NSNumber(value: true))
+          
+          do {
+              let results = try managedContext.fetch(fetch)
+              print(results.count)
+          } catch {
+              print("Error fetching completed")
+          }
+      }
+    
+    
     @IBAction func segChanged(_ sender: UISegmentedControl) {
         
         let segTitle = segValue.titleForSegment(at: segValue.selectedSegmentIndex)!
@@ -491,7 +504,7 @@ extension MainScreenViewController: UIGestureRecognizerDelegate {
         dismissButton.layer.cornerRadius = 10
         dismissButton.layer.borderWidth = 1
         dismissButton.layer.borderColor = UIColor.black.cgColor
-        
+        checkCompleted()
         
         
         //        resetButton.layer.cornerRadius = 10

@@ -126,41 +126,43 @@ class AddGoalTableViewController: UITableViewController {
             let goalDuration = durationTextField.text
             
         {
-            
-            let goal = Goal(context: managedContext)
-            goal.name = goalName
-            
-            goal.duration = goalDuration
-            goal.cpOne = checkpointOne
-            goal.cpTwo = checkpointTwo
-            goal.endDate = futureDate
-            goal.startDate = Date()
-            goal.uuid = UUID()
-            
-            var points: Int32 = 0
-            if pointsTextField.text!.isEmpty {
-                switch durationTextField.text {
-                case "Daily":
-                    goal.points = 300 as Int32
-                    
-                case "Weekly":
-                    goal.points = 600 as Int32
-                case "Monthly":
-                    goal.points = 1800 as Int32
-                case "Annual":
-                    goal.points = 3600 as Int32
-                default:
-                    break
+            do {
+                let goal = Goal(context: managedContext)
+                goal.name = goalName
+                goal.duration = goalDuration
+                goal.cpOne = checkpointOne
+                goal.cpTwo = checkpointTwo
+                goal.endDate = futureDate
+                goal.startDate = Date()
+                goal.uuid = UUID()
+                goal.isCompleted = false
+                
+                var points: Int32 = 0
+                if pointsTextField.text!.isEmpty {
+                    switch durationTextField.text {
+                    case "Daily":
+                        goal.points = 300 as Int32
+                        
+                    case "Weekly":
+                        goal.points = 600 as Int32
+                    case "Monthly":
+                        goal.points = 1800 as Int32
+                    case "Annual":
+                        goal.points = 3600 as Int32
+                    default:
+                        break
+                    }
+                } else {
+                    points = Int32(pointsTextField.text!)!
+                    goal.points = points
                 }
-            } else {
-                points = Int32(pointsTextField.text!)!
-                goal.points = points
+                
+                self.fetchDurationName(goalDuration)
+                self.currentDuration?.addToGoals(goal)
+                try self.managedContext.save()
+            } catch let error as NSError {
+                print("Error creating goal : \(error)")
             }
-            
-            self.fetchDurationName(goalDuration)
-            self.currentDuration?.addToGoals(goal)
-            try? self.managedContext.save()
-            
         }
         
     }
