@@ -391,17 +391,7 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
-    func checkCompleted() {
-          let fetch : NSFetchRequest<Goal> = Goal.fetchRequest()
-          fetch.predicate = NSPredicate(format: "isCompleted == %@", NSNumber(value: true))
-          
-          do {
-              let results = try managedContext.fetch(fetch)
-              print(results.count)
-          } catch {
-              print("Error fetching completed")
-          }
-      }
+
     
     
     @IBAction func segChanged(_ sender: UISegmentedControl) {
@@ -504,7 +494,6 @@ extension MainScreenViewController: UIGestureRecognizerDelegate {
         dismissButton.layer.cornerRadius = 10
         dismissButton.layer.borderWidth = 1
         dismissButton.layer.borderColor = UIColor.black.cgColor
-        checkCompleted()
         
         
         //        resetButton.layer.cornerRadius = 10
