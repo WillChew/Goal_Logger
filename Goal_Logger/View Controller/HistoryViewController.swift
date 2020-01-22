@@ -20,7 +20,26 @@ class HistoryViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var rewardsLabel: UILabel!
-    @IBOutlet weak var goalsLabel: UILabel!
+    
+    @IBOutlet var infoView: UIView!
+    
+    @IBOutlet weak var infoButton: UIBarButtonItem!
+ var blurEffectView: UIVisualEffectView!
+        var dismissInfoViewTapGesture: UITapGestureRecognizer!
+    //InfoViewVC outlets
+    
+       @IBOutlet weak var currentPointsLabel: UILabel!
+       
+       @IBOutlet weak var totalPointsLabel: UILabel!
+       @IBOutlet weak var redeemedRewardsLabel: UILabel!
+       @IBOutlet weak var completedGoalsLabel: UILabel!
+       @IBOutlet weak var lastCompletedGoalLabel: UILabel!
+       @IBOutlet weak var firstGoalCompletedLabel: UILabel!
+       
+       @IBOutlet weak var dismissButton: UIButton!
+       
+       @IBOutlet weak var resetButton: UIButton!
+    
     
     
     
@@ -30,19 +49,15 @@ class HistoryViewController: UIViewController {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         managedContext = appDelegate.persistentContainer.viewContext
         
-        goalsLabel.translatesAutoresizingMaskIntoConstraints = false
-        goalsLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
-        goalsLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        goalsLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        
+        navigationController?.navigationBar.prefersLargeTitles = true
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: goalsLabel.bottomAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: rewardsLabel.topAnchor).isActive = true
         
         
-        tableView.heightAnchor.constraint(equalToConstant: (self.view.bounds.size.height - goalsLabel.frame.size.height*2) / 2.5).isActive = true
+        tableView.heightAnchor.constraint(equalToConstant: self.view.bounds.size.height/2).isActive = true
         
         tableView.tableFooterView = UIView()
         
@@ -72,7 +87,7 @@ class HistoryViewController: UIViewController {
         tableView.reloadData()
         
         rewardsLabel.text = "Redeemed Rewards"
-        goalsLabel.text = "Completed Goals"
+        
     }
     
     
@@ -85,6 +100,39 @@ class HistoryViewController: UIViewController {
      // Pass the selected object to the new view controller.
      }
      */
+    
+    @IBAction func infoButtonPressed(_ sender: UIBarButtonItem) {
+        animateViewIn()
+    }
+    
+    @IBAction func dismissButtonPressed(_ sender: UIButton) {
+        animateOut()
+    }
+    
+    @IBAction func resetButtonPressed(_ sender: UIButton) {
+            let alert = UIAlertController(title: "Reset Everything", message: "This clears everything including goals and rewards as well. \n Are you sure?", preferredStyle: .alert)
+            let confirmAction = UIAlertAction(title: "Confirm", style: .default) { _ in
+                
+                self.deleteGoals()
+                self.deleteRewards()
+                UserDefaults.standard.set(0, forKey: "Points")
+                UserDefaults.standard.set(0, forKey: "TotalPoints")
+                UserDefaults.standard.set(0, forKey: "TotalRewards")
+                UserDefaults.standard.set(0, forKey: "TotalGoals")
+                UserDefaults.standard.set("", forKey: "StartDate")
+                UserDefaults.standard.set("", forKey: "LastGoal")
+                self.animateOut()
+            }
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alert.addAction(confirmAction)
+            
+            present(alert, animated: true, completion: nil)
+            
+        
+    }
+    
+    
     
 }
 
@@ -110,7 +158,8 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
             
         } else {
             cell.textLabel?.text = "No completed goals yet..."
-            cell.detailTextLabel?.text = "Get started now!"
+            cell.detailTextLabel?.text = ""
+            
         }
         return cell
     }
@@ -158,7 +207,7 @@ extension HistoryViewController : UICollectionViewDelegate, UICollectionViewData
     
 }
 
-extension HistoryViewController {
+extension HistoryViewController : UIGestureRecognizerDelegate {
     
     func checkCompleted() {
         let fetch : NSFetchRequest<Goal> = Goal.fetchRequest()
@@ -183,6 +232,123 @@ extension HistoryViewController {
             print("Error fetching rewards")
         }
     }
+    
+    func deleteGoals() {
+           
+           let fetchRequest: NSFetchRequest<Goal> = Goal.fetchRequest()
+           
+           do {
+               let results = try managedContext.fetch(fetchRequest)
+               
+               for result in results {
+                   managedContext.delete(result)
+               }
+               
+               try managedContext.save()
+           } catch let error as NSError {
+               print("Error deleting goals: \(error), \(error.userInfo)")
+           }
+           
+       }
+       
+       func deleteRewards() {
+           
+           let fetchRequest: NSFetchRequest<Reward> = Reward.fetchRequest()
+           
+           do {
+               let results = try managedContext.fetch(fetchRequest)
+               
+               for result in results {
+                   managedContext.delete(result)
+               }
+               
+               try managedContext.save()
+           } catch let error as NSError {
+               print("Error deleting rewards: \(error), \(error.userInfo)")
+           }
+           
+       }
+    
+    
+    
+    func animateViewIn() {
+        
+        dismissButton.layer.cornerRadius = 10
+        dismissButton.layer.borderWidth = 1
+        dismissButton.layer.borderColor = UIColor.black.cgColor
+        
+        
+        //        resetButton.layer.cornerRadius = 10
+        //        resetButton.layer.borderWidth = 1
+        //        resetButton.layer.borderColor = UIColor.black.cgColor
+        
+        
+        
+        if !UIAccessibility.isReduceTransparencyEnabled {
+            infoView.layer.cornerRadius = 10
+            blurEffectView = UIVisualEffectView(effect: nil)
+            blurEffectView.frame = self.view.bounds
+            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            view.addSubview(blurEffectView)
+        } else {
+            view.backgroundColor = .black
+        }
+        
+        self.view.addSubview(infoView)
+        infoView.center = self.view.center
+        infoView.alpha = 0
+        self.navigationController?.isNavigationBarHidden = true
+        self.tabBarController?.tabBar.isHidden = true
+        dismissInfoViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissInfo(_:)))
+        self.view.addGestureRecognizer(dismissInfoViewTapGesture)
+        dismissInfoViewTapGesture.delegate = self
+        UIView.animate(withDuration: 0.3, animations:  {
+            self.blurEffectView.effect = UIBlurEffect(style: .dark)
+            self.infoView.alpha = 1
+            self.infoButton.isEnabled = false
+           
+            
+            
+        }) { (_) in
+            self.currentPointsLabel.text = "Current Points: \(UserDefaults.standard.integer(forKey: "Points"))"
+            self.totalPointsLabel.text = "Total Points Earned: \(UserDefaults.standard.integer(forKey: "TotalPoints"))"
+            self.redeemedRewardsLabel.text = "Number of Redeemed Rewards: \(UserDefaults.standard.integer(forKey: "TotalRewards"))"
+            self.completedGoalsLabel.text = "Number of Goals Completed: \(UserDefaults.standard.integer(forKey: "TotalGoals")) "
+            
+            if let start = UserDefaults.standard.string(forKey: "StartDate") {
+                self.firstGoalCompletedLabel.text = "First Goal Completed On: " + start
+            }
+            if let end = UserDefaults.standard.string(forKey: "LastGoal") {
+                self.lastCompletedGoalLabel.text = "Last Goal Completed On: " + end
+                
+            }
+        }
+    }
+    
+    func animateOut() {
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            
+            self.infoView.alpha = 0
+            self.infoButton.isEnabled = true
+            self.blurEffectView.effect = nil
+            self.navigationController?.isNavigationBarHidden = false
+            self.tabBarController?.tabBar.isHidden = false
+        }) { (_) in
+            
+            self.infoView.removeFromSuperview()
+            self.blurEffectView.removeFromSuperview()
+            self.view.removeGestureRecognizer(self.dismissInfoViewTapGesture)
+            self.tableView.reloadData()
+            self.collectionView.reloadData()
+        }
+    }
+    
+    @objc func dismissInfo(_ sender: UITapGestureRecognizer) {
+        animateOut()
+    }
+    
+    
     
     
 }

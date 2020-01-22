@@ -357,6 +357,8 @@ extension DetailTableViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         
+        print(textField)
+        
         if textField == firstCPTextField {
             if textField.text == "" {
                 textField.text = "First Checkpoint"
