@@ -49,7 +49,7 @@
             </objects>
             <point key="canvasLocation" x="2595" y="408"/>
         </scene>
-        <!--Item-->
+        <!--History-->
         <scene sceneID="nZr-w9-6HM">
             <objects>
                 <viewController id="2gC-lT-FVw" customClass="HistoryViewController" customModule="Goal_Logger" customModuleProvider="target" sceneMemberID="viewController">
@@ -57,7 +57,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QdS-mc-YGw">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QdS-mc-YGw">
                                 <rect key="frame" x="0.0" y="112" width="414" height="338"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -127,7 +127,7 @@
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nEy-Hk-fUi">
                                                     <rect key="frame" x="20" y="20" width="310" height="310"/>
                                                 </imageView>
-                                                <view alpha="0.84999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t7y-j5-Djb">
+                                                <view alpha="0.75" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t7y-j5-Djb">
                                                     <rect key="frame" x="20" y="248" width="310" height="82"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.75" translatesAutoresizingMaskIntoConstraints="NO" id="Bca-1x-mI2">
@@ -137,7 +137,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="bottom" secondItem="Bca-1x-mI2" secondAttribute="bottom" constant="24" id="b0c-0C-Cyb"/>
                                                         <constraint firstItem="Bca-1x-mI2" firstAttribute="leading" secondItem="t7y-j5-Djb" secondAttribute="leading" constant="20" symbolic="YES" id="eIE-dK-l29"/>
@@ -172,7 +172,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="ILI-Im-2LH"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="ofo-y3-THN"/>
+                    <tabBarItem key="tabBarItem" title="History" image="book.circle" catalog="system" id="ofo-y3-THN"/>
                     <connections>
                         <outlet property="collectionView" destination="eRV-Lg-78p" id="RMh-7S-BvA"/>
                         <outlet property="goalsLabel" destination="SjH-Yz-8CZ" id="7qV-Nc-NSa"/>
@@ -182,7 +182,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fcP-8b-i4u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2728" y="885"/>
+            <point key="canvasLocation" x="3001" y="969"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="book.circle" catalog="system" width="64" height="60"/>
+    </resources>
 </document>
