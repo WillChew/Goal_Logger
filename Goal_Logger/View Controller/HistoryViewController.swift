@@ -24,21 +24,21 @@ class HistoryViewController: UIViewController {
     @IBOutlet var infoView: UIView!
     
     @IBOutlet weak var infoButton: UIBarButtonItem!
- var blurEffectView: UIVisualEffectView!
-        var dismissInfoViewTapGesture: UITapGestureRecognizer!
+    var blurEffectView: UIVisualEffectView!
+    var dismissInfoViewTapGesture: UITapGestureRecognizer!
     //InfoViewVC outlets
     
-       @IBOutlet weak var currentPointsLabel: UILabel!
-       
-       @IBOutlet weak var totalPointsLabel: UILabel!
-       @IBOutlet weak var redeemedRewardsLabel: UILabel!
-       @IBOutlet weak var completedGoalsLabel: UILabel!
-       @IBOutlet weak var lastCompletedGoalLabel: UILabel!
-       @IBOutlet weak var firstGoalCompletedLabel: UILabel!
-       
-       @IBOutlet weak var dismissButton: UIButton!
-       
-       @IBOutlet weak var resetButton: UIButton!
+    @IBOutlet weak var currentPointsLabel: UILabel!
+    
+    @IBOutlet weak var totalPointsLabel: UILabel!
+    @IBOutlet weak var redeemedRewardsLabel: UILabel!
+    @IBOutlet weak var completedGoalsLabel: UILabel!
+    @IBOutlet weak var lastCompletedGoalLabel: UILabel!
+    @IBOutlet weak var firstGoalCompletedLabel: UILabel!
+    
+    @IBOutlet weak var dismissButton: UIButton!
+    
+    @IBOutlet weak var resetButton: UIButton!
     
     
     
@@ -86,7 +86,11 @@ class HistoryViewController: UIViewController {
         collectionView.reloadData()
         tableView.reloadData()
         
+        if !rewardsArray.isEmpty {
         rewardsLabel.text = "Redeemed Rewards"
+        } else {
+            rewardsLabel.text = ""
+        }
         
     }
     
@@ -110,25 +114,25 @@ class HistoryViewController: UIViewController {
     }
     
     @IBAction func resetButtonPressed(_ sender: UIButton) {
-            let alert = UIAlertController(title: "Reset Everything", message: "This clears everything including goals and rewards as well. \n Are you sure?", preferredStyle: .alert)
-            let confirmAction = UIAlertAction(title: "Confirm", style: .default) { _ in
-                
-                self.deleteGoals()
-                self.deleteRewards()
-                UserDefaults.standard.set(0, forKey: "Points")
-                UserDefaults.standard.set(0, forKey: "TotalPoints")
-                UserDefaults.standard.set(0, forKey: "TotalRewards")
-                UserDefaults.standard.set(0, forKey: "TotalGoals")
-                UserDefaults.standard.set("", forKey: "StartDate")
-                UserDefaults.standard.set("", forKey: "LastGoal")
-                self.animateOut()
-            }
+        let alert = UIAlertController(title: "Reset Everything", message: "This clears everything including goals and rewards as well. \n Are you sure?", preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "Confirm", style: .default) { _ in
             
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            alert.addAction(confirmAction)
-            
-            present(alert, animated: true, completion: nil)
-            
+            self.deleteGoals()
+            self.deleteRewards()
+            UserDefaults.standard.set(0, forKey: "Points")
+            UserDefaults.standard.set(0, forKey: "TotalPoints")
+            UserDefaults.standard.set(0, forKey: "TotalRewards")
+            UserDefaults.standard.set(0, forKey: "TotalGoals")
+            UserDefaults.standard.set("", forKey: "StartDate")
+            UserDefaults.standard.set("", forKey: "LastGoal")
+            self.animateOut()
+        }
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(confirmAction)
+        
+        present(alert, animated: true, completion: nil)
+        
         
     }
     
@@ -192,7 +196,7 @@ extension HistoryViewController : UICollectionViewDelegate, UICollectionViewData
             cell.nameLabel.text =  rewardsArray[indexPath.row].name! + " - \(rewardsArray[indexPath.row].cost) points"
         } else {
             cell.nameLabel.text = "Nothing has been claimed yet!"
-            cell.nameLabel.textAlignment = .right
+            cell.nameLabel.textAlignment = .center
             
         }
         return cell
@@ -234,40 +238,40 @@ extension HistoryViewController : UIGestureRecognizerDelegate {
     }
     
     func deleteGoals() {
-           
-           let fetchRequest: NSFetchRequest<Goal> = Goal.fetchRequest()
-           
-           do {
-               let results = try managedContext.fetch(fetchRequest)
-               
-               for result in results {
-                   managedContext.delete(result)
-               }
-               
-               try managedContext.save()
-           } catch let error as NSError {
-               print("Error deleting goals: \(error), \(error.userInfo)")
-           }
-           
-       }
-       
-       func deleteRewards() {
-           
-           let fetchRequest: NSFetchRequest<Reward> = Reward.fetchRequest()
-           
-           do {
-               let results = try managedContext.fetch(fetchRequest)
-               
-               for result in results {
-                   managedContext.delete(result)
-               }
-               
-               try managedContext.save()
-           } catch let error as NSError {
-               print("Error deleting rewards: \(error), \(error.userInfo)")
-           }
-           
-       }
+        
+        let fetchRequest: NSFetchRequest<Goal> = Goal.fetchRequest()
+        
+        do {
+            let results = try managedContext.fetch(fetchRequest)
+            
+            for result in results {
+                managedContext.delete(result)
+            }
+            
+            try managedContext.save()
+        } catch let error as NSError {
+            print("Error deleting goals: \(error), \(error.userInfo)")
+        }
+        
+    }
+    
+    func deleteRewards() {
+        
+        let fetchRequest: NSFetchRequest<Reward> = Reward.fetchRequest()
+        
+        do {
+            let results = try managedContext.fetch(fetchRequest)
+            
+            for result in results {
+                managedContext.delete(result)
+            }
+            
+            try managedContext.save()
+        } catch let error as NSError {
+            print("Error deleting rewards: \(error), \(error.userInfo)")
+        }
+        
+    }
     
     
     
@@ -306,7 +310,7 @@ extension HistoryViewController : UIGestureRecognizerDelegate {
             self.blurEffectView.effect = UIBlurEffect(style: .dark)
             self.infoView.alpha = 1
             self.infoButton.isEnabled = false
-           
+            
             
             
         }) { (_) in
