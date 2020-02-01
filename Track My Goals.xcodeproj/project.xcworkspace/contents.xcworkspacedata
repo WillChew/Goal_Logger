@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Goal_Logger.xcodeproj">
+      location = "self:/Users/willchew/Desktop/Goal_Logger/Track My Goals.xcodeproj">
    </FileRef>
 </Workspace>

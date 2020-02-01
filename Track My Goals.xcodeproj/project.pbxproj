@@ -44,7 +44,7 @@
 		2123FAC123B5E353005BE8D8 /* RewardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardsViewController.swift; sourceTree = "<group>"; };
 		2123FAC323BB130D005BE8D8 /* AddRewardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRewardViewController.swift; sourceTree = "<group>"; };
 		2123FACB23BB40C5005BE8D8 /* RewardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardTableViewCell.swift; sourceTree = "<group>"; };
-		212D47FD23767436005ABA0A /* Goal_Logger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Goal_Logger.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		212D47FD23767436005ABA0A /* Track My Goals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Track My Goals.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		212D480023767436005ABA0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		212D480223767436005ABA0A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		212D480723767436005ABA0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -88,7 +88,7 @@
 		212D47FE23767436005ABA0A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				212D47FD23767436005ABA0A /* Goal_Logger.app */,
+				212D47FD23767436005ABA0A /* Track My Goals.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -153,9 +153,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		212D47FC23767436005ABA0A /* Goal_Logger */ = {
+		212D47FC23767436005ABA0A /* Track My Goals */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 212D481123767437005ABA0A /* Build configuration list for PBXNativeTarget "Goal_Logger" */;
+			buildConfigurationList = 212D481123767437005ABA0A /* Build configuration list for PBXNativeTarget "Track My Goals" */;
 			buildPhases = (
 				212D47F923767436005ABA0A /* Sources */,
 				212D47FA23767436005ABA0A /* Frameworks */,
@@ -165,9 +165,9 @@
 			);
 			dependencies = (
 			);
-			name = Goal_Logger;
+			name = "Track My Goals";
 			productName = Goal_Logger;
-			productReference = 212D47FD23767436005ABA0A /* Goal_Logger.app */;
+			productReference = 212D47FD23767436005ABA0A /* Track My Goals.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -185,7 +185,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 212D47F823767436005ABA0A /* Build configuration list for PBXProject "Goal_Logger" */;
+			buildConfigurationList = 212D47F823767436005ABA0A /* Build configuration list for PBXProject "Track My Goals" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -198,7 +198,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				212D47FC23767436005ABA0A /* Goal_Logger */,
+				212D47FC23767436005ABA0A /* Track My Goals */,
 			);
 		};
 /* End PBXProject section */
@@ -399,8 +399,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.williamchew.Goal-Logger";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.williamchew.TrackMyGoals;
+				PRODUCT_NAME = "Track My Goals";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -417,8 +417,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.williamchew.Goal-Logger";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.williamchew.TrackMyGoals;
+				PRODUCT_NAME = "Track My Goals";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -427,7 +427,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		212D47F823767436005ABA0A /* Build configuration list for PBXProject "Goal_Logger" */ = {
+		212D47F823767436005ABA0A /* Build configuration list for PBXProject "Track My Goals" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				212D480F23767437005ABA0A /* Debug */,
@@ -436,7 +436,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		212D481123767437005ABA0A /* Build configuration list for PBXNativeTarget "Goal_Logger" */ = {
+		212D481123767437005ABA0A /* Build configuration list for PBXNativeTarget "Track My Goals" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				212D481223767437005ABA0A /* Debug */,
