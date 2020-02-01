@@ -42,6 +42,8 @@ class AddGoalTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: self)
         
+        pointsTextField.text = "\(300)"
+        
     }
     
     fileprivate func setupTextFields() {
@@ -206,6 +208,10 @@ extension AddGoalTableViewController: UIPickerViewDelegate, UIPickerViewDataSour
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         durationTextField.text = durationArray[row]
+        
+        let pointsArray = [300, 600, 1800, 3600]
+        
+        pointsTextField.text = "\(pointsArray[row])"
     }
     
     
