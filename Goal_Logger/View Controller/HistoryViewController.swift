@@ -160,6 +160,7 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
             cell.textLabel?.text = goalsArray[indexPath.row].name
             cell.detailTextLabel?.text = "Earned \(goalsArray[indexPath.row].points) points"
             
+            
         } else {
             cell.textLabel?.text = "No completed goals yet..."
             cell.detailTextLabel?.text = ""
@@ -197,6 +198,7 @@ extension HistoryViewController : UICollectionViewDelegate, UICollectionViewData
         } else {
             cell.nameLabel.text = "Nothing has been claimed yet!"
             cell.nameLabel.textAlignment = .center
+            cell.imageView.image = nil
             
         }
         return cell
@@ -235,6 +237,7 @@ extension HistoryViewController : UIGestureRecognizerDelegate {
         } catch {
             print("Error fetching rewards")
         }
+        
     }
     
     func deleteGoals() {
@@ -252,7 +255,7 @@ extension HistoryViewController : UIGestureRecognizerDelegate {
         } catch let error as NSError {
             print("Error deleting goals: \(error), \(error.userInfo)")
         }
-        
+        self.goalsArray.removeAll()
     }
     
     func deleteRewards() {
@@ -269,6 +272,10 @@ extension HistoryViewController : UIGestureRecognizerDelegate {
             try managedContext.save()
         } catch let error as NSError {
             print("Error deleting rewards: \(error), \(error.userInfo)")
+        }
+        self.rewardsArray.removeAll()
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
         }
         
     }
@@ -343,14 +350,20 @@ extension HistoryViewController : UIGestureRecognizerDelegate {
             self.infoView.removeFromSuperview()
             self.blurEffectView.removeFromSuperview()
             self.view.removeGestureRecognizer(self.dismissInfoViewTapGesture)
+            self.checkRewards()
+            self.checkCompleted()
             self.tableView.reloadData()
             self.collectionView.reloadData()
+            
+            
+            
         }
     }
     
     @objc func dismissInfo(_ sender: UITapGestureRecognizer) {
         animateOut()
     }
+  
     
     
     
