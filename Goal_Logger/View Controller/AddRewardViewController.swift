@@ -252,6 +252,10 @@ extension AddRewardViewController: UIImagePickerControllerDelegate, UINavigation
             self.getImage(fromSourceType: .photoLibrary)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        
+        alert.popoverPresentationController?.sourceView = addView
+        
         self.present(alert, animated: true, completion: nil)
     }
     

@@ -27,15 +27,17 @@
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WjK-gy-tzx">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="ziE-1r-mFW"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="WjK-gy-tzx" secondAttribute="trailing" id="D51-Ze-zAB"/>
-                                                <constraint firstAttribute="bottom" secondItem="WjK-gy-tzx" secondAttribute="bottom" id="NY3-Ie-2MI"/>
-                                                <constraint firstItem="WjK-gy-tzx" firstAttribute="leading" secondItem="tfH-3O-b7H" secondAttribute="leading" id="Zsz-Ov-ZSw"/>
-                                                <constraint firstItem="WjK-gy-tzx" firstAttribute="top" secondItem="tfH-3O-b7H" secondAttribute="top" id="lux-zp-Tux"/>
+                                                <constraint firstAttribute="trailing" secondItem="WjK-gy-tzx" secondAttribute="trailing" id="can-2m-b2T"/>
+                                                <constraint firstAttribute="bottom" secondItem="WjK-gy-tzx" secondAttribute="bottom" id="h6i-gQ-HYw"/>
+                                                <constraint firstItem="WjK-gy-tzx" firstAttribute="leading" secondItem="tfH-3O-b7H" secondAttribute="leading" id="wfa-9l-6tE"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -52,15 +54,17 @@
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fGW-1J-C2c">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="BWC-Md-bA4"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="fGW-1J-C2c" firstAttribute="top" secondItem="aGl-MG-GER" secondAttribute="top" id="Jj3-Tk-5w6"/>
-                                                <constraint firstAttribute="trailing" secondItem="fGW-1J-C2c" secondAttribute="trailing" id="Vig-Cu-ykM"/>
-                                                <constraint firstItem="fGW-1J-C2c" firstAttribute="leading" secondItem="aGl-MG-GER" secondAttribute="leading" id="crw-G8-wqA"/>
-                                                <constraint firstAttribute="bottom" secondItem="fGW-1J-C2c" secondAttribute="bottom" id="pZI-mz-joj"/>
+                                                <constraint firstAttribute="bottom" secondItem="fGW-1J-C2c" secondAttribute="bottom" id="HYB-VC-8Bd"/>
+                                                <constraint firstAttribute="trailing" secondItem="fGW-1J-C2c" secondAttribute="trailing" id="rl6-EN-QwJ"/>
+                                                <constraint firstItem="fGW-1J-C2c" firstAttribute="leading" secondItem="aGl-MG-GER" secondAttribute="leading" id="uqB-hj-FdT"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -77,6 +81,9 @@
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k4z-Mr-Kyd">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="TiI-nt-REf"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -100,8 +107,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jUx-1R-IzG">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jUx-1R-IzG">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="Q7y-SM-MJU"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
@@ -125,8 +135,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IFt-bt-yWH">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IFt-bt-yWH">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="nY1-w3-JaS"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -148,6 +161,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="ycM-Gg-FwX">
+                        <barButtonItem key="leftBarButtonItem" title="Close" id="Zw1-T8-MJZ">
+                            <connections>
+                                <action selector="closeButtonPressed:" destination="iLG-2z-70k" id="ffV-Ec-ass"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="bT6-Yk-ag1">
                             <connections>
                                 <segue destination="CDh-HW-5q0" kind="unwind" identifier="SaveGoalSegue" unwindAction="unwindSegue:" id="G71-hj-bDs"/>
@@ -165,7 +183,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sVg-Gw-pLR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="CDh-HW-5q0" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5207" y="-75"/>
+            <point key="canvasLocation" x="5205.7971014492759" y="-75"/>
         </scene>
         <!--Main Screen View Controller-->
         <scene sceneID="eLf-Jd-oAu">

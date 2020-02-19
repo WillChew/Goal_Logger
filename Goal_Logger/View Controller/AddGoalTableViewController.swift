@@ -70,6 +70,9 @@ class AddGoalTableViewController: UITableViewController {
         }
     }
     
+    @IBAction func closeButtonPressed(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     // #PRAMGA MARK: TABLEVIEW FUNCTIONS
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
