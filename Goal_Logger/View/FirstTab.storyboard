@@ -25,13 +25,18 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WjK-gy-tzx">
-                                                    <rect key="frame" x="20" y="5" width="394" height="34"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WjK-gy-tzx">
+                                                    <rect key="frame" x="20" y="20" width="374" height="4"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="WjK-gy-tzx" secondAttribute="trailing" constant="20" symbolic="YES" id="D51-Ze-zAB"/>
+                                                <constraint firstAttribute="bottom" secondItem="WjK-gy-tzx" secondAttribute="bottom" constant="20" symbolic="YES" id="NY3-Ie-2MI"/>
+                                                <constraint firstItem="WjK-gy-tzx" firstAttribute="leading" secondItem="tfH-3O-b7H" secondAttribute="leading" constant="20" symbolic="YES" id="Zsz-Ov-ZSw"/>
+                                                <constraint firstItem="WjK-gy-tzx" firstAttribute="top" secondItem="tfH-3O-b7H" secondAttribute="top" constant="20" symbolic="YES" id="lux-zp-Tux"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -45,13 +50,18 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fGW-1J-C2c">
-                                                    <rect key="frame" x="20" y="5" width="394" height="34"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fGW-1J-C2c">
+                                                    <rect key="frame" x="20" y="20" width="374" height="4"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="fGW-1J-C2c" firstAttribute="top" secondItem="aGl-MG-GER" secondAttribute="top" constant="20" symbolic="YES" id="Jj3-Tk-5w6"/>
+                                                <constraint firstAttribute="trailing" secondItem="fGW-1J-C2c" secondAttribute="trailing" constant="20" symbolic="YES" id="Vig-Cu-ykM"/>
+                                                <constraint firstItem="fGW-1J-C2c" firstAttribute="leading" secondItem="aGl-MG-GER" secondAttribute="leading" constant="20" symbolic="YES" id="crw-G8-wqA"/>
+                                                <constraint firstAttribute="bottom" secondItem="fGW-1J-C2c" secondAttribute="bottom" constant="20" symbolic="YES" id="pZI-mz-joj"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -65,13 +75,18 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k4z-Mr-Kyd">
-                                                    <rect key="frame" x="20" y="4" width="394" height="34"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k4z-Mr-Kyd">
+                                                    <rect key="frame" x="20" y="20" width="374" height="4"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="k4z-Mr-Kyd" firstAttribute="leading" secondItem="rGs-R1-HQA" secondAttribute="leading" constant="20" symbolic="YES" id="EeQ-LJ-avi"/>
+                                                <constraint firstAttribute="trailing" secondItem="k4z-Mr-Kyd" secondAttribute="trailing" constant="20" symbolic="YES" id="Kb9-KW-m8c"/>
+                                                <constraint firstItem="k4z-Mr-Kyd" firstAttribute="top" secondItem="rGs-R1-HQA" secondAttribute="top" constant="20" symbolic="YES" id="P4Z-FI-0TD"/>
+                                                <constraint firstAttribute="bottom" secondItem="k4z-Mr-Kyd" secondAttribute="bottom" constant="20" symbolic="YES" id="n3p-xp-crp"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -85,13 +100,18 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jUx-1R-IzG">
-                                                    <rect key="frame" x="20" y="4" width="394" height="34"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jUx-1R-IzG">
+                                                    <rect key="frame" x="20" y="20" width="374" height="4"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="jUx-1R-IzG" secondAttribute="bottom" constant="20" symbolic="YES" id="W7z-Dh-dCY"/>
+                                                <constraint firstItem="jUx-1R-IzG" firstAttribute="leading" secondItem="Tcb-f5-u7S" secondAttribute="leading" constant="20" symbolic="YES" id="mWC-E4-Wz4"/>
+                                                <constraint firstAttribute="trailing" secondItem="jUx-1R-IzG" secondAttribute="trailing" constant="20" symbolic="YES" id="wyj-4h-GUb"/>
+                                                <constraint firstItem="jUx-1R-IzG" firstAttribute="top" secondItem="Tcb-f5-u7S" secondAttribute="top" constant="20" symbolic="YES" id="z6G-pq-YEw"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -105,13 +125,18 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IFt-bt-yWH">
-                                                    <rect key="frame" x="0.0" y="4" width="414" height="34"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IFt-bt-yWH">
+                                                    <rect key="frame" x="20" y="20" width="374" height="4"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="IFt-bt-yWH" secondAttribute="bottom" constant="20" symbolic="YES" id="EZs-E5-IuI"/>
+                                                <constraint firstAttribute="trailing" secondItem="IFt-bt-yWH" secondAttribute="trailing" constant="20" symbolic="YES" id="LqA-CB-NNp"/>
+                                                <constraint firstItem="IFt-bt-yWH" firstAttribute="top" secondItem="7kN-FD-pkt" secondAttribute="top" constant="20" symbolic="YES" id="Zr9-KY-cbW"/>
+                                                <constraint firstItem="IFt-bt-yWH" firstAttribute="leading" secondItem="7kN-FD-pkt" secondAttribute="leading" constant="20" symbolic="YES" id="lSB-Yh-hxX"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -441,7 +466,6 @@
                                                 <constraint firstAttribute="trailing" secondItem="u2N-N8-hi3" secondAttribute="trailing" constant="77" id="WMl-1L-Jcb"/>
                                                 <constraint firstItem="Njr-tv-DRk" firstAttribute="top" secondItem="Ozm-bF-J7U" secondAttribute="top" constant="5" id="YCZ-wp-Ewq"/>
                                                 <constraint firstAttribute="bottom" secondItem="u2N-N8-hi3" secondAttribute="bottom" id="iYa-dc-HjW"/>
-                                                <constraint firstItem="Njr-tv-DRk" firstAttribute="leading" secondItem="Ozm-bF-J7U" secondAttribute="leading" constant="345" id="noo-I9-U8M"/>
                                                 <constraint firstAttribute="trailing" secondItem="Njr-tv-DRk" secondAttribute="trailing" constant="20" id="zCq-JG-2Kp"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -475,7 +499,6 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="qTl-df-0bT" firstAttribute="top" secondItem="Zno-Z4-nmn" secondAttribute="top" id="A0u-wL-09m"/>
-                                                <constraint firstItem="CRn-Bq-vg6" firstAttribute="leading" secondItem="Zno-Z4-nmn" secondAttribute="leading" constant="345" id="N4F-z3-ebG"/>
                                                 <constraint firstAttribute="trailing" secondItem="CRn-Bq-vg6" secondAttribute="trailing" constant="20" id="Otk-Ek-uQf"/>
                                                 <constraint firstAttribute="trailing" secondItem="qTl-df-0bT" secondAttribute="trailing" constant="77" id="SUP-YN-AC2"/>
                                                 <constraint firstAttribute="bottom" secondItem="CRn-Bq-vg6" secondAttribute="bottom" constant="4" id="YMb-6G-mB0"/>
