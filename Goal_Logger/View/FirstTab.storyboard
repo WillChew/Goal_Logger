@@ -10,7 +10,7 @@
         <!--Add Goal Table View Controller-->
         <scene sceneID="xpI-Kz-UM2">
             <objects>
-                <tableViewController id="iLG-2z-70k" customClass="AddGoalTableViewController" customModule="Goal_Logger" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="iLG-2z-70k" customClass="AddGoalTableViewController" customModule="Track_My_Goals" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" id="a2G-TO-T4f">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -145,7 +145,7 @@
         <!--Main Screen View Controller-->
         <scene sceneID="eLf-Jd-oAu">
             <objects>
-                <viewController modalPresentationStyle="formSheet" id="E03-LZ-Pme" customClass="MainScreenViewController" customModule="Goal_Logger" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="formSheet" id="E03-LZ-Pme" customClass="MainScreenViewController" customModule="Track_My_Goals" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="m2i-aR-Ear">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -166,7 +166,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="128" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gHj-Gw-nbh">
                                 <rect key="frame" x="0.0" y="127" width="414" height="769"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GoalCell" id="wwH-Cv-D4B" customClass="GoalCell" customModule="Goal_Logger" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GoalCell" id="wwH-Cv-D4B" customClass="GoalCell" customModule="Track_My_Goals" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="128"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wwH-Cv-D4B" id="bEv-2b-dcb">
@@ -403,7 +403,7 @@
         <!--Detail Table View Controller-->
         <scene sceneID="mTW-gd-JhB">
             <objects>
-                <tableViewController id="187-0M-hhu" customClass="DetailTableViewController" customModule="Goal_Logger" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="187-0M-hhu" customClass="DetailTableViewController" customModule="Track_My_Goals" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleAspectFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="10" sectionFooterHeight="1" id="Kdj-Rz-A2X">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

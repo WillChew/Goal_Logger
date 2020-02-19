@@ -354,9 +354,6 @@ extension HistoryViewController : UIGestureRecognizerDelegate {
             self.checkCompleted()
             self.tableView.reloadData()
             self.collectionView.reloadData()
-            
-            
-            
         }
     }
     

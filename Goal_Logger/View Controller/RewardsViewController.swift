@@ -175,6 +175,7 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource  {
             cell.rewardImage.image = UIImage(data: data)
             cell.rewardImage.layer.borderWidth = 1
             cell.rewardImage.layer.borderColor = UIColor.lightGray.cgColor
+            cell.rewardImage.contentMode = .scaleToFill
             
         }
         
@@ -196,7 +197,7 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource  {
                     
                     self.updateStockLevels(self.selectedReward)
                     
-                    let alert = UIAlertController(title: "\(self.selectedReward.name!) Redeemed!", message: "\(self.selectedReward.cost) points redeemed!", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Redemption", message: "\(self.selectedReward.cost) points redeemed!", preferredStyle: .alert)
                     self.present(alert, animated: true, completion: nil)
                     
                     let timer = DispatchTime.now() + 1.5

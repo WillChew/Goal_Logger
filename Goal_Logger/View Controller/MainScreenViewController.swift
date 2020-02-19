@@ -398,11 +398,11 @@ class MainScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         let now = Date()
         
         let expiredPredicate = NSPredicate(format: "%K < %@", #keyPath(Goal.endDate), now as CVarArg)
-        //        let completePredicate = NSPredicate(format: "isCompleted == %@", NSNumber(value: true))
-        let orPredicate = NSCompoundPredicate(type: .or, subpredicates: [expiredPredicate])
+                let completePredicate = NSPredicate(format: "isCompleted == %@", NSNumber(value: false))
+        let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [expiredPredicate, completePredicate])
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Goal")
-        fetchRequest.predicate = orPredicate
+        fetchRequest.predicate = andPredicate
         
         
         

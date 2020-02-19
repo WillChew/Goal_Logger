@@ -188,6 +188,7 @@ class DetailTableViewController: UITableViewController {
             } else if checkpoint == cpTwoCriteria {
                 
                 goal.first?.setValue(complete, forKey: checkpoint)
+                goal.first?.setValue(Date().addingTimeInterval(15), forKey: "endDate")
             }
             //                goal.first?.setValue(newDate, forKey: "endDate")
             try! managedContext.save()
